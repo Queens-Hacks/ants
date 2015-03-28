@@ -160,7 +160,7 @@ function Map(width, height, sugars) {
     this.height = height;
 
 
-    this.setPher = function (team, position, value ) {
+    this.setPherAt = function (team, position, value ) {
         if(!typeof(this.map[position.y][position.x]) === 'Empty'){
             return false;
         }
