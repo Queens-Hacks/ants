@@ -129,7 +129,7 @@ function Map(width, height, sugars) {
     this.width = width;
     this.height = height;
 
-    this.getTLSugar = function(team) {
+    this.getSugar = function(team) {
         if(team === 'tl') {
             return map[2][2].stored;
         } else {
