@@ -2,7 +2,8 @@ var vector = require('./vector');
 
 var Empty = function() {
     this.type = 'empty';
-    this.pheromone = null;
+    this.tl_pher = null;
+    this.br_pher = null;
 };
 
 var Wall = function(strength) {
@@ -100,11 +101,34 @@ function Map(width, height, sugars) {
     this.br = vector.Vec2(width-3, height-3);
 
     this.setPher = function (team, position, value ) {
-
+        if(!typeof(this.map[position.x][position.y]) === 'Empty'){
+            return false;
+        }
+        
+        if(team === 'br') {
+            this.map[position.x][position.y].br_pher = value;
+        } else if(team === 'tl') {
+            this.map[position.x][position.y].tl_pher = value;
+        } else {
+            console.log("Weird input to Map.setPher()!\n");
+            return false;
+        }
+        return true;
     };
 
     this.pherAt = function (team, position) {
+        if(!typeof(this.map[position.x][position.y]) === 'Empty') {
+            return null;
+        }
 
+        if(team === 'br') {
+            return this.map[position.x][position.y].br_pher;
+        } else if(team === 'tl') {
+            return this.map[position.x][position.y].tl_pher;
+        } else {
+            console.log("Weird input to Map.pherAt()!\n");
+            return null;
+        }
     };
 }
 
