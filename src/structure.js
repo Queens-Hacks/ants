@@ -21,19 +21,89 @@ var Home = function(team) {
     this.stored = 0;
 }
 
-
-var Ant = function(team, position) {
+var Ant = function(team, position, world) {
+    this.world = world;
     this.team = team;
     this.position = position // vector
     this.hasFood = false;
     this.isTrampled = false;
     this.direction = "left" // chosen from "right", "up", "down"
+    
+    /* assume sanitized */
+    this.move = function(direction) {
+        if(direction.x === 1 || direction.x === -1) {
+            var new_x = this.position.x + direction.x;
+            var new_y = this.position.y;
+
+            if(typeof(world.map[new_x][new_y]) === 'Empty') {
+                this.position.x += direction.x;
+            } else {
+                return false;
+            }
+        } else if(direction.y === 1 || direction.y === -1) {
+            var new_x = this.position.x;
+            var new_y = this.position.y + direction.y;
+
+            if(typeof(world.map[new_x][new_y]) === 'Empty') {
+                position.y += direction.y;
+            } else {
+                return false;
+            }
+        } else {
+            console.log("Weird input to Ant.move()!\n");
+            return false;
+        }
+        
+        return true;
+    }
+
+    this.dig = function(direction) {
+        if(direction.x === 1 || direction.x === -1) {
+            var wall_x = this.position.x + direction.x;
+            var wall_y = this.position.y
+
+            if(typeof(world.map[wall_x][wall_y] ==== 'Wall')) {
+                world.map[wall_x][wall_y].strength--;
+            }
+
+            if(world.map[wall_x][wall_y] === 'Wall' 
+               && world.map[wall_x][wall_y].strength === 0) {
+                return true;
+            }
+        } else if(direction.y === 1 || direction.y === -1) {
+            var wall_x = this.position.x;
+            var wall_y = this.position.y + direction.y;
+
+            if(typeof(world.map[wall_x][wall_y]) == 'Wall') {
+                world.map[wall_x][wall_y].strength--;
+            }
+
+            if(world.map[wall_x][wall_y] == 'Wall' 
+               && world.map[wall_x][wall_y].strength === 0) {
+                return true;
+            }
+
+        } else {
+            console.log("Weird input to Ant.dig()!\n");
+            return false;
+        }
+        
+        return false;
+    }
 }
 
 var Map = function(width, height, sugars) {
     this.map = newMap(width, height, sugars);
     this.tl = vector.Vec2(2, 2)
     this.br = vector.Vec2(width-3, height-3);
+
+    this.setPher(team, position, value ) {
+
+    }
+
+    this.pherAt(team, position) {
+
+    }
 }
 
 function newMap(width, height, sugars) {
