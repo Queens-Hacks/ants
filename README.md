@@ -1,5 +1,5 @@
 # Hive
-Hive is an online programming game where you 
+Hive is an online programming game where you write code, dig tunnels, find sugar, and build your colony!
 
 ### Game Mechanics
 - Ants:
