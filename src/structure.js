@@ -223,7 +223,7 @@ function newMap(width, height, sugars) {
 
     for (y = 0; y < height; y++) {
         for (x = 0; x < width; x++) {
-            map[y][x] = new Wall(3);
+            map[y][x] = new Wall(5);
         }
     }
 
