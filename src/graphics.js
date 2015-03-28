@@ -76,10 +76,8 @@ module.exports = (function() {
       }
     },
     drawAnt: function(Ant) {
-      console.log("Drawing an ant?");
       var x = Ant.position.x;
       var y = Ant.position.y;
-      console.log(x, y);
 
       var color;
       if (Ant.team == 'br') {

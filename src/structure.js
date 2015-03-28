@@ -25,7 +25,6 @@ var Home = function(team) {
 var Ant = function(team, position, world) {
     this.world = world;
     this.team = team;
-    console.log("Position =", position);
     this.position = position; // vector
     this.hasFood = false;
     this.isTrampled = false;
@@ -38,7 +37,7 @@ var Ant = function(team, position, world) {
             new_x = this.position.x + direction.x;
             new_y = this.position.y;
 
-            if(typeof(world.map[new_y][new_x]) === 'Empty') {
+            if(world.map[new_y][new_x].type === 'Empty') {
                 this.position.x += direction.x;
             } else {
                 return false;
@@ -47,7 +46,7 @@ var Ant = function(team, position, world) {
             new_x = this.position.x;
             new_y = this.position.y + direction.y;
 
-            if(typeof(world.map[new_y][new_x]) === 'Empty') {
+            if(world.map[new_y][new_x].type === 'Empty') {
                 position.y += direction.y;
             } else {
                 return false;
@@ -66,11 +65,11 @@ var Ant = function(team, position, world) {
             wall_x = this.position.x + direction.x;
             wall_y = this.position.y;
 
-            if(typeof(world.map[wall_y][wall_x] === 'Wall')) {
+            if(world.map[wall_y][wall_x].type === 'Wall') {
                 world.map[wall_y][wall_x].strength--;
             }
 
-            if(world.map[wall_y][wall_x] === 'Wall'
+            if(world.map[wall_y][wall_x].type === 'Wall'
                && world.map[wall_y][wall_x].strength === 0) {
                 return true;
             }
@@ -78,11 +77,11 @@ var Ant = function(team, position, world) {
             wall_x = this.position.x;
             wall_y = this.position.y + direction.y;
 
-            if(typeof(world.map[wall_y][wall_x]) == 'Wall') {
+            if(world.map[wall_y][wall_x].type == 'Wall') {
                 world.map[wall_y][wall_x].strength--;
             }
 
-            if(world.map[wall_y][wall_x] == 'Wall'
+            if(world.map[wall_y][wall_x].type == 'Wall'
                && world.map[wall_y][wall_x].strength === 0) {
                 return true;
             }
@@ -105,7 +104,7 @@ function Map(width, height, sugars) {
         if(!typeof(this.map[position.y][position.x]) === 'Empty'){
             return false;
         }
-        
+
         if(team === 'br') {
             this.map[position.y][position.x].br_pher = value;
         } else if(team === 'tl') {
