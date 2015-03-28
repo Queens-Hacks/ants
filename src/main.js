@@ -10,7 +10,19 @@ var source1 = [
   "  }",
   "}"
 ].join('\n');
-var source2 = source1;
+var source2 = [
+  "while (true) {",
+  "  var y = Math.random();",
+  "  if (y < 0.25) {",
+  "    this.moveDigDown();",
+  "  } else if (y < 0.5) {",
+  "    this.moveDigUp();",
+  "  } else if (y < 0.75) {",
+  "    this.moveDigRight();",
+  "  } else {",
+  "    this.moveDigLeft();",
+  "}"
+].join('\n');
 
 var display = new Display(document.getElementById("canvas"));
 
