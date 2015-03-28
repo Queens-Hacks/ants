@@ -34,26 +34,26 @@ while (true) {
   if (this.hasFood() === false) {
     var t = Math.random();
     if (t < 0.25) {
-      this.moveDigDown();
+      this.moveDig('down');
     } else if (t < 0.5) {
-      this.moveDigUp();
+      this.moveDig('up');
     } else if (t < 0.75) {
-      this.moveDigRight();
+      this.moveDig('right');
     } else {
-      this.moveDigLeft();
+      this.moveDig('left');
     }
   } else {
     if (this.homeLocation().x > this.location().x) {
-      this.moveDigRight();
+      this.moveDig('right');
     }
     if (this.homeLocation().x < this.location().x) {
-      this.moveDigLeft();
+      this.moveDig('left');
     }
     if (this.homeLocation().y > this.location().y) {
-      this.moveDigDown();
+      this.moveDig('down');
     }
     if (this.homeLocation().y < this.location().y) {
-      this.moveDigUp();
+      this.moveDig('up');
     }
   }
 }</div>
@@ -62,26 +62,26 @@ while (true) {
   if (this.hasFood() === false) {
     var t = Math.random();
     if (t < 0.25) {
-      this.moveDigDown();
+      this.moveDig('down');
     } else if (t < 0.5) {
-      this.moveDigUp();
+      this.moveDig('up');
     } else if (t < 0.75) {
-      this.moveDigRight();
+      this.moveDig('right');
     } else {
-      this.moveDigLeft();
+      this.moveDig('left');
     }
   } else {
     if (this.homeLocation().x > this.location().x) {
-      this.moveDigRight();
+      this.moveDig('right');
     }
     if (this.homeLocation().x < this.location().x) {
-      this.moveDigLeft();
+      this.moveDig('left');
     }
     if (this.homeLocation().y > this.location().y) {
-      this.moveDigDown();
+      this.moveDig('down');
     }
     if (this.homeLocation().y < this.location().y) {
-      this.moveDigUp();
+      this.moveDig('up');
     }
   }
 }</div>

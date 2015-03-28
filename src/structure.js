@@ -69,7 +69,7 @@ var Ant = function(team, position, world) {
                 this.hasFood = true;
                 
                 if(new_obj.amount === 0) {
-                    world.map.map[new_y][new_x] = new Empty();
+                    this.world.map.map[new_y][new_x] = new Empty();
                 }
             }
         } else {
