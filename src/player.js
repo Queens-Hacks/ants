@@ -22,6 +22,7 @@ function Player(team, source, homeLocation, world) {
   // TODO(michael): Debug
   console.log(aether.pure);
 
+  var actionComplete = false;
   // Add an ant to the player object
   this.addAnt = function(location) {
     console.log("Adding an ant");
@@ -32,28 +33,36 @@ function Player(team, source, homeLocation, world) {
     var shim = Object.create(null);
     // MOVEMENT
     shim.moveLeft = function() {
+      actionComplete = true;
       return ant.move(new Vec2(-1, 0));
     };
     shim.moveRight = function() {
+      actionComplete = true;
       return ant.move(new Vec2(1, 0));
     };
     shim.moveUp = function() {
+      actionComplete = true;
       return ant.move(new Vec2(0, -1));
     };
     shim.moveDown = function() {
+      actionComplete = true;
       return ant.move(new Vec2(0, 1));
     };
 
     shim.digLeft = function() {
+      actionComplete = true;
       return ant.dig(new Vec2(-1, 0));
     };
     shim.digRight = function() {
+      actionComplete = true;
       return ant.dig(new Vec2(1, 0));
     };
     shim.digUp = function() {
+      actionComplete = true;
       return ant.dig(new Vec2(0, -1));
     };
     shim.digDown = function() {
+      actionComplete = true;
       return ant.dig(new Vec2(0, 1));
     };
 
@@ -109,13 +118,22 @@ function Player(team, source, homeLocation, world) {
   };
 
   // Iterate over each of the ants, performing an action
-  var counter = 0; // TODO(michael): Rename
+  // var counter = 0; // TODO(michael): Rename
   this.step = function() {
     this.ants.forEach(function(ant, index) {
-      // console.log("An ant");
-      // TODO(michael): Prevent infinite loops
-      var next = ant.state.next();
-      // console.log("Right after waffling");
+      actionComplete = false;
+      for (var i=0; i<500; i++) {
+        var next = ant.state.next();
+        if (next.done) { // Nuke the state object
+          ant.state = {
+            next: function() { }
+          };
+          break;
+        }
+        if (actionComplete) {
+          break;
+        }
+      }
     });
 
     // Ant adding
