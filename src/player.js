@@ -9,7 +9,8 @@ function Player(team, source, homeLocation, world) {
   this.world = world;
 
   var aether = this.aether = new Aether({
-    yieldConditionally: true
+    yieldAutomatically: true
+    // yieldConditionally: true
   });
 
   aether.lint(source);
@@ -111,15 +112,18 @@ function Player(team, source, homeLocation, world) {
     };
 
     // Start the script
-    ant.state = this.func.call(shim);
+    var func = aether.createFunction();
+    ant.state = func.call(shim);
   };
 
   // Iterate over each of the ants, performing an action
   var counter = 0; // TODO(michael): Rename
   this.step = function() {
     this.ants.forEach(function(ant, index) {
+      // console.log("An ant");
       // TODO(michael): Prevent infinite loops
       var next = ant.state.next();
+      // console.log("Right after waffling");
 
       if (next.done) { // Yay!
         ant.state = {

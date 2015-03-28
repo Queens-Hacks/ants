@@ -3,7 +3,7 @@ var Display = require('./graphics');
 
 var source1 = [
   "var x = 0;",
-  "while(x < 10) {",
+  "while(true) {",
   "  this.waffle();",
   "  x++;",
   "}"
