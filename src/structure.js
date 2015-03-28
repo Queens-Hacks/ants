@@ -92,6 +92,14 @@ var Ant = function(team, position, world) {
 
             if(world.map.map[wall_y][wall_x].type === 'wall') {
                 world.map.map[wall_y][wall_x].strength--;
+            } else if(world.map.map[wall_y][wall_x].type === 'sugar'
+                     && this.hasFood === false){
+                world.map.map[wall_y][wall_x].amount--;
+                this.hasFood = true;
+
+                if(world.map.map[wall_y][wall_x].amount === 0) {
+                    world.map.map[wall_y][wall_x] = new Empty();
+                }
             }
 
             if(world.map.map[wall_y][wall_x].type === 'wall'
@@ -110,6 +118,14 @@ var Ant = function(team, position, world) {
 
             if(world.map.map[wall_y][wall_x].type == 'wall') {
                 world.map.map[wall_y][wall_x].strength--;
+            } else if(world.map.map[wall_y][wall_x].type === 'sugar'
+                     && this.hasFood === false){
+                world.map.map[wall_y][wall_x].amount--;
+                this.hasFood = true;
+                
+                if(world.map.map[wall_y][wall_x].amount === 0) {
+                    world.map.map[wall_y][wall_x] = new Empty();
+                }
             }
 
             if(world.map.map[wall_y][wall_x].type == 'wall'
