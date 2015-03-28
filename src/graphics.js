@@ -39,17 +39,17 @@ module.exports = (function() {
                     if (Tile.tl_pher) {
                         color = husl.p.toRGB(188 + 90, 100, 66);
                         for (var p = 0; p < 5; p++) {
-                            sx = (x * p * 947) % 10;
-                            sy = (y * p * 953) % 10;
+                            sx = Math.floor(x * p * 947 * Tile.tl_pher_seed) % 10;
+                            sy = Math.floor(y * p * 953 * Tile.tl_pher_seed) % 10;
                             var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
                             this.WritePixel(i, color);
                         }
                     }
                     if (Tile.br_pher) {
-                        color = husl.p.toRGB(66 + 90, 100, 66);
+                        color = husl.p.toRGB(355 + 90, 100, 66);
                         for (var p = 0; p < 5; p++) {
-                            sx = (x * p * 967) % 10;
-                            sy = (y * p * 971) % 10;
+                            sx = Math.floor(x * p * 967 * Tile.br_pher_seed) % 10;
+                            sy = Math.floor(y * p * 971 * Tile.br_pher_seed) % 10;
                             var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
                             this.WritePixel(i, color);
                         }
@@ -79,7 +79,7 @@ module.exports = (function() {
                     if (x > 50) {
                         color = husl.p.toRGB(188, 100, 66);
                     } else {
-                        color = husl.p.toRGB(66, 100, 66);
+                        color = husl.p.toRGB(355, 100, 66);
                     }
                     for (var sx = 0; sx < 10; sx++) {
                         for (var sy = 0; sy < 10; sy++) {
@@ -103,7 +103,7 @@ module.exports = (function() {
             if (Ant.team == 'br') {
                 color = husl.p.toRGB(188, 50, 66);
             } else {
-                color = husl.p.toRGB(66, 50, 66);
+                color = husl.p.toRGB(355, 50, 66);
             }
             var facing = Ant.direction;
             var sprite = AntSprite;
@@ -111,13 +111,13 @@ module.exports = (function() {
             var xpos = function(x, y) {
                 if (facing == 'left') return (9 - x);
                 else if (facing == 'right') return (x);
-                else if (facing == 'up') return (y);
+                else if (facing == 'down') return (y);
                 else return (9 - y);
             };
             var ypos = function(x, y) {
                 if (facing == 'left') return (y);
                 else if (facing == 'right') return (9 - y);
-                else if (facing == 'up') return (x);
+                else if (facing == 'down') return (x);
                 else return (9 - x);
             };
             for (var sx = 0; sx < 10; sx++) {
