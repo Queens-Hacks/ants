@@ -2,6 +2,19 @@ var struct = require('./structure');
 var vector = require('./vector');
 var Vec2 = vector.Vec2;
 
+function debugLog(team, message) {
+  // TODO(michael): This only works on the client. Make it a no-op on the server
+  var msg = "\n" + message;
+
+  if (team == 'tl') {
+    global.outputleft.navigateFileEnd();
+    global.outputleft.insert(msg);
+  } else {
+    global.outputright.navigateFileEnd();
+    global.outputright.insert(msg);
+  }
+}
+
 function Player(team, homeLocation, world) {
   this.team = team;
   this.ants = [];
@@ -10,15 +23,31 @@ function Player(team, homeLocation, world) {
 
   this.setSource = function(source) {
     var aether = this.aether = new Aether({
-      yieldAutomatically: true
-      // yieldConditionally: true
+      yieldAutomatically: true,
+      includeFlow: false,
+      includeMetrics: false
     });
 
     aether.lint(source);
+    aether.problems.infos.forEach(function(info) {
+      debugLog(team, "INFO: " + info);
+    });
+    aether.problems.warnings.forEach(function(warning) {
+      debugLog(team, "WARN: " + warning);
+    });
+    aether.problems.errors.forEach(function(error) {
+      debugLog(team, "ERROR: " + error);
+    });
+
     // TODO(michael): Check for any problems
 
-    aether.transpile(source);
-    this.func = aether.createFunction();
+    try {
+      aether.transpile(source);
+      this.func = aether.createFunction();
+    } catch (err) {
+      debugLog(team, "FATAL ERROR: " + err);
+      global.paused = true;
+    }
 
     var actionComplete = false;
     // Add an ant to the player object
@@ -51,16 +80,7 @@ function Player(team, homeLocation, world) {
       };
 
       shim.log = function(message) {
-        // TODO(michael): This only works on the client. Make it a no-op on the server
-        var msg = "\n" + message;
-
-        if (team == 'tl') {
-          global.outputleft.navigateFileEnd();
-          global.outputleft.insert(msg);
-        } else {
-          global.outputright.navigateFileEnd();
-          global.outputright.insert(msg);
-        }
+        debugLog(team, message);
       };
 
       // Checking or laying pheramones
@@ -149,18 +169,25 @@ function Player(team, homeLocation, world) {
     var spawnCounter = 0;
     this.step = function() {
       this.ants.forEach(function(ant, index) {
-        actionComplete = false;
-        for (var i=0; i<500; i++) {
-          var next = ant.state.next();
-          if (next.done) { // Nuke the state object
-            ant.state = {
-              next: function() { }
-            };
-            break;
+        try {
+          actionComplete = false;
+          for (var i=0; i<500; i++) {
+            var next = ant.state.next();
+            if (next.done) { // Nuke the state object
+              ant.state = {
+                next: function() { return {}; }
+              };
+              break;
+            }
+            if (actionComplete) {
+              break;
+            }
           }
-          if (actionComplete) {
-            break;
-          }
+        } catch (err) {
+          debugLog(team, "FATAL RT ERROR: " + err);
+          ant.state = {
+            next: function() { return {}; }
+          };
         }
       });
 

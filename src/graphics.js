@@ -120,7 +120,6 @@ module.exports = (function() {
                 else if (facing == 'down') return (9-x);
                 else return (x);
             };
-            console.log(facing);
             for (var sx = 0; sx < 10; sx++) {
                 for (var sy = 0; sy < 10; sy++) {
                     var i = ((((y * 10) + sy) * width) + ((x * 10) + sx)) * 4;
