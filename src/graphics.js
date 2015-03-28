@@ -81,12 +81,9 @@ module.exports = (function() {
             if (Ant.team == 'br') {
                 color = husl.p.toRGB(188, 50, 66);
             } else {
-                color = husl.p.toRGB(123, 50, 66);
+                color = husl.p.toRGB(66, 50, 66);
             }
             var facing = Ant.direction;
-            var R = Math.floor(color[0] * 255);
-            var G = Math.floor(color[1] * 255);
-            var B = Math.floor(color[2] * 255);
             var sprite = AntSprite;
             // var sps = Math.sqrt(sprite.length) - 1;
             var xpos = function(x, y) {
@@ -97,18 +94,15 @@ module.exports = (function() {
             };
             var ypos = function(x, y) {
                 if (facing == 'left') return (y);
-                else if (facing == 'right') return (9-y);
+                else if (facing == 'right') return (9 - y);
                 else if (facing == 'up') return (x);
                 else return (9 - x);
             };
             for (var sx = 0; sx < 10; sx++) {
                 for (var sy = 0; sy < 10; sy++) {
                     var i = ((((y * 10) + sy) * width) + ((x * 10) + sx)) * 4;
-                    if (sprite[xpos(sx,sy) + (10 * ypos(sx,sy))]) {
-                        this.imageData.data[i] = R % 255;
-                        this.imageData.data[i + 1] = G % 255;
-                        this.imageData.data[i + 2] = B % 255;
-                        this.imageData.data[i + 3] = 255;
+                    if (sprite[xpos(sx, sy) + (10 * ypos(sx, sy))]) {
+                        this.WritePixel(i, color);
                     }
                 }
             }
