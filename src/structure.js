@@ -31,42 +31,38 @@ var Ant = function(team, position, world) {
     this.direction = "left"; // chosen from "right", "up", "down"
 
     /* direction is a unit vector */
-    this.move = function(direction) {
+    this.move = function(direct) {
         var new_x, new_y, new_obj;
-
-        /* get directions into new_x, new_y, and new_obj */
-        if(direction.x === 1 || direction.x === -1) {
-            if (direction.x === 1) {
-                this.direction = "right"
-            } else {
-                this.direction = "left"
-            }
-            new_x = this.position.x + direction.x;
-            new_y = this.position.y;
-        } else if(direction.y === 1 || direction.y === -1) {
-            if(direction.x === 1){
-                this.direction = "up";
-            } else {
-                this.direction = "down";
-            }
-            new_x = this.position.x;
-            new_y = this.position.y + direction.y;
-        } else {
-            console.log("Weird input to Ant.move()!\n");
-            return false;            
-        }
         
+        if(direct === 'up') {
+            new_x = this.position.x;
+            new_y = this.position.y - 1;
+        } else if(direct === 'down') { 
+            new_x = this.position.x;
+            new_y = this.position.y + 1;
+        } else if(direct === 'left') {
+            new_x = this.position.x - 1;
+            new_y = this.position.y;
+        } else if(direct === 'right') {
+            new_x = this.position.x + 1;
+            new_y = this.position.y;
+        } else {
+            console.log("ERROR: Ant.move() dosn't understand direct: " + direct);
+            return false;
+        }
+
         /* Bounds Checking */
         if(new_x >= world.map.width || new_x < 0
            || new_y >= world.map.height || new_y < 0) {
             return false;
         }
 
+        this.direction = direct;
         new_obj = this.world.map.map[new_y][new_x];
 
         if(new_obj.type === 'empty' || new_obj.type === 'sugar') {
-            this.position.x += direction.x;
-            this.position.y += direction.y;
+            this.position.x = new_x;
+            this.position.y = new_y;
 
             if(new_obj.type == 'sugar' && this.hasFood === false){
                 new_obj.amount--;
@@ -85,15 +81,21 @@ var Ant = function(team, position, world) {
 
     this.dig = function(direction) {
         var wall_x, wall_y, new_obj;
-        if(direction.x === 1 || direction.x === -1) {
-            wall_x = this.position.x + direction.x;
-            wall_y = this.position.y;
-        } else if(direction.y === 1 || direction.y === -1) {
+        if(direction === 'up') {
             wall_x = this.position.x;
-            wall_y = this.position.y + direction.y;
-        } else { 
-            console.log("Weird input to Ant.dig()!\n");
-            return false;            
+            wall_y = this.position.y - 1;
+        } else if(direction === 'down') { 
+            wall_x = this.position.x;
+            wall_y = this.position.y + 1;
+        } else if(direction === 'left') {
+            wall_x = this.position.x - 1;
+            wall_y = this.position.y;
+        } else if(direction === 'right') {
+            wall_x = this.position.x + 1;
+            wall_y = this.position.y;
+        } else {
+            console.log("ERROR: Ant.dig() dosn't understand direction: " + direction);
+            return false;
         }
 
         /* Bounds Checking */
@@ -127,6 +129,13 @@ function Map(width, height, sugars) {
     this.width = width;
     this.height = height;
 
+    this.getTLSugar = function(team) {
+        if(team === 'tl') {
+            return map[2][2].stored;
+        } else {
+            return map[width-2][height-2].stored;
+        }
+    }
 
     this.setPherAt = function (team, position, value ) {
         var cell = this.map[position.y][position.x];

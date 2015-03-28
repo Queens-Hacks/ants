@@ -8,10 +8,10 @@ module.exports = (function() {
     var AntSprite = [0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
         0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
         0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
-        1, 1, 1, 0, 1, 0, 1, 1, 2, 0,
-        1, 1, 1, 1, 1, 1, 1, 2, 2, 2,
-        1, 1, 1, 1, 1, 1, 1, 2, 2, 2,
-        1, 1, 1, 0, 1, 0, 1, 1, 2, 0,
+        2, 2, 1, 0, 1, 0, 1, 1, 1, 0,
+        2, 2, 2, 1, 1, 1, 1, 1, 1, 1,
+        2, 2, 2, 1, 1, 1, 1, 1, 1, 1,
+        2, 2, 1, 0, 1, 0, 1, 1, 1, 0,
         0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
         0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
         0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
@@ -56,7 +56,7 @@ module.exports = (function() {
                     }
                     break;
                 case 'wall':
-                    color = husl.p.toRGB(40, 100, 11 * (Tile.strength +1));
+                    color = husl.p.toRGB(40, 100, 11 * (Tile.strength + 1));
                     for (var sx = 0; sx < 10; sx++) {
                         for (var sy = 0; sy < 10; sy++) {
                             var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
@@ -109,17 +109,18 @@ module.exports = (function() {
             var sprite = AntSprite;
             // var sps = Math.sqrt(sprite.length) - 1;
             var xpos = function(x, y) {
-                if (facing == 'left') return (9 - x);
-                else if (facing == 'right') return (x);
-                else if (facing == 'down') return (y);
-                else return (9 - y);
+                if (facing == 'right') return (9 - x);
+                else if (facing == 'left') return (x);
+                else if (facing == 'down') return (9-y);
+                else return (y);
             };
             var ypos = function(x, y) {
-                if (facing == 'left') return (y);
-                else if (facing == 'right') return (9 - y);
-                else if (facing == 'down') return (x);
-                else return (9 - x);
+                if (facing == 'right') return (y);
+                else if (facing == 'left') return (y);
+                else if (facing == 'down') return (9-x);
+                else return (x);
             };
+            console.log(facing);
             for (var sx = 0; sx < 10; sx++) {
                 for (var sy = 0; sy < 10; sy++) {
                     var i = ((((y * 10) + sy) * width) + ((x * 10) + sx)) * 4;
@@ -133,10 +134,10 @@ module.exports = (function() {
         },
         render: function(world) {
             // Fill it all with BLACK (paint it black)
-            this.context.fillRect(0, 0, width, height);
             // console.log(
             this.context.fillStyle = husl.p.toHex(40, 60, 24).toString(16); //'#ffffff'//husl.p.toHex(40, 60, 2); ////+offset.toString(16);
             this.context.fill();
+            this.context.fillRect(0, 0, width, height);
             this.imageData = this.context.getImageData(0, 0, width, height);
             // Loop over every tile
             var self = this;
