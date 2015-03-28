@@ -34,7 +34,7 @@ var Ant = function(team, position, world) {
     this.move = function(direction) {
         var new_x, new_y;
         if(direction.x === 1 || direction.x === -1) {
-            if direction.x === 1 {
+            if (direction.x === 1) {
                 this.direction = "right"
             } else {
                 this.direction = "left"
@@ -54,7 +54,7 @@ var Ant = function(team, position, world) {
                 return false;
             }
         } else if(direction.y === 1 || direction.y === -1) {
-            if direction.y === 1 {
+            if (direction.y === 1) {
                 this.direction = "down"
             } else {
                 this.direction = "up"
