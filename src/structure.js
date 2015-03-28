@@ -1,31 +1,32 @@
 var Empty = function() {
     this.type = 'empty';
+    this.pheromone = null;
 }
 
 var Wall = function(strength) {
     this.type = 'wall';
     this.strength = strength;
-    this.dig = function() {
-        this.strength--;
-    }
 }
 
 var Sugar = function(amount) {
     this.type = 'sugar';
     this.amount = amount;
-    this.collect = function() {
-        this.amount--;
-        return amount;
-    }
 }
 
 var Home = function(team) {
     this.type = 'home';
     this.team = team;
     this.stored = 0;
-    this.deposit = function() {
-        this.stored++;
-    }
+}
+
+
+var Ant = function(team, x, y) {
+    this.team = team;
+    this.x = x;
+    this.y = y;
+    this.hasFood = false;
+    this.isTrampled = false;
+    this.direction = "left" // chosen from "right", "up", "down"
 }
 
 function newMap(width, height, sugars) {
@@ -66,13 +67,6 @@ function newMap(width, height, sugars) {
     return map;
 }
 
-var Ant = function(team, x, y) {
-    this.team = team;
-    this.x = x;
-    this.y = y;
-    this.hasFood = false;
-    this.isTrampled = false;
-    this.direction = "left" // chosen from "right", "up", "down"
-}
+
 
 console.log('hi from structure');
