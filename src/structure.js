@@ -92,6 +92,18 @@ var Ant = function(team, position, world) {
 
             if(world.map.map[wall_y][wall_x].type === 'wall') {
                 world.map.map[wall_y][wall_x].strength--;
+            } else if(world.map.map[wall_y][wall_x].type === 'sugar'
+                     && this.hasFood === false){
+                world.map.map[wall_y][wall_x].amount--;
+                this.hasFood = true;
+
+                if(world.map.map[wall_y][wall_x].amount === 0) {
+                    world.map.map[wall_y][wall_x] = new Empty();
+                }
+            } else if(world.map.map[wall_y][wall_x].type === 'home'
+                     && this.hasFood === true) {
+                world.map.map[wall_y][wall_x].stored++;
+                this.hasFood = false;
             }
 
             if(world.map.map[wall_y][wall_x].type === 'wall'
@@ -110,6 +122,18 @@ var Ant = function(team, position, world) {
 
             if(world.map.map[wall_y][wall_x].type == 'wall') {
                 world.map.map[wall_y][wall_x].strength--;
+            } else if(world.map.map[wall_y][wall_x].type === 'sugar'
+                     && this.hasFood === false){
+                world.map.map[wall_y][wall_x].amount--;
+                this.hasFood = true;
+                
+                if(world.map.map[wall_y][wall_x].amount === 0) {
+                    world.map.map[wall_y][wall_x] = new Empty();
+                }
+            } else if(world.map.map[wall_y][wall_x].type === 'home'
+                     && this.hasFood === true) {
+                world.map.map[wall_y][wall_x].stored++;
+                this.hasFood = false;
             }
 
             if(world.map.map[wall_y][wall_x].type == 'wall'
@@ -136,7 +160,7 @@ function Map(width, height, sugars) {
     this.height = height;
 
 
-    this.setPher = function (team, position, value ) {
+    this.setPherAt = function (team, position, value ) {
         if(!typeof(this.map[position.y][position.x]) === 'Empty'){
             return false;
         }

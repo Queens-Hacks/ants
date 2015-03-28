@@ -112,6 +112,10 @@ function Player(team, source, homeLocation, world) {
       console.log("WAFFLE");
     };
 
+    shim.hasFood = function() {
+        return ant.hasFood;
+    }
+
     // Start the script
     var func = aether.createFunction();
     ant.state = func.call(shim);
