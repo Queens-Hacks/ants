@@ -56,7 +56,7 @@ module.exports = (function() {
                     }
                     break;
                 case 'wall':
-                    color = husl.p.toRGB(40, 100, 16 * (Tile.strength + 1));
+                    color = husl.p.toRGB(40, 100, 11 * (Tile.strength +1));
                     for (var sx = 0; sx < 10; sx++) {
                         for (var sy = 0; sy < 10; sy++) {
                             var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
@@ -103,7 +103,7 @@ module.exports = (function() {
             if (Ant.team == 'br') {
                 color = husl.p.toRGB(188, 50, 66);
             } else {
-                color = husl.p.toRGB(355, 50, 66);
+                color = husl.p.toRGB(355, 75, 66);
             }
             var facing = Ant.direction;
             var sprite = AntSprite;
