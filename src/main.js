@@ -1,3 +1,3 @@
-var aether = require('aether');
+var sandbox = require('./sandbox.js');
 
 console.log("Success!");
