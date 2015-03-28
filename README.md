@@ -2,20 +2,20 @@
 Hive is an online programming game where you 
 
 ### Game Mechanics
-    -Ants
-        Your code runs inside each individual ant. Instruct them to find sugar and return it to the Hive in order to feed your colony
-        and score points! However, ants have a poor sense of sight and cannot see further than one tile away. 
-        Ants dig through walls and carry sugar.
-    -Sugar
-        Sugar is that good stuff that all ants crave. Located throughout the map in multicolored mounds of 20 sugar units, it's
-        automatically picked up by any ant who walks over it. Collect more sugar than your opponent and win! 
-    -Home
-        Home is your ant hill. Carry sugar back here to score points. ```this.goto(this.home())``` will take you here, but won't avoid walls.'
-    -Walls
-        Walls can be dug out slowly by your ants. It takes 5 movements to destroy one wall
-    -Pheromones
-        Ants have poor sight but excelent vision! use this.spray(object) and this.sniff() to write and read data onto 
-        empty tiles. Spraying overwrites pheramones from your own team, but different colonies pheramones can co-exist.
+- Ants
+    Your code runs inside each individual ant. Instruct them to find sugar and return it to the Hive in order to feed your colony
+    and score points! However, ants have a poor sense of sight and cannot see further than one tile away. 
+    Ants dig through walls and carry sugar.
+- Sugar 
+ Sugar is that good stuff that all ants crave. Located throughout the map in multicolored mounds of 20 sugar units, it's
+automatically picked up by any ant who walks over it. Collect more sugar than your opponent and win! 
+- Home
+Home is your ant hill. Carry sugar back here to score points. ```this.goto(this.home())``` will take you here, but won't avoid walls.'
+- Walls
+Walls can be dug out slowly by your ants. It takes 5 movements to destroy one wall
+- Pheromones
+Ants have poor sight but excelent vision! use this.spray(object) and this.sniff() to write and read data onto 
+empty tiles. Spraying overwrites pheromones from your own team, but different colonies pheromones can co-exist.
     
 ### Ant API
  - These functions are special calls you can make into the game engine to interact with your enviroment! 
@@ -54,10 +54,10 @@ Hive is an online programming game where you
 
  
 ### Spray n' Sniff
- - this.spray(pheramone) 
+ - this.spray(pheromone) 
       Writes an object to the current location.   
  - this.sniff() 
-      Returns any allied pheramone sprayed on current tile 
+      Returns any allied pheromone sprayed on current tile 
 
 ### ETC
  -this.log(message)
