@@ -169,8 +169,10 @@ function Map(width, height, sugars) {
 
         if(team === 'br') {
             cell.br_pher = value;
+            cell.br_pher_seed = Math.random();
         } else if(team === 'tl') {
             cell.tl_pher = value;
+            cell.tl_pher_seed = Math.random();
         } else {
             console.log("Weird input to Map.setPher()!\n");
             return false;
