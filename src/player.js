@@ -29,44 +29,32 @@ function Player(team, source, homeLocation, world) {
     var ant = new struct.Ant(this.team, location, world);
     this.ants.push(ant);
 
-    var aether = this.aether;
-    var world = this.world;
-    var team = this.team;
-
     var shim = Object.create(null);
     // MOVEMENT
     shim.moveLeft = function() {
-      ant.move(Vec2(ant.x - 1, ant.y));
-      aether._shouldYield = true;
+      return ant.move(new Vec2(-1, 0));
     };
     shim.moveRight = function() {
-      ant.move(Vec2(ant.x + 1, ant.y));
-      aether._shouldYield = true;
+      return ant.move(new Vec2(1, 0));
     };
     shim.moveUp = function() {
-      ant.move(Vec2(ant.x, ant.y - 1));
-      aether._shouldYield = true;
+      return ant.move(new Vec2(0, -1));
     };
     shim.moveDown = function() {
-      ant.move(Vec2(ant.x, ant.y + 1));
-      aether._shouldYield = true;
+      return ant.move(new Vec2(0, 1));
     };
 
     shim.digLeft = function() {
-      ant.dig(Vec2(ant.x - 1, ant.y));
-      aether._shouldYield = true;
+      return ant.dig(new Vec2(-1, 0));
     };
     shim.digRight = function() {
-      ant.dig(Vec2(ant.x + 1, ant.y));
-      aether._shouldYield = true;
+      return ant.dig(new Vec2(1, 0));
     };
     shim.digUp = function() {
-      ant.dig(Vec2(ant.x, ant.y - 1));
-      aether._shouldYield = true;
+      return ant.dig(new Vec2(0, -1));
     };
     shim.digDown = function() {
-      ant.dig(Vec2(ant.x, ant.y + 1));
-      aether._shouldYield = true;
+      return ant.dig(new Vec2(0, 1));
     };
 
     shim.moveDigLeft = function() {
@@ -92,6 +80,10 @@ function Player(team, source, homeLocation, world) {
         return shim.digDown();
       }
       return true;
+    };
+
+    shim.getTeam = function() {
+      return team;
     };
 
     // Checking or laying pheramones
@@ -124,22 +116,18 @@ function Player(team, source, homeLocation, world) {
       // TODO(michael): Prevent infinite loops
       var next = ant.state.next();
       // console.log("Right after waffling");
-
-      if (next.done) { // Yay!
-        ant.state = {
-          next: function() { return {}; }
-        };
-      }
     });
 
     // Ant adding
-    counter++;
+    /* counter++;
     if (counter > 5) {
       console.log("Added an ant!");
       this.addAnt(homeLocation);
       counter = 0;
-    }
+    } */
   };
+
+  this.addAnt(homeLocation);
 }
 
 module.exports = {

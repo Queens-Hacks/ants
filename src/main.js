@@ -2,10 +2,12 @@ var world = require('./world');
 var Display = require('./graphics');
 
 var source1 = [
-  "var x = 0;",
-  "while(true) {",
-  "  this.waffle();",
-  "  x++;",
+  "while (true) {",
+  "  if (this.getTeam() == 'br') {",
+  "    this.moveDigLeft();",
+  "  } else {",
+  "    this.moveDigRight();",
+  "  }",
   "}"
 ].join('\n');
 var source2 = source1;

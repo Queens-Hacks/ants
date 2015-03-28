@@ -37,7 +37,8 @@ var Ant = function(team, position, world) {
             new_x = this.position.x + direction.x;
             new_y = this.position.y;
 
-            if(world.map[new_y][new_x].type === 'Empty') {
+            console.log("new_y = ", new_y);
+            if(world.map.map[new_y][new_x].type === 'empty') {
                 this.position.x += direction.x;
             } else {
                 return false;
@@ -46,8 +47,8 @@ var Ant = function(team, position, world) {
             new_x = this.position.x;
             new_y = this.position.y + direction.y;
 
-            if(world.map[new_y][new_x].type === 'Empty') {
-                position.y += direction.y;
+            if(world.map.map[new_y][new_x].type === 'empty') {
+                this.position.y += direction.y;
             } else {
                 return false;
             }
@@ -65,24 +66,26 @@ var Ant = function(team, position, world) {
             wall_x = this.position.x + direction.x;
             wall_y = this.position.y;
 
-            if(world.map[wall_y][wall_x].type === 'Wall') {
-                world.map[wall_y][wall_x].strength--;
+            if(world.map.map[wall_y][wall_x].type === 'wall') {
+                world.map.map[wall_y][wall_x].strength--;
             }
 
-            if(world.map[wall_y][wall_x].type === 'Wall'
-               && world.map[wall_y][wall_x].strength === 0) {
+            if(world.map.map[wall_y][wall_x].type === 'wall'
+               && world.map.map[wall_y][wall_x].strength === 0) {
+                world.map.map[wall_y][wall_x] = new Empty();
                 return true;
             }
         } else if(direction.y === 1 || direction.y === -1) {
             wall_x = this.position.x;
             wall_y = this.position.y + direction.y;
 
-            if(world.map[wall_y][wall_x].type == 'Wall') {
-                world.map[wall_y][wall_x].strength--;
+            if(world.map.map[wall_y][wall_x].type == 'wall') {
+                world.map.map[wall_y][wall_x].strength--;
             }
 
-            if(world.map[wall_y][wall_x].type == 'Wall'
-               && world.map[wall_y][wall_x].strength === 0) {
+            if(world.map.map[wall_y][wall_x].type == 'wall'
+               && world.map.map[wall_y][wall_x].strength === 0) {
+                world.map.map[wall_y][wall_x] = new Empty();
                 return true;
             }
 
@@ -90,6 +93,7 @@ var Ant = function(team, position, world) {
             console.log("Weird input to Ant.dig()!\n");
             return false;
         }
+
 
         return false;
     };
@@ -149,7 +153,7 @@ function newMap(width, height, sugars) {
 
     for (y = 0; y < height; y++) {
         for (x = 0; x < width; x++) {
-            map[y][x] = new Wall();
+            map[y][x] = new Wall(3);
         }
     }
 
