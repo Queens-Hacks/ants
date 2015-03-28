@@ -50,6 +50,16 @@ var Ant = function(team, position, world) {
             if(world.map.map[new_y][new_x].type === 'empty'
               || world.map.map[new_y][new_x].type ===  'sugar') {
                 this.position.x += direction.x;
+
+                if(world.map.map[new_y][new_x].type == 'sugar'
+                  && this.hasFood === false){
+                    world.map.map[new_y][new_x].amount--;
+                    this.hasFood = true;
+                    
+                    if(world.map.map[new_y][new_x].amount === 0) {
+                        world.map.map[new_y][new_x] = new Empty();
+                    }
+                }
             } else {
                 return false;
             }
@@ -70,6 +80,16 @@ var Ant = function(team, position, world) {
             if(world.map.map[new_y][new_x].type === 'empty'
               || world.map.map[new_y][new_x].type == 'sugar') {
                 this.position.y += direction.y;
+                
+                if(world.map.map[new_y][new_x].type == 'sugar'
+                   && this.hasFood === false){
+                    world.map.map[new_y][new_x].amount--;
+                    this.hasFood = true;
+                    
+                    if(world.map.map[new_y][new_x].amount === 0) {
+                        world.map.map[new_y][new_x] = new Empty();
+                    }
+                }
             } else {
                 return false;
             }
