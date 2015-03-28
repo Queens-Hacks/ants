@@ -63,7 +63,7 @@ var source2 = ["while (true) {",
 
 var display = new Display(document.getElementById("canvas"));
 
-var theWorld = new world.World(source1, source2);
+// var gameWorld = new world.World(source1, source2);
 
 var tc = document.getElementById("tickCounter");
 var tlcount = document.getElementById("tlCount");
@@ -80,20 +80,6 @@ var requestAnimFrame =
        function(callback) {
          window.setTimeout(callback, 100);
        };
-
-
-function callback() {
-   theWorld.step();
-  display.render(theWorld);
-
-  tickNum++;
-  tc.textContent = tickNum;
-  tlcount.textContent = theWorld.tl.ants.length;
-  brcount.textContent = theWorld.br.ants.length;
-
-  requestAnimFrame(callback);
-}
-callback();
 
 
 var inputleft = ace.edit("inputleft");
@@ -115,3 +101,48 @@ outputright.setTheme("ace/theme/monokai");
 outputright.renderer.setShowGutter(false);
 outputright.setReadOnly(true);
 global.outputright = outputright;
+
+var paused = false;
+var sourceSupplied = false;
+var gameWorld = new world.World();
+
+function run() {
+  if (paused) { return; }
+  gameWorld.step();
+  display.render(gameWorld);
+
+  tickNum++;
+  tc.textContent = tickNum;
+  tlcount.textContent = gameWorld.tl.ants.length;
+  brcount.textContent = gameWorld.br.ants.length;
+
+  requestAnimFrame(run);
+}
+
+var playbtn = document.getElementById("play");
+playbtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  if (!sourceSupplied) {
+    gameWorld.setSources(inputleft.getValue(), inputright.getValue());
+    sourceSupplied = true;
+  }
+  paused = false;
+  run();
+});
+
+var pausebtn = document.getElementById("pause");
+pausebtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  paused = true;
+});
+
+var restartbtn = document.getElementById("restart");
+restartbtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  sourceSupplied = false;
+  gameWorld = new world.World();
+  paused = true;
+  display.render(gameWorld);
+});
+
+display.render(gameWorld);
