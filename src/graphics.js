@@ -56,7 +56,7 @@ module.exports = (function() {
                     }
                     break;
                 case 'wall':
-                    color = husl.p.toRGB(40, 100, 13 * (Tile.strength + 1));
+                    color = husl.p.toRGB(40, 100, 11 * (Tile.strength +1));
                     for (var sx = 0; sx < 10; sx++) {
                         for (var sy = 0; sy < 10; sy++) {
                             var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
