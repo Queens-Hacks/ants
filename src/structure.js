@@ -29,6 +29,12 @@ var Ant = function(team, x, y) {
     this.direction = "left" // chosen from "right", "up", "down"
 }
 
+var Map = function(width, height, sugars) {
+    this.map = newMap(width, height, sugars);
+    this.tl = this.map[2][2]
+    this.br = this.map[height-3][width-3]
+}
+
 function newMap(width, height, sugars) {
     if(height < 10) {
         height = 10;
@@ -57,16 +63,21 @@ function newMap(width, height, sugars) {
     for(var i = 0; i < 5; i++) {
         for(var j = 0; j < 5; j++) {
             map[i][j] = new Empty();
-            map[height-i][width-j] = new Empty();
+            map[height-i-1][width-j-1] = new Empty();
         }
     }
 
-    map[2][2] = new Home(1);
-    map[height-1][width-1] = new Home(2);
+    map[2][2] = new Home("tl");
+    map[height-3][width-3] = new Home("br");
 
     return map;
 }
 
-
-
-console.log('hi from structure');
+module.exports = {
+    Empty: Empty,
+    Wall: Wall,
+    Sugar: Sugar,
+    Home: Home,
+    Ant: Ant,
+    Map: Map
+}
