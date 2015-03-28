@@ -40,13 +40,13 @@ function newMap(width, height, sugars) {
     for (var y = 0; y < height; y++) {
         map[y] = new Array(width);
     }
-    
+
     for (var y = 0; y < width; y++) {
         for (var x = 0; x < width; x++) {
             map[y][x] = new Wall();
         }
     }
-    
+
     for(var i = 0; i < sugars; i++) {
         var x = Math.floor(Math.random() * height);
         var y = Math.floor(Math.random() * width);
@@ -73,5 +73,6 @@ var Ant = function(team, x, y) {
     this.hasFood = false;
     this.isTrampled = false;
 }
+
 
 console.log('hi from structure');
