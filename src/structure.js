@@ -24,6 +24,7 @@ var Home = function(team) {
 var Ant = function(team, position, world) {
     this.world = world;
     this.team = team;
+    console.log("Position =", position);
     this.position = position; // vector
     this.hasFood = false;
     this.isTrampled = false;

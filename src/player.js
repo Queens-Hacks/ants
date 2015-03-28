@@ -25,7 +25,7 @@ function Player(team, source, homeLocation, world) {
   this.addAnt = function(location) {
     console.log("Adding an ant");
     // Create the ant
-    var ant = new struct.Ant(this.team, location.x, location.y);
+    var ant = new struct.Ant(this.team, location, world);
     this.ants.push(ant);
 
     var aether = this.aether;

@@ -2,8 +2,10 @@ var world = require('./world');
 var Display = require('./graphics');
 
 var source1 = [
-  "while(true) {",
-  "  this.waffle()",
+  "var x = 0;",
+  "while(x < 10) {",
+  "  this.waffle();",
+  "  x++;",
   "}"
 ].join('\n');
 var source2 = source1;
