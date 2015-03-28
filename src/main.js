@@ -21,4 +21,4 @@ setInterval(function() {
   display.render(theWorld);
 
   // TODO(michael): Check for win conditions etc
-}, 333);
+}, 0/* 333 */);
