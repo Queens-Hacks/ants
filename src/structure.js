@@ -37,6 +37,11 @@ var Ant = function(team, position, world) {
             new_x = this.position.x + direction.x;
             new_y = this.position.y;
 
+            if(new_x > world.map.width || new_x < 0
+               || new_y > world.map.height || new_y < 0) {
+                return false;
+            }
+
             console.log("new_y = ", new_y);
             if(world.map.map[new_y][new_x].type === 'empty') {
                 this.position.x += direction.x;
@@ -46,6 +51,11 @@ var Ant = function(team, position, world) {
         } else if(direction.y === 1 || direction.y === -1) {
             new_x = this.position.x;
             new_y = this.position.y + direction.y;
+
+            if(new_x > world.map.width || new_x < 0
+               || new_y > world.map.height || new_y < 0) {
+                return false;
+            }
 
             if(world.map.map[new_y][new_x].type === 'empty') {
                 this.position.y += direction.y;
@@ -66,6 +76,11 @@ var Ant = function(team, position, world) {
             wall_x = this.position.x + direction.x;
             wall_y = this.position.y;
 
+            if(wall_x > world.map.width || wall_x < 0
+               || wall_y > world.map.height || wall_y < 0) {
+                return false;
+            }
+
             if(world.map.map[wall_y][wall_x].type === 'wall') {
                 world.map.map[wall_y][wall_x].strength--;
             }
@@ -78,6 +93,11 @@ var Ant = function(team, position, world) {
         } else if(direction.y === 1 || direction.y === -1) {
             wall_x = this.position.x;
             wall_y = this.position.y + direction.y;
+
+            if(wall_x > world.map.width || wall_x < 0
+               || wall_y > world.map.height || wall_y < 0) {
+                return false;
+            }
 
             if(world.map.map[wall_y][wall_x].type == 'wall') {
                 world.map.map[wall_y][wall_x].strength--;
@@ -103,6 +123,9 @@ function Map(width, height, sugars) {
     this.map = newMap(width, height, sugars);
     this.tl = new vector.Vec2(2, 2);
     this.br = new vector.Vec2(width-3, height-3);
+    this.width = width;
+    this.height = height;
+
 
     this.setPher = function (team, position, value ) {
         if(!typeof(this.map[position.y][position.x]) === 'Empty'){
