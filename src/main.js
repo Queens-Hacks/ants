@@ -51,8 +51,8 @@ function run() {
 
   tickNum++;
   tc.textContent = "t = " + tickNum;
-  tlcount.textContent = gameWorld.tl.ants.length;
-  brcount.textContent = gameWorld.br.ants.length;
+  tlcount.textContent = gameWorld.map.getSugar('tl');
+  brcount.textContent = gameWorld.map.getSugar('br');
 
   requestAnimFrame(run);
 }
