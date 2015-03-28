@@ -42,8 +42,8 @@ var Ant = function(team, position, world) {
             new_x = this.position.x + direction.x;
             new_y = this.position.y;
 
-            if(new_x > world.map.width || new_x < 0
-               || new_y > world.map.height || new_y < 0) {
+            if(new_x >= world.map.width || new_x < 0
+               || new_y >= world.map.height || new_y < 0) {
                 return false;
             }
 
@@ -61,8 +61,8 @@ var Ant = function(team, position, world) {
             new_x = this.position.x;
             new_y = this.position.y + direction.y;
 
-            if(new_x > world.map.width || new_x < 0
-               || new_y > world.map.height || new_y < 0) {
+            if(new_x >= world.map.width || new_x < 0
+               || new_y >= world.map.height || new_y < 0) {
                 return false;
             }
 
@@ -85,8 +85,8 @@ var Ant = function(team, position, world) {
             wall_x = this.position.x + direction.x;
             wall_y = this.position.y;
 
-            if(wall_x > world.map.width || wall_x < 0
-               || wall_y > world.map.height || wall_y < 0) {
+            if(wall_x >= world.map.width || wall_x < 0
+               || wall_y >= world.map.height || wall_y < 0) {
                 return false;
             }
 
@@ -103,8 +103,8 @@ var Ant = function(team, position, world) {
             wall_x = this.position.x;
             wall_y = this.position.y + direction.y;
 
-            if(wall_x > world.map.width || wall_x < 0
-               || wall_y > world.map.height || wall_y < 0) {
+            if(wall_x >= world.map.width || wall_x < 0
+               || wall_y >= world.map.height || wall_y < 0) {
                 return false;
             }
 
