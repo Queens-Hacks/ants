@@ -20,19 +20,19 @@ empty tiles. Spraying overwrites pheromones from your own team, but different co
 ### Ant API
  - These functions are special calls you can make into the game engine to interact with your enviroment! 
  - location objects have .x and .y properties. 0,0 is the top left corner, and the bottom right is 49,79
- - valid direction objects are ('up', 'down', 'left', 'right');
+ - valid direction objects are 'up', 'down', 'left', and 'right')
 ===========
 
 ### Getting around
-    - this.move(direction)
-    This function takes in a string ('up', 'down', 'left', 'right') and moves the ant in the direction. If the path is obstructed by a 
-    edge or wall, false is returned and the ant won't move. This function ends a turn.
+- this.move(direction)
+ This function takes in a string ('up', 'down', 'left', 'right') and moves the ant in the direction. If the path is obstructed by a 
+edge or wall, false is returned and the ant won't move. This function ends a turn.
     ```
     this.move('right');
     ```
-    - this.dig(direction)
+- this.dig(direction)
     This function takes in a string ('up', 'down', 'left', 'right') and digs in the direction, if no wall is found, false is returned. Otherwise, true. This function ends a turn.
-    - this.moveDig(direction)
+- this.moveDig(direction)
     This function combines the roles of move and dig. it takes in the same arguments as them, and will try to dig a wall, if no wall is found or if the wall is destroyed, then the ant will continue.
 
 
@@ -60,7 +60,7 @@ empty tiles. Spraying overwrites pheromones from your own team, but different co
       Returns any allied pheromone sprayed on current tile 
 
 ### ETC
- -this.log(message)
+ - this.log(message)
     Prints debug information to your columns console
     
 
