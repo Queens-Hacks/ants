@@ -99,11 +99,11 @@ function Player(team, source, homeLocation, world) {
     // NOTE(michael): Temporarially not working
     shim.sniff = function() {
       return world.map.pherAt(team,
-                              Vec2(ant.x, ant.y));
+                              new Vec2(ant.position.x, ant.position.y));
     };
     shim.spray = function(pheramone) {
       world.map.setPherAt(team,
-                          Vec2(ant.x, ant.y),
+                          new Vec2(ant.position.x, ant.position.y),
                           // Ensure that the object is valid JSON
                           JSON.parse(JSON.stringify(pheramone)));
     };

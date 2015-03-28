@@ -126,7 +126,7 @@ var Ant = function(team, position, world) {
                      && this.hasFood === false){
                 world.map.map[wall_y][wall_x].amount--;
                 this.hasFood = true;
-                
+
                 if(world.map.map[wall_y][wall_x].amount === 0) {
                     world.map.map[wall_y][wall_x] = new Empty();
                 }
