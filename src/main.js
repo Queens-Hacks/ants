@@ -112,7 +112,7 @@ function run() {
   display.render(gameWorld);
 
   tickNum++;
-  tc.textContent = tickNum;
+  tc.textContent = "t = " + tickNum;
   tlcount.textContent = gameWorld.tl.ants.length;
   brcount.textContent = gameWorld.br.ants.length;
 
@@ -142,7 +142,11 @@ restartbtn.addEventListener('click', function(e) {
   sourceSupplied = false;
   gameWorld = new world.World();
   paused = true;
+  outputleft.setValue("~~ Upper Left Program Log ~~");
+  outputright.setValue("~~ Lower Right Program Log ~~");
   display.render(gameWorld);
 });
 
 display.render(gameWorld);
+outputleft.setValue("~~ Upper Left Program Log ~~");
+outputright.setValue("~~ Lower Right Program Log ~~");
