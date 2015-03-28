@@ -72,6 +72,7 @@ var Ant = function(team, x, y) {
     this.y = y;
     this.hasFood = false;
     this.isTrampled = false;
+    this.direction = "left" // chosen from "right", "up", "down"
 }
 
 console.log('hi from structure');
