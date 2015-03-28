@@ -1,0 +1,14 @@
+{
+    "name": "ants",
+    "version": "0.0.1",
+    "description": "ANTS",
+    "main": "src/main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "aether": "~0.1.0"
+    }
+}
