@@ -95,6 +95,19 @@ function Player(team, source, homeLocation, world) {
       return team;
     };
 
+    shim.log = function(message) {
+      // TODO(michael): This only works on the client. Make it a no-op on the server
+      var msg = "" + message;
+
+      if (team == 'tl') {
+        global.outputleft.navigateFileEnd();
+        global.outputleft.insert(msg + "\n");
+      } else {
+        global.outputright.navigateFileEnd();
+        global.outputright.insert(msg + "\n");
+      }
+    };
+
     // Checking or laying pheramones
     // NOTE(michael): Temporarially not working
     shim.sniff = function() {

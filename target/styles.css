@@ -1,7 +1,5 @@
 body {
     background-color: #D0ECEA;
-}
-* {
     font-family: helvetica, sans-serif;
 }
 
@@ -22,21 +20,80 @@ body {
 
 #tickCounter {
     float: left;
+    width: 150px;
 }
 
 #counts {
     float: right;
+    width: 150px;
+    text-align: right;
 }
 
-.statusline > * {
+.statusitem {
     display: inline-block;
     color: #fff;
     font-size: 16px;
     margin-top: 5px;
 }
 
+.control {
+    color: #66f;
+    width: 75px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.control:hover {
+    color: #99f;
+}
+
 h1 {
     text-align: center;
     margin: 0px 0px 5px;
     color: #3B0819;
+}
+
+.inputboxes, .logboxes {
+    height: 400px;
+    margin: 0px auto;
+    width: 1000px;
+    background-color: #3a3a3a;
+}
+
+.inputboxes {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.logboxes {
+    padding-top: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.logbox, .input {
+    display: inline-block;
+    height: 400px;
+}
+
+#logboxleft {
+    width: 490px;
+    float: left;
+    border-bottom-left-radius: 20px;
+}
+#logboxright {
+    width: 490px;
+    float: right;
+    border-bottom-right-radius: 20px;
+}
+
+#inputleft {
+    width: 490px;
+    float: left;
+    border-top-left-radius: 20px;
+}
+#inputright {
+    width: 490px;
+    float: right;
+    border-top-right-radius: 20px;
 }

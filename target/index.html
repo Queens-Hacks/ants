@@ -11,21 +11,85 @@
               width="800"
               height="500"></canvas>
 
+      <div class="statusitem" id="tickCounter">t = 0</div>
+      <div class="statusitem" id="counts">
+        Ants:
+        <span id="tlCount">0</span> / <span id="brCount">0</span>
+      </div>
       <div class="statusline">
-        <div id="tickCounter">0</div>
-        <div id="counts">
-          Ants:
-          <span id="tlCount">0</span> / <span id="brCount">0</span>
-        </div>
-        &nbsp;
+        <a class="statusitem control" id="play">[play]</a>
+        <a class="statusitem control" id="pause">[pause]</a>
+        <a class="statusitem control" id="restart">[restart]</a>
       </div>
     </div>
 
+    <div class="inputboxes">
+      <div class="input" id="inputleft">// Top Left player
+while (true) {
+  if (this.hasFood() === false) {
+    var t = Math.random();
+    if (t < 0.25) {
+      this.moveDigDown();
+    } else if (t < 0.5) {
+      this.moveDigUp();
+    } else if (t < 0.75) {
+      this.moveDigRight();
+    } else {
+      this.moveDigLeft();
+    }
+  } else {
+    if (this.homeLocation().x > this.location().x) {
+      this.moveDigRight();
+    }
+    if (this.homeLocation().x < this.location().x) {
+      this.moveDigLeft();
+    }
+    if (this.homeLocation().y > this.location().y) {
+      this.moveDigDown();
+    }
+    if (this.homeLocation().y < this.location().y) {
+      this.moveDigUp();
+    }
+  }
+}</div>
+      <div class="input" id="inputright">// Lower Right Player
+while (true) {
+  if (this.hasFood() === false) {
+    var t = Math.random();
+    if (t < 0.25) {
+      this.moveDigDown();
+    } else if (t < 0.5) {
+      this.moveDigUp();
+    } else if (t < 0.75) {
+      this.moveDigRight();
+    } else {
+      this.moveDigLeft();
+    }
+  } else {
+    if (this.homeLocation().x > this.location().x) {
+      this.moveDigRight();
+    }
+    if (this.homeLocation().x < this.location().x) {
+      this.moveDigLeft();
+    }
+    if (this.homeLocation().y > this.location().y) {
+      this.moveDigDown();
+    }
+    if (this.homeLocation().y < this.location().y) {
+      this.moveDigUp();
+    }
+  }
+}</div>
+    </div>
 
-    <ul class="console">
-    </ul>
+    <div class="logboxes">
+      <div class="logbox" id="logboxleft"></div>
+      <div class="logbox" id="logboxright"></div>
+    </div>
 
     <!-- Main JS script -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/ace.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/mode-javascript.js"></script>
     <script type="text/javascript" src="/lodash.js"></script>
     <script type="text/javascript" src="/aether.js"></script>
     <script type="text/javascript" src="/main.js"></script>

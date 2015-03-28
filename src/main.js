@@ -13,6 +13,7 @@ var source1 = [
   "      this.moveDigRight();",
   "    } else {",
   "      this.moveDigLeft();",
+  "      this.log('hi there from ' + this.getTeam());",
   "    }",
   "  } else {",
   "    if (this.homeLocation().x > this.location().x) {",
@@ -66,9 +67,30 @@ setInterval(function() {
   display.render(theWorld);
 
   tickNum++;
-  tc.textContent = tickNum;
+  tc.textContent = "t = " + tickNum;
   tlcount.textContent = theWorld.tl.ants.length;
   brcount.textContent = theWorld.br.ants.length;
 
   // TODO(michael): Check for win conditions etc
 }, 100);
+
+
+var inputleft = ace.edit("inputleft");
+inputleft.setTheme("ace/theme/monokai");
+inputleft.getSession().setMode("ace/mode/javascript");
+
+var inputright = ace.edit("inputright");
+inputright.setTheme("ace/theme/monokai");
+inputright.getSession().setMode("ace/mode/javascript");
+
+var outputleft = ace.edit("logboxleft");
+outputleft.setTheme("ace/theme/monokai");
+outputleft.renderer.setShowGutter(false);
+outputleft.setReadOnly(true);
+global.outputleft = outputleft;
+
+var outputright = ace.edit("logboxright");
+outputright.setTheme("ace/theme/monokai");
+outputright.renderer.setShowGutter(false);
+outputright.setReadOnly(true);
+global.outputright = outputright;
