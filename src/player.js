@@ -124,6 +124,19 @@ function Player(team, source, homeLocation, world) {
         return ant.position.clone();
     };
 
+    shim.look = function(direction) {
+        if (direction === 'up') {
+            return world.map.map[ant.position.y-1][ant.position.x].type
+        } else if (direction === 'down') {
+            return world.map.map[ant.position.y+1][ant.position.x].type
+        } else if (direction === 'left') {
+            return world.map.map[ant.position.y][ant.position.x-1].type
+        } else if (direction === 'right') {
+            return world.map.map[ant.position.y][ant.position.x+1].type
+        } else {
+            return false;
+        }
+    }
 
     // Start the script
     var func = aether.createFunction();
