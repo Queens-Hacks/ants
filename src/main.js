@@ -1,3 +1,3 @@
-var aether = require('aether');
+var structure = require('./structure');
 
 console.log("Success!");

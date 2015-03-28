@@ -1,6 +1,7 @@
 var Empty = function() {
     this.type = 'empty';
 }
+
 var Wall = function(strength) {
     this.type = 'wall';
     this.strength = strength;
@@ -8,6 +9,7 @@ var Wall = function(strength) {
         this.strength--;
     }
 }
+
 var Sugar = function(amount) {
     this.type = 'sugar';
     this.amount = amount;
@@ -16,6 +18,7 @@ var Sugar = function(amount) {
         return amount;
     }
 }
+
 var Home = function(team) {
     this.type = 'home';
     this.team = team;
@@ -26,10 +29,10 @@ var Home = function(team) {
 }
 
 function newMap(width, height, sugars) {
-    if(height < 10){
+    if(height < 10) {
         height = 10;
     }
-    if(width < 10){
+    if(width < 10) {
         width = 10;
     }
 
@@ -62,3 +65,5 @@ function newMap(width, height, sugars) {
 
     return map;
 }
+
+console.log('hi from structure');
