@@ -8,10 +8,10 @@ module.exports = (function() {
     var AntSprite = [0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
         0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
         0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
-        1, 1, 1, 0, 1, 0, 1, 1, 1, 0,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-        1, 1, 1, 0, 1, 0, 1, 1, 1, 0,
+        1, 1, 1, 0, 1, 0, 1, 1, 2, 0,
+        1, 1, 1, 1, 1, 1, 1, 2, 2, 2,
+        1, 1, 1, 1, 1, 1, 1, 2, 2, 2,
+        1, 1, 1, 0, 1, 0, 1, 1, 2, 0,
         0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
         0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
         0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
@@ -38,7 +38,8 @@ module.exports = (function() {
                 case 'empty':
                     return; // TODO(max): Make this prettyyyyy
                 case 'wall':
-                    color = husl.p.toRGB(40, 100, 66);
+                // console.log(Tile.strength);
+                    color = husl.p.toRGB(40, 100, 16*(Tile.strength+1));
                     for (var sx = 0; sx < 10; sx++) {
                         for (var sy = 0; sy < 10; sy++) {
                             var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
@@ -58,11 +59,15 @@ module.exports = (function() {
                     }
                     break;
                 case 'home':
-                    color = husl.p.toRGB((x * y * 9999) % 360, 100, 80);
+                    if (x > 50) {
+                        color = husl.p.toRGB(188, 100, 66);
+                    } else {
+                        color = husl.p.toRGB(66, 100, 66);
+                    }
                     for (var sx = 0; sx < 10; sx++) {
                         for (var sy = 0; sy < 10; sy++) {
                             var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
-                            if ((8 - (Math.abs(sx - 4.5) * Math.abs(sy - 4.5))) > 0) {
+                            if ((2.5 - Math.sqrt(Math.abs(sx - 4.5) * Math.abs(sy - 4.5))) < 0) {
                                 this.WritePixel(i, color);
                             }
                         }
@@ -101,7 +106,9 @@ module.exports = (function() {
             for (var sx = 0; sx < 10; sx++) {
                 for (var sy = 0; sy < 10; sy++) {
                     var i = ((((y * 10) + sy) * width) + ((x * 10) + sx)) * 4;
-                    if (sprite[xpos(sx, sy) + (10 * ypos(sx, sy))]) {
+                    if (Ant.hasFood && sprite[xpos(sx, sy) + (10 * ypos(sx, sy))] == 2) {
+                        this.WritePixel(i, husl.p.toRGB(66, 50, 100));
+                    } else if (sprite[xpos(sx, sy) + (10 * ypos(sx, sy))] > 0) {
                         this.WritePixel(i, color);
                     }
                 }
@@ -110,7 +117,8 @@ module.exports = (function() {
         render: function(world) {
             // Fill it all with BLACK (paint it black)
             this.context.fillRect(0, 0, width, height);
-            this.context.fillStyle = husl.p.toHex(40, 60, 2); ////t'#0010'+offset.toString(16);
+            // console.log(
+            this.context.fillStyle = husl.p.toHex(40, 60, 24).toString(16); //'#ffffff'//husl.p.toHex(40, 60, 2); ////+offset.toString(16);
             this.context.fill();
             this.imageData = this.context.getImageData(0, 0, width, height);
             // Loop over every tile
