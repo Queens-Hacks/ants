@@ -34,28 +34,23 @@ var Ant = function(team, position, world) {
     this.move = function(direction) {
         var new_x, new_y, new_obj;
 
-        /* get directions into new_x, new_y, and new_obj */
-        if(direction.x === 1 || direction.x === -1) {
-            if (direction.x === 1) {
-                this.direction = "right"
-            } else {
-                this.direction = "left"
-            }
-            new_x = this.position.x + direction.x;
-            new_y = this.position.y;
-        } else if(direction.y === 1 || direction.y === -1) {
-            if(direction.x === 1){
-                this.direction = "up";
-            } else {
-                this.direction = "down";
-            }
+        if(direction === 'up') {
             new_x = this.position.x;
-            new_y = this.position.y + direction.y;
+            new_y = this.position.y - 1;
+        } else if(direction === 'down') { 
+            new_x = this.position.x;
+            new_y = this.position.y + 1;
+        } else if(direction === 'left') {
+            new_x = this.position.x - 1;
+            new_y = this.position.y;p
+        } else if(direction === 'right') {
+            new_x = this.position.x + 1;
+            new_y = this.position.y;
         } else {
-            console.log("Weird input to Ant.move()!\n");
-            return false;            
+            console.log("ERROR: Ant.move() dosn't understand direction: " + direction);
+            return false;
         }
-        
+
         /* Bounds Checking */
         if(new_x >= world.map.width || new_x < 0
            || new_y >= world.map.height || new_y < 0) {
@@ -85,15 +80,21 @@ var Ant = function(team, position, world) {
 
     this.dig = function(direction) {
         var wall_x, wall_y, new_obj;
-        if(direction.x === 1 || direction.x === -1) {
-            wall_x = this.position.x + direction.x;
-            wall_y = this.position.y;
-        } else if(direction.y === 1 || direction.y === -1) {
+        if(direction === 'up') {
             wall_x = this.position.x;
-            wall_y = this.position.y + direction.y;
-        } else { 
-            console.log("Weird input to Ant.dig()!\n");
-            return false;            
+            wall_y = this.position.y - 1;
+        } else if(direction === 'down') { 
+            wall_x = this.position.x;
+            wall_y = this.position.y + 1;
+        } else if(direction === 'left') {
+            wall_x = this.position.x - 1;
+            wall_y = this.position.y;
+        } else if(direction === 'right') {
+            wall_x = this.position.x + 1;
+            wall_y = this.position.y;
+        } else {
+            console.log("ERROR: Ant.dig() dosn't understand direction: " + direction);
+            return false;
         }
 
         /* Bounds Checking */
