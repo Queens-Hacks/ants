@@ -2,7 +2,36 @@ var world = require('./world');
 var Display = require('./graphics');
 
 var source1 = [
+  "var t = Math.random();",
   "while (true) {",
+  "  if (this.hasFood() === false) {",
+  " if(Math.random()>.95)  t = Math.random();",
+  "    if (t < 0.25) {",
+  "      this.moveDigDown();",
+  "    } else if (t < 0.5) {",
+  "      this.moveDigUp();",
+  "    } else if (t < 0.75) {",
+  "      this.moveDigRight();",
+  "    } else {",
+  "      this.moveDigLeft();",
+  "    }",
+  "  } else {",
+  "    if (this.homeLocation().x > this.location().x) {",
+  "      this.moveDigRight();",
+  "    }",
+  "    if (this.homeLocation().x < this.location().x) {",
+  "      this.moveDigLeft();",
+  "    }",
+  "    if (this.homeLocation().y > this.location().y) {",
+  "      this.moveDigDown();",
+  "    }",
+  "    if (this.homeLocation().y < this.location().y) {",
+  "      this.moveDigUp();",
+  "    }",
+  "  }",
+  "}"
+].join('\n');
+var source2 = ["while (true) {",
   "  if (this.hasFood() === false) {",
   "    var t = Math.random();",
   "    if (t < 0.25) {",
@@ -30,7 +59,6 @@ var source1 = [
   "  }",
   "}"
 ].join('\n');
-var source2 = source1;
 
 var display = new Display(document.getElementById("canvas"));
 
