@@ -36,10 +36,27 @@ module.exports = (function() {
         drawTile: function(Tile, x, y) {
             switch (Tile.type) {
                 case 'empty':
-                    return; // TODO(max): Make this prettyyyyy
+                    if (Tile.tl_pher) {
+                        color = husl.p.toRGB(188 + 90, 100, 66);
+                        for (var p = 0; p < 20; p++) {
+                            sx = (x * p * 449) % 10;
+                            sy = (y * p * 683) % 10;
+                            var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
+                            this.WritePixel(i, color);
+                        }
+                    }
+                    if (Tile.br_pher) {
+                        color = husl.p.toRGB(66 + 90, 100, 66);
+                        for (var p = 0; p < 20; p++) {
+                            sx = (x * p * 293 * 3) % 10;
+                            sy = (y * p * 881 * 3) % 10;
+                            var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
+                            this.WritePixel(i, color);
+                        }
+                    }
+                    break;
                 case 'wall':
-                // console.log(Tile.strength);
-                    color = husl.p.toRGB(40, 100, 16*(Tile.strength+1));
+                    color = husl.p.toRGB(40, 100, 16 * (Tile.strength + 1));
                     for (var sx = 0; sx < 10; sx++) {
                         for (var sy = 0; sy < 10; sy++) {
                             var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
