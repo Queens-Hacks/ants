@@ -161,14 +161,16 @@ function Map(width, height, sugars) {
 
 
     this.setPherAt = function (team, position, value ) {
-        if(!typeof(this.map[position.y][position.x]) === 'Empty'){
+        var cell = this.map[position.y][position.x];
+
+        if (!cell.type == 'empty') {
             return false;
         }
 
         if(team === 'br') {
-            this.map[position.y][position.x].br_pher = value;
+            cell.br_pher = value;
         } else if(team === 'tl') {
-            this.map[position.y][position.x].tl_pher = value;
+            cell.tl_pher = value;
         } else {
             console.log("Weird input to Map.setPher()!\n");
             return false;
@@ -177,14 +179,16 @@ function Map(width, height, sugars) {
     };
 
     this.pherAt = function (team, position) {
-        if(!typeof(this.map[position.y][position.x]) === 'Empty') {
+        var cell = this.map[position.y][position.x];
+
+        if (!cell.type == 'empty') {
             return null;
         }
 
         if(team === 'br') {
-            return this.map[position.y][position.x].br_pher;
+            return cell.br_pher;
         } else if(team === 'tl') {
-            return this.map[position.y][position.x].tl_pher;
+            return cell.tl_pher;
         } else {
             console.log("Weird input to Map.pherAt()!\n");
             return null;
