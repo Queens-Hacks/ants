@@ -30,61 +30,32 @@
 
     <div class="inputboxes">
       <div class="input" id="inputleft">// Top Left player
-while (true) {
-  if (this.hasFood() === false) {
-    var t = Math.random();
-    if (t < 0.25) {
-      this.moveDig('down');
-    } else if (t < 0.5) {
-      this.moveDig('up');
-    } else if (t < 0.75) {
-      this.moveDig('right');
-    } else {
-      this.moveDig('left');
+var directions = ['up', 'down', 'left', 'right'];
+    while (true) { 
+
+    if (!this.hasFood()) { // if you don't have sugar
+        // pick a random direction
+        randomIndex = Math.floor(Math.random() * 4);
+        // walk or dig in that direction
+        this.move(directions[randomIndex]);
+    } else { // if you have sugar
+        this.goto(this.home()); // bring the sugar home
     }
-  } else {
-    if (this.homeLocation().x > this.location().x) {
-      this.moveDig('right');
-    }
-    if (this.homeLocation().x < this.location().x) {
-      this.moveDig('left');
-    }
-    if (this.homeLocation().y > this.location().y) {
-      this.moveDig('down');
-    }
-    if (this.homeLocation().y < this.location().y) {
-      this.moveDig('up');
-    }
-  }
-}</div>
+} // do it again                                                                  
+      </div>
       <div class="input" id="inputright">// Lower Right Player
 while (true) {
-  if (this.hasFood() === false) {
-    var t = Math.random();
-    if (t < 0.25) {
-      this.moveDig('down');
-    } else if (t < 0.5) {
-      this.moveDig('up');
-    } else if (t < 0.75) {
-      this.moveDig('right');
+    var directions = ['up', 'down', 'left', 'right'];
+
+    if (!this.hasFood()) {
+        randomIndex = Math.floor(Math.random() * 4);
+        direction = directions[randomIndex];
+        this.move(direction);
     } else {
-      this.moveDig('left');
+        this.goto(this.home());
     }
-  } else {
-    if (this.homeLocation().x > this.location().x) {
-      this.moveDig('right');
-    }
-    if (this.homeLocation().x < this.location().x) {
-      this.moveDig('left');
-    }
-    if (this.homeLocation().y > this.location().y) {
-      this.moveDig('down');
-    }
-    if (this.homeLocation().y < this.location().y) {
-      this.moveDig('up');
-    }
-  }
-}</div>
+}
+    </div>
     </div>
 
 

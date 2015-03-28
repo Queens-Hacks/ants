@@ -28,19 +28,15 @@ function Player(team, homeLocation, world) {
       this.ants.push(ant);
 
       var shim = Object.create(null);
-      // MOVEMENT
-      shim.move = function(direction) {
-        actionComplete = true;
-        return ant.move(direction);
-      };
 
       shim.dig = function(direction) {
         actionComplete = true;
         return ant.dig(direction);
       };
 
-      shim.moveDig = function(direction) {
-        if (! shim.move(direction)) {
+      shim.move = function(direction) {
+        actionComplete = true;
+        if (! ant.move(direction)) {
           return shim.dig(direction);
         }
         return true;
@@ -80,13 +76,28 @@ function Player(team, homeLocation, world) {
         return ant.hasFood;
       };
 
-      shim.homeLocation = function() {
+      shim.home = function() {
         return homeLocation.clone();
       };
 
       shim.location = function() {
         return ant.position.clone();
       };
+
+      shim.goto = function(point) {
+        if (this.home().x > this.location().x) {
+            this.moveDig('right');
+        }
+        if (this.home().x < this.location().x) {
+            this.moveDig('left');
+        }
+        if (this.home().y > this.location().y) {
+            this.moveDig('down');
+        }
+        if (this.home().y < this.location().y) {
+            this.moveDig('up');
+        }
+      }
 
       shim.look = function(direction) {
         if (direction === 'up' && ant.position.y-1 > 0) {
