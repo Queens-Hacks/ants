@@ -6,7 +6,7 @@ body {
 .mainview {
     /* The border around the main program */
     width: 800px;
-    padding: 30px 30px 10px;
+    padding: 30px 30px 6px;
     background-color: #333;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -37,8 +37,9 @@ body {
 }
 
 .control {
+    margin-top: 7px;
+    margin-bottom: 0px;
     color: #66f;
-    width: 75px;
     text-align: center;
     cursor: pointer;
 }
