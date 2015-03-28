@@ -28,9 +28,35 @@ var display = new Display(document.getElementById("canvas"));
 
 var theWorld = new world.World(source1, source2);
 
+
+var requestAnimFrame =
+       window.requestAnimationFrame ||
+       window.webkitRequestAnimationFrame ||
+       window.mozRequestAnimationFrame ||
+       window.oRequestAnimationFrame ||
+       window.msRequestAnimationFrame ||
+       function(callback) {
+         window.setTimeout(callback, 2000);
+       };
+
+// function callback() {
+//   theWorld.step();
+//   display.render(theWorld);
+//
+//   requestAnimFrame(callback);
+// };
+// callback();
+
+
+var tc = document.getElementById("tickCounter");
+var tickNum = 0;
+
 setInterval(function() {
   theWorld.step();
   display.render(theWorld);
 
+  tickNum++;
+  tc.textContent = tickNum;
+
   // TODO(michael): Check for win conditions etc
-}, 0/* 333 */);
+}, 100);

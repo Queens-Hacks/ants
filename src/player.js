@@ -119,6 +119,7 @@ function Player(team, source, homeLocation, world) {
 
   // Iterate over each of the ants, performing an action
   // var counter = 0; // TODO(michael): Rename
+  var spawnCounter = 0;
   this.step = function() {
     this.ants.forEach(function(ant, index) {
       actionComplete = false;
@@ -136,6 +137,12 @@ function Player(team, source, homeLocation, world) {
       }
     });
 
+    spawnCounter++;
+    if (spawnCounter > 60) {
+      this.addAnt(homeLocation.clone());
+      spawnCounter = 0;
+    }
+
     // Ant adding
     /* counter++;
     if (counter > 5) {
@@ -145,7 +152,7 @@ function Player(team, source, homeLocation, world) {
     } */
   };
 
-  this.addAnt(homeLocation);
+  this.addAnt(homeLocation.clone());
 }
 
 module.exports = {
