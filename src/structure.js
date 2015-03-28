@@ -92,14 +92,17 @@ var Ant = function(team, position, world) {
 
             if(world.map.map[wall_y][wall_x].type === 'wall') {
                 world.map.map[wall_y][wall_x].strength--;
-            } else if(world.map.map[wall_y][wall_x].type === 'sugar'
-                     && this.hasFood === false){
-                world.map.map[wall_y][wall_x].amount--;
-                this.hasFood = true;
+            } else if(world.map.map[wall_y][wall_x].type === 'sugar') {
+                      if (this.hasFood === true) {
+                          this.move(direction);
+                      } else {
+                          world.map.map[wall_y][wall_x].amount--;
+                          this.hasFood = true;
 
-                if(world.map.map[wall_y][wall_x].amount === 0) {
-                    world.map.map[wall_y][wall_x] = new Empty();
-                }
+                          if(world.map.map[wall_y][wall_x].amount === 0) {
+                              world.map.map[wall_y][wall_x] = new Empty();
+                          }
+                      }
             } else if(world.map.map[wall_y][wall_x].type === 'home'
                      && this.hasFood === true) {
                 world.map.map[wall_y][wall_x].stored++;
@@ -122,13 +125,16 @@ var Ant = function(team, position, world) {
 
             if(world.map.map[wall_y][wall_x].type == 'wall') {
                 world.map.map[wall_y][wall_x].strength--;
-            } else if(world.map.map[wall_y][wall_x].type === 'sugar'
-                     && this.hasFood === false){
-                world.map.map[wall_y][wall_x].amount--;
-                this.hasFood = true;
+            } else if(world.map.map[wall_y][wall_x].type === 'sugar') {
+                if (this.hasFood === true) {
+                    this.move(direction);
+                } else {
+                    world.map.map[wall_y][wall_x].amount--;
+                    this.hasFood = true;
 
-                if(world.map.map[wall_y][wall_x].amount === 0) {
-                    world.map.map[wall_y][wall_x] = new Empty();
+                    if(world.map.map[wall_y][wall_x].amount === 0) {
+                        world.map.map[wall_y][wall_x] = new Empty();
+                    }
                 }
             } else if(world.map.map[wall_y][wall_x].type === 'home'
                      && this.hasFood === true) {
