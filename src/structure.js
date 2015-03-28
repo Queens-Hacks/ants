@@ -47,7 +47,8 @@ var Ant = function(team, position, world) {
                 return false;
             }
 
-            if(world.map.map[new_y][new_x].type === 'empty') {
+            if(world.map.map[new_y][new_x].type === 'empty'
+              || world.map.map[new_y][new_x].type ===  'sugar') {
                 this.position.x += direction.x;
             } else {
                 return false;
@@ -66,7 +67,8 @@ var Ant = function(team, position, world) {
                 return false;
             }
 
-            if(world.map.map[new_y][new_x].type === 'empty') {
+            if(world.map.map[new_y][new_x].type === 'empty'
+              || world.map.map[new_y][new_x].type == 'sugar') {
                 this.position.y += direction.y;
             } else {
                 return false;
