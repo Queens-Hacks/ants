@@ -67,9 +67,9 @@ h1 {
 
 .logboxes {
     height: 50px;
-    padding-bottom: 20px;
-    /* border-top-left-radius: 20px;
-    border-top-right-radius: 20px; */
+    padding-bottom: 10px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
 .logbox {
@@ -87,23 +87,23 @@ h1 {
 }
 
 #logboxleft {
-    width: 490px;
+    width: 495px;
     float: left;
-    /* border-top-left-radius: 20px; */
+    border-top-left-radius: 20px;
 }
 #logboxright {
-    width: 490px;
+    width: 495px;
     float: right;
-    /* border-top-right-radius: 20px; */
+    border-top-right-radius: 20px;
 }
 
 #inputleft {
-    width: 490px;
+    width: 495px;
     float: left;
     border-bottom-left-radius: 20px;
 }
 #inputright {
-    width: 490px;
+    width: 495px;
     float: right;
     border-bottom-right-radius: 20px;
 }

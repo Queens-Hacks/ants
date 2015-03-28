@@ -92,13 +92,13 @@ inputright.getSession().setMode("ace/mode/javascript");
 
 var outputleft = ace.edit("logboxleft");
 outputleft.setTheme("ace/theme/monokai");
-outputleft.renderer.setShowGutter(false);
+// outputleft.renderer.setShowGutter(false);
 outputleft.setReadOnly(true);
 global.outputleft = outputleft;
 
 var outputright = ace.edit("logboxright");
 outputright.setTheme("ace/theme/monokai");
-outputright.renderer.setShowGutter(false);
+// outputright.renderer.setShowGutter(false);
 outputright.setReadOnly(true);
 global.outputright = outputright;
 

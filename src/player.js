@@ -20,13 +20,9 @@ function Player(team, homeLocation, world) {
     aether.transpile(source);
     this.func = aether.createFunction();
 
-    // TODO(michael): Debug
-    console.log(aether.pure);
-
     var actionComplete = false;
     // Add an ant to the player object
     this.addAnt = function(location) {
-      console.log("Adding an ant");
       // Create the ant
       var ant = new struct.Ant(this.team, location, world);
       this.ants.push(ant);
@@ -122,10 +118,6 @@ function Player(team, homeLocation, world) {
                             JSON.parse(JSON.stringify(pheramone)));
       };
 
-      shim.waffle = function() {
-        console.log("WAFFLE");
-      };
-
       shim.hasFood = function() {
         return ant.hasFood;
       };
@@ -150,7 +142,7 @@ function Player(team, homeLocation, world) {
         } else {
           return false;
         }
-      }
+      };
 
       // Start the script
       var func = aether.createFunction();
