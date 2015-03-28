@@ -66,4 +66,12 @@ function newMap(width, height, sugars) {
     return map;
 }
 
+var Ant = function(team, x, y) {
+    this.team = team;
+    this.x = x;
+    this.y = y;
+    this.hasFood = false;
+    this.isTrampled = false;
+}
+
 console.log('hi from structure');
