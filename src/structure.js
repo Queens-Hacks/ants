@@ -131,9 +131,9 @@ function Map(width, height, sugars) {
 
     this.getSugar = function(team) {
         if(team === 'tl') {
-            return map[2][2].stored;
+            return this.map[2][2].stored;
         } else {
-            return map[width-2][height-2].stored;
+            return this.map[width-2][height-2].stored;
         }
     }
 
