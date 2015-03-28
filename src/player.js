@@ -152,6 +152,41 @@ function Player(team, homeLocation, world) {
         }
       }
 
+      shim.foodLeft = function(direction) {
+        if (direction === 'up' && ant.position.y-1 > 0) {
+          if (world.map.map[ant.position.y-1][ant.position.x].type === 'sugar') {
+            return world.map.map[ant.position.y-1][ant.position.x].amount;
+          } else {
+            return false;
+          }
+        } else if (direction === 'down' && ant.position.y+1 < world.map.map.length) {
+          if (world.map.map[ant.position.y+1][ant.position.x].type === 'sugar') {
+            return world.map.map[ant.position.y+1][ant.position.x].amount;
+          } else {
+            return false;
+          }
+        } else if (direction === 'left' && ant.position.x-1 > 0) {
+          if (world.map.map[ant.position.y][ant.position.x-1].type === 'sugar') {
+            return world.map.map[ant.position.y][ant.position.x-1].amount;
+          } else {
+            return false;
+          }
+        } else if (direction === 'right' && ant.position.x+1 < world.map.map[0].length) {
+          if (world.map.map[ant.position.y][ant.position.x+1].type === 'sugar') {
+            return world.map.map[ant.position.y][ant.position.x+1].amount;
+          } else {
+            return false;
+          }
+        } else if (direction == 'here') {
+          if (world.map.map[ant.position.y][ant.position.x].type === 'sugar') {
+            return world.map.map[ant.position.y][ant.position.x].amount;
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      }
       // Start the script
       var func = aether.createFunction();
       ant.state = func.call(shim);
