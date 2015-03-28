@@ -197,11 +197,26 @@ function newMap(width, height, sugars) {
             for(j = -1; j < 2; j++){
                 if(x+j >= 0 && x+j < width && y+i >= 0 && y+i < height){
                     map[y+i][x+j] = new Empty();
-
                 }
                 if(height-y-1+i >= 0 && height-y-1+i < height
                   && width-x-1+j >= 0 && width-x-1+j < width){
                     map[height-y-1+i][width-x-1+j] = new Empty();
+                }
+            }
+        }
+
+        for(i = -2; i < 3; i++){
+            for(j = -2; j < 3; j++){
+                if(x+j >= 0 && x+j < width && y+i >= 0 && y+i < height){
+                    if(Math.random() < 0.7) {
+                        map[y+i][x+j] = new Empty();
+                    }
+                }
+                if(height-y-1+i >= 0 && height-y-1+i < height
+                  && width-x-1+j >= 0 && width-x-1+j < width){
+                    if(Math.random() < 0.7) {
+                        map[height-y-1+i][width-x-1+j] = new Empty();
+                    }
                 }
             }
         }
