@@ -42,7 +42,7 @@ var Ant = function(team, position, world) {
             new_y = this.position.y + 1;
         } else if(direct === 'left') {
             new_x = this.position.x - 1;
-            new_y = this.position.y;p
+            new_y = this.position.y;
         } else if(direct === 'right') {
             new_x = this.position.x + 1;
             new_y = this.position.y;
@@ -51,14 +51,13 @@ var Ant = function(team, position, world) {
             return false;
         }
 
-        this.direction = direct;
-
         /* Bounds Checking */
         if(new_x >= world.map.width || new_x < 0
            || new_y >= world.map.height || new_y < 0) {
             return false;
         }
 
+        this.direction = direct;
         new_obj = this.world.map.map[new_y][new_x];
 
         if(new_obj.type === 'empty' || new_obj.type === 'sugar') {
