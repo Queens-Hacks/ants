@@ -2,7 +2,8 @@ var vector = require('./vector');
 
 var Empty = function() {
     this.type = 'empty';
-    this.pheromone = null;
+    this.tl_pher = null;
+    this.br_pher = null;
 };
 
 var Wall = function(strength) {
@@ -37,7 +38,7 @@ var Ant = function(team, position, world) {
             new_x = this.position.x + direction.x;
             new_y = this.position.y;
 
-            if(typeof(world.map[new_x][new_y]) === 'Empty') {
+            if(typeof(world.map[new_y][new_x]) === 'Empty') {
                 this.position.x += direction.x;
             } else {
                 return false;
@@ -46,7 +47,7 @@ var Ant = function(team, position, world) {
             new_x = this.position.x;
             new_y = this.position.y + direction.y;
 
-            if(typeof(world.map[new_x][new_y]) === 'Empty') {
+            if(typeof(world.map[new_y][new_x]) === 'Empty') {
                 position.y += direction.y;
             } else {
                 return false;
@@ -65,24 +66,24 @@ var Ant = function(team, position, world) {
             wall_x = this.position.x + direction.x;
             wall_y = this.position.y;
 
-            if(typeof(world.map[wall_x][wall_y] === 'Wall')) {
-                world.map[wall_x][wall_y].strength--;
+            if(typeof(world.map[wall_y][wall_x] === 'Wall')) {
+                world.map[wall_y][wall_x].strength--;
             }
 
-            if(world.map[wall_x][wall_y] === 'Wall'
-               && world.map[wall_x][wall_y].strength === 0) {
+            if(world.map[wall_y][wall_x] === 'Wall'
+               && world.map[wall_y][wall_x].strength === 0) {
                 return true;
             }
         } else if(direction.y === 1 || direction.y === -1) {
             wall_x = this.position.x;
             wall_y = this.position.y + direction.y;
 
-            if(typeof(world.map[wall_x][wall_y]) == 'Wall') {
-                world.map[wall_x][wall_y].strength--;
+            if(typeof(world.map[wall_y][wall_x]) == 'Wall') {
+                world.map[wall_y][wall_x].strength--;
             }
 
-            if(world.map[wall_x][wall_y] == 'Wall'
-               && world.map[wall_x][wall_y].strength === 0) {
+            if(world.map[wall_y][wall_x] == 'Wall'
+               && world.map[wall_y][wall_x].strength === 0) {
                 return true;
             }
 
@@ -101,11 +102,34 @@ function Map(width, height, sugars) {
     this.br = new vector.Vec2(width-3, height-3);
 
     this.setPher = function (team, position, value ) {
-
+        if(!typeof(this.map[position.y][position.x]) === 'Empty'){
+            return false;
+        }
+        
+        if(team === 'br') {
+            this.map[position.y][position.x].br_pher = value;
+        } else if(team === 'tl') {
+            this.map[position.y][position.x].tl_pher = value;
+        } else {
+            console.log("Weird input to Map.setPher()!\n");
+            return false;
+        }
+        return true;
     };
 
     this.pherAt = function (team, position) {
+        if(!typeof(this.map[position.y][position.x]) === 'Empty') {
+            return null;
+        }
 
+        if(team === 'br') {
+            return this.map[position.y][position.x].br_pher;
+        } else if(team === 'tl') {
+            return this.map[position.y][position.x].tl_pher;
+        } else {
+            console.log("Weird input to Map.pherAt()!\n");
+            return null;
+        }
     };
 }
 
