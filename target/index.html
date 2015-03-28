@@ -1,16 +1,29 @@
 <!doctype html>
 <html>
   <head>
-    <title></title>
+    <title>Ants</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
   </head>
   <body>
-    <h1>Hello</h1>
+    <h1>Ants</h1>
+    <div class="mainview">
+      <canvas id="canvas"
+              width="800"
+              height="500"></canvas>
 
-    <canvas id="canvas"
-            width="800"
-            height="500"></canvas>
+      <div class="statusline">
+        <div id="tickCounter">0</div>
+        <div id="counts">
+          Ants:
+          <span id="tlCount">0</span> / <span id="brCount">0</span>
+        </div>
+        &nbsp;
+      </div>
+    </div>
 
-    <div id="tickCounter">0</div>
+
+    <ul class="console">
+    </ul>
 
     <!-- Main JS script -->
     <script type="text/javascript" src="/lodash.js"></script>

@@ -21,6 +21,10 @@ var source2 = [
   "    this.moveDigRight();",
   "  } else {",
   "    this.moveDigLeft();",
+  "  }",
+  "  if (Math.random() < 0.05) {",
+  "    this.spray({ 'hello': 'world' });",
+  "  }",
   "}"
 ].join('\n');
 
@@ -49,6 +53,8 @@ var requestAnimFrame =
 
 
 var tc = document.getElementById("tickCounter");
+var tlcount = document.getElementById("tlCount");
+var brcount = document.getElementById("brCount");
 var tickNum = 0;
 
 setInterval(function() {
@@ -57,6 +63,8 @@ setInterval(function() {
 
   tickNum++;
   tc.textContent = tickNum;
+  tlcount.textContent = theWorld.tl.ants.length;
+  brcount.textContent = theWorld.br.ants.length;
 
   // TODO(michael): Check for win conditions etc
 }, 100);
