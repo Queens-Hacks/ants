@@ -101,9 +101,9 @@ module.exports = (function() {
             var y = Ant.position.y;
             var color;
             if (Ant.team == 'br') {
-                color = husl.p.toRGB(188, 50, 66);
+                color = husl.p.toRGB(188, 100, 66);
             } else {
-                color = husl.p.toRGB(355, 50, 66);
+                color = husl.p.toRGB(355, 100, 66);
             }
             var facing = Ant.direction;
             var sprite = AntSprite;
