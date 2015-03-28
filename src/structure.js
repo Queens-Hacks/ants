@@ -30,9 +30,9 @@ var Ant = function(team, position, world) {
     this.isTrampled = false;
     this.direction = "left"; // chosen from "right", "up", "down"
 
-    /* assume sanitized */
+    /* direction is a unit vector */
     this.move = function(direction) {
-        var new_x, new_y;
+        var new_x, new_y, new_obj;
         if(direction.x === 1 || direction.x === -1) {
             if (direction.x === 1) {
                 this.direction = "right"
@@ -41,60 +41,40 @@ var Ant = function(team, position, world) {
             }
             new_x = this.position.x + direction.x;
             new_y = this.position.y;
-
-            if(new_x >= world.map.width || new_x < 0
-               || new_y >= world.map.height || new_y < 0) {
-                return false;
-            }
-
-            if(world.map.map[new_y][new_x].type === 'empty'
-              || world.map.map[new_y][new_x].type ===  'sugar') {
-                this.position.x += direction.x;
-
-                if(world.map.map[new_y][new_x].type == 'sugar'
-                  && this.hasFood === false){
-                    world.map.map[new_y][new_x].amount--;
-                    this.hasFood = true;
-                    
-                    if(world.map.map[new_y][new_x].amount === 0) {
-                        world.map.map[new_y][new_x] = new Empty();
-                    }
-                }
-            } else {
-                return false;
-            }
         } else if(direction.y === 1 || direction.y === -1) {
-            if (direction.y === 1) {
-                this.direction = "down"
+            if(direction.x === 1){
+                this.direction = "up";
             } else {
-                this.direction = "up"
+                this.direction = "down";
             }
             new_x = this.position.x;
             new_y = this.position.y + direction.y;
-
-            if(new_x >= world.map.width || new_x < 0
-               || new_y >= world.map.height || new_y < 0) {
-                return false;
-            }
-
-            if(world.map.map[new_y][new_x].type === 'empty'
-              || world.map.map[new_y][new_x].type == 'sugar') {
-                this.position.y += direction.y;
-                
-                if(world.map.map[new_y][new_x].type == 'sugar'
-                   && this.hasFood === false){
-                    world.map.map[new_y][new_x].amount--;
-                    this.hasFood = true;
-                    
-                    if(world.map.map[new_y][new_x].amount === 0) {
-                        world.map.map[new_y][new_x] = new Empty();
-                    }
-                }
-            } else {
-                return false;
-            }
         } else {
             console.log("Weird input to Ant.move()!\n");
+            return false;            
+        }
+        
+        /* Bounds Checking */
+        if(new_x >= world.map.width || new_x < 0
+           || new_y >= world.map.height || new_y < 0) {
+            return false;
+        }
+
+        new_obj = this.world.map.map[new_y][new_x];
+
+        if(new_obj.type === 'empty' || new_obj.type === 'sugar') {
+            this.position.x += direction.x;
+            this.position.y += direction.y;
+
+            if(new_obj.type == 'sugar' && this.hasFood === false){
+                new_obj.amount--;
+                this.hasFood = true;
+                
+                if(new_obj.amount === 0) {
+                    new_obj = new Empty();
+                }
+            }
+        } else {
             return false;
         }
 
