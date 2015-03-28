@@ -21,7 +21,6 @@ empty tiles. Spraying overwrites pheromones from your own team, but different co
  - These functions are special calls you can make into the game engine to interact with your enviroment! 
  - location objects have .x and .y properties. 0,0 is the top left corner, and the bottom right is 49,79
  - valid direction objects are 'up', 'down', 'left', and 'right')
-===========
 
 ### Getting around
 - this.move(direction)
