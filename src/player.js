@@ -114,7 +114,16 @@ function Player(team, source, homeLocation, world) {
 
     shim.hasFood = function() {
         return ant.hasFood;
-    }
+    };
+
+    shim.homeLocation = function() {
+        return homeLocation.clone();
+    };
+
+    shim.location = function() {
+        return ant.position.clone();
+    };
+
 
     // Start the script
     var func = aether.createFunction();
