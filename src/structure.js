@@ -33,6 +33,8 @@ var Ant = function(team, position, world) {
     /* direction is a unit vector */
     this.move = function(direction) {
         var new_x, new_y, new_obj;
+
+        /* get directions into new_x, new_y, and new_obj */
         if(direction.x === 1 || direction.x === -1) {
             if (direction.x === 1) {
                 this.direction = "right"
@@ -71,7 +73,7 @@ var Ant = function(team, position, world) {
                 this.hasFood = true;
                 
                 if(new_obj.amount === 0) {
-                    new_obj = new Empty();
+                    world.map.map[new_y][new_x] = new Empty();
                 }
             }
         } else {
@@ -82,80 +84,38 @@ var Ant = function(team, position, world) {
     };
 
     this.dig = function(direction) {
-        var wall_x, wall_y;
+        var wall_x, wall_y, new_obj;
         if(direction.x === 1 || direction.x === -1) {
             wall_x = this.position.x + direction.x;
             wall_y = this.position.y;
-
-            if(wall_x >= world.map.width || wall_x < 0
-               || wall_y >= world.map.height || wall_y < 0) {
-                return false;
-            }
-
-            if(world.map.map[wall_y][wall_x].type === 'wall') {
-                world.map.map[wall_y][wall_x].strength--;
-            } else if(world.map.map[wall_y][wall_x].type === 'sugar') {
-                      if (this.hasFood === true) {
-                          this.move(direction);
-                      } else {
-                          world.map.map[wall_y][wall_x].amount--;
-                          this.hasFood = true;
-
-                          if(world.map.map[wall_y][wall_x].amount === 0) {
-                              world.map.map[wall_y][wall_x] = new Empty();
-                          }
-                      }
-            } else if(world.map.map[wall_y][wall_x].type === 'home'
-                     && this.hasFood === true) {
-                world.map.map[wall_y][wall_x].stored++;
-                this.hasFood = false;
-            }
-
-            if(world.map.map[wall_y][wall_x].type === 'wall'
-               && world.map.map[wall_y][wall_x].strength === 0) {
-                world.map.map[wall_y][wall_x] = new Empty();
-                return true;
-            }
         } else if(direction.y === 1 || direction.y === -1) {
             wall_x = this.position.x;
             wall_y = this.position.y + direction.y;
-
-            if(wall_x >= world.map.width || wall_x < 0
-               || wall_y >= world.map.height || wall_y < 0) {
-                return false;
-            }
-
-            if(world.map.map[wall_y][wall_x].type == 'wall') {
-                world.map.map[wall_y][wall_x].strength--;
-            } else if(world.map.map[wall_y][wall_x].type === 'sugar') {
-                if (this.hasFood === true) {
-                    this.move(direction);
-                } else {
-                    world.map.map[wall_y][wall_x].amount--;
-                    this.hasFood = true;
-
-                    if(world.map.map[wall_y][wall_x].amount === 0) {
-                        world.map.map[wall_y][wall_x] = new Empty();
-                    }
-                }
-            } else if(world.map.map[wall_y][wall_x].type === 'home'
-                     && this.hasFood === true) {
-                world.map.map[wall_y][wall_x].stored++;
-                this.hasFood = false;
-            }
-
-            if(world.map.map[wall_y][wall_x].type == 'wall'
-               && world.map.map[wall_y][wall_x].strength === 0) {
-                world.map.map[wall_y][wall_x] = new Empty();
-                return true;
-            }
-
-        } else {
+        } else { 
             console.log("Weird input to Ant.dig()!\n");
+            return false;            
+        }
+
+        /* Bounds Checking */
+        if(wall_x >= world.map.width || wall_x < 0
+           || wall_y >= world.map.height || wall_y < 0) {
             return false;
         }
 
+        new_obj = world.map.map[wall_y][wall_x];
 
+        if(new_obj.type === 'wall') {
+            new_obj.strength--;
+        } else if(new_obj.type === 'home' && this.hasFood === true) {
+            new_obj.stored++;
+            this.hasFood = false;
+        }
+        
+        if(new_obj.type === 'wall' && new_obj.strength === 0) {
+            world.map.map[wall_y][wall_x] = new Empty();
+            return true;
+        }
+        
         return false;
     };
 };
