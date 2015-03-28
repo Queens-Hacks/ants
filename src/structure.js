@@ -31,23 +31,23 @@ var Ant = function(team, position, world) {
     this.direction = "left"; // chosen from "right", "up", "down"
 
     /* direction is a unit vector */
-    this.move = function(direction) {
+    this.move = function(direct) {
         var new_x, new_y, new_obj;
-
-        if(direction === 'up') {
+        
+        if(direct === 'up') {
             new_x = this.position.x;
             new_y = this.position.y - 1;
-        } else if(direction === 'down') { 
+        } else if(direct === 'down') { 
             new_x = this.position.x;
             new_y = this.position.y + 1;
-        } else if(direction === 'left') {
+        } else if(direct === 'left') {
             new_x = this.position.x - 1;
-            new_y = this.position.y;p
-        } else if(direction === 'right') {
+            new_y = this.position.y;
+        } else if(direct === 'right') {
             new_x = this.position.x + 1;
             new_y = this.position.y;
         } else {
-            console.log("ERROR: Ant.move() dosn't understand direction: " + direction);
+            console.log("ERROR: Ant.move() dosn't understand direct: " + direct);
             return false;
         }
 
@@ -57,18 +57,19 @@ var Ant = function(team, position, world) {
             return false;
         }
 
+        this.direction = direct;
         new_obj = this.world.map.map[new_y][new_x];
 
         if(new_obj.type === 'empty' || new_obj.type === 'sugar') {
-            this.position.x += direction.x;
-            this.position.y += direction.y;
+            this.position.x = new_x;
+            this.position.y = new_y;
 
             if(new_obj.type == 'sugar' && this.hasFood === false){
                 new_obj.amount--;
                 this.hasFood = true;
                 
                 if(new_obj.amount === 0) {
-                    world.map.map[new_y][new_x] = new Empty();
+                    this.world.map.map[new_y][new_x] = new Empty();
                 }
             }
         } else {
@@ -128,6 +129,13 @@ function Map(width, height, sugars) {
     this.width = width;
     this.height = height;
 
+    this.getSugar = function(team) {
+        if(team === 'tl') {
+            return map[2][2].stored;
+        } else {
+            return map[width-2][height-2].stored;
+        }
+    }
 
     this.setPherAt = function (team, position, value ) {
         var cell = this.map[position.y][position.x];

@@ -1,76 +1,15 @@
 var world = require('./world');
 var Display = require('./graphics');
 
-var source1 = [
-  "var t = Math.random();",
-  "while (true) {",
-  "  if (this.hasFood() === false) {",
-  " if(Math.random()>.95)  t = Math.random();",
-  "    if (t < 0.25) {",
-  "      this.moveDigDown();",
-  "    } else if (t < 0.5) {",
-  "      this.moveDigUp();",
-  "    } else if (t < 0.75) {",
-  "      this.moveDigRight();",
-  "    } else {",
-  "      this.moveDigLeft();",
-  "    }",
-  "  } else {",
-  "    if (this.homeLocation().x > this.location().x) {",
-  "      this.moveDigRight();",
-  "    }",
-  "    if (this.homeLocation().x < this.location().x) {",
-  "      this.moveDigLeft();",
-  "    }",
-  "    if (this.homeLocation().y > this.location().y) {",
-  "      this.moveDigDown();",
-  "    }",
-  "    if (this.homeLocation().y < this.location().y) {",
-  "      this.moveDigUp();",
-  "    }",
-  "  }",
-  "}"
-].join('\n');
-var source2 = ["while (true) {",
-  "  if (this.hasFood() === false) {",
-  "    var t = Math.random();",
-  "    if (t < 0.25) {",
-  "      this.moveDigDown();",
-  "    } else if (t < 0.5) {",
-  "      this.moveDigUp();",
-  "    } else if (t < 0.75) {",
-  "      this.moveDigRight();",
-  "    } else {",
-  "      this.moveDigLeft();",
-  "      this.log('hi there from ' + this.getTeam());",
-  "    }",
-  "  } else {",
-  "    if (this.homeLocation().x > this.location().x) {",
-  "      this.moveDigRight();",
-  "    }",
-  "    if (this.homeLocation().x < this.location().x) {",
-  "      this.moveDigLeft();",
-  "    }",
-  "    if (this.homeLocation().y > this.location().y) {",
-  "      this.moveDigDown();",
-  "    }",
-  "    if (this.homeLocation().y < this.location().y) {",
-  "      this.moveDigUp();",
-  "    }",
-  "  }",
-  "}"
-].join('\n');
-
 var display = new Display(document.getElementById("canvas"));
 
-// var gameWorld = new world.World(source1, source2);
-
+// Get the elements
 var tc = document.getElementById("tickCounter");
 var tlcount = document.getElementById("tlCount");
 var brcount = document.getElementById("brCount");
 var tickNum = 0;
 
-
+// Helper function
 var requestAnimFrame =
        window.requestAnimationFrame ||
        window.webkitRequestAnimationFrame ||
@@ -82,6 +21,7 @@ var requestAnimFrame =
        };
 
 
+// Create the ace editors
 var inputleft = ace.edit("inputleft");
 inputleft.setTheme("ace/theme/monokai");
 inputleft.getSession().setMode("ace/mode/javascript");
@@ -92,17 +32,15 @@ inputright.getSession().setMode("ace/mode/javascript");
 
 var outputleft = ace.edit("logboxleft");
 outputleft.setTheme("ace/theme/monokai");
-// outputleft.renderer.setShowGutter(false);
 outputleft.setReadOnly(true);
 global.outputleft = outputleft;
 
 var outputright = ace.edit("logboxright");
 outputright.setTheme("ace/theme/monokai");
-// outputright.renderer.setShowGutter(false);
 outputright.setReadOnly(true);
 global.outputright = outputright;
 
-var paused = false;
+var paused = true;
 var sourceSupplied = false;
 var gameWorld = new world.World();
 
@@ -121,6 +59,8 @@ function run() {
 
 var playbtn = document.getElementById("play");
 playbtn.addEventListener('click', function(e) {
+  if (!paused) { return; }
+
   e.preventDefault();
   if (!sourceSupplied) {
     gameWorld.setSources(inputleft.getValue(), inputright.getValue());
