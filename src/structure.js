@@ -189,10 +189,11 @@ function newMap(width, height, sugars) {
         }
     }
 
-    for(i = 0; i < sugars; i++) {
+    for(i = 0; i < sugars/2; i++) {
         x = Math.floor(Math.random() * width);
         y = Math.floor(Math.random() * height);
         map[y][x] = new Sugar(10);
+        map[height-y-1][width-x-1] = new Sugar(10);
     }
 
     for(i = 0; i < 5; i++) {
