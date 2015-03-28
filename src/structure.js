@@ -1,3 +1,5 @@
+var vector = require('./vector');
+
 var Empty = function() {
     this.type = 'empty';
     this.pheromone = null;
@@ -20,10 +22,9 @@ var Home = function(team) {
 }
 
 
-var Ant = function(team, x, y) {
+var Ant = function(team, position) {
     this.team = team;
-    this.x = x;
-    this.y = y;
+    this.position = position // vector
     this.hasFood = false;
     this.isTrampled = false;
     this.direction = "left" // chosen from "right", "up", "down"
@@ -31,8 +32,8 @@ var Ant = function(team, x, y) {
 
 var Map = function(width, height, sugars) {
     this.map = newMap(width, height, sugars);
-    this.tl = this.map[2][2]
-    this.br = this.map[height-3][width-3]
+    this.tl = vector.Vec2(2, 2)
+    this.br = vector.Vec2(width-3, height-3);
 }
 
 function newMap(width, height, sugars) {
