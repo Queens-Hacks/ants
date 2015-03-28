@@ -133,7 +133,7 @@ function Map(width, height, sugars) {
         if(team === 'tl') {
             return this.map[2][2].stored;
         } else {
-            return this.map[width-2][height-2].stored;
+            return this.map[height-3][width-3].stored;
         }
     }
 
