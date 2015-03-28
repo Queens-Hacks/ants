@@ -38,18 +38,18 @@ module.exports = (function() {
                 case 'empty':
                     if (Tile.tl_pher) {
                         color = husl.p.toRGB(188 + 90, 100, 66);
-                        for (var p = 0; p < 20; p++) {
-                            sx = (x * p * 449) % 10;
-                            sy = (y * p * 683) % 10;
+                        for (var p = 0; p < 5; p++) {
+                            sx = (x * p * 947) % 10;
+                            sy = (y * p * 953) % 10;
                             var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
                             this.WritePixel(i, color);
                         }
                     }
                     if (Tile.br_pher) {
                         color = husl.p.toRGB(66 + 90, 100, 66);
-                        for (var p = 0; p < 20; p++) {
-                            sx = (x * p * 293 * 3) % 10;
-                            sy = (y * p * 881 * 3) % 10;
+                        for (var p = 0; p < 5; p++) {
+                            sx = (x * p * 967) % 10;
+                            sy = (y * p * 971) % 10;
                             var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
                             this.WritePixel(i, color);
                         }
