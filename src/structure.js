@@ -257,8 +257,8 @@ function newMap(width, height, sugars) {
             }
         }
 
-        map[y][x] = new Sugar(10);
-        map[height-y-1][width-x-1] = new Sugar(10);
+        map[y][x] = new Sugar(20);
+        map[height-y-1][width-x-1] = new Sugar(20);
     }
 
     for(i = 0; i < 5; i++) {
