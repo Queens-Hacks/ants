@@ -64,6 +64,11 @@ var display = new Display(document.getElementById("canvas"));
 
 var theWorld = new world.World(source1, source2);
 
+var tc = document.getElementById("tickCounter");
+var tlcount = document.getElementById("tlCount");
+var brcount = document.getElementById("brCount");
+var tickNum = 0;
+
 
 var requestAnimFrame =
        window.requestAnimationFrame ||
@@ -72,8 +77,22 @@ var requestAnimFrame =
        window.oRequestAnimationFrame ||
        window.msRequestAnimationFrame ||
        function(callback) {
-         window.setTimeout(callback, 2000);
+         window.setTimeout(callback, 100);
        };
+
+
+function callback() {
+   theWorld.step();
+  display.render(theWorld);
+
+  tickNum++;
+  tc.textContent = tickNum;
+  tlcount.textContent = theWorld.tl.ants.length;
+  brcount.textContent = theWorld.br.ants.length;
+
+  requestAnimFrame(callback);
+}
+callback();
 
 // function callback() {
 //   theWorld.step();
@@ -84,19 +103,15 @@ var requestAnimFrame =
 // callback();
 
 
-var tc = document.getElementById("tickCounter");
-var tlcount = document.getElementById("tlCount");
-var brcount = document.getElementById("brCount");
-var tickNum = 0;
+// setInterval(function() {
+//   theWorld.step();
+//   display.render(theWorld);
 
-setInterval(function() {
-  theWorld.step();
-  display.render(theWorld);
+//   tickNum++;
+//   tc.textContent = tickNum;
+//   tlcount.textContent = theWorld.tl.ants.length;
+//   brcount.textContent = theWorld.br.ants.length;
 
-  tickNum++;
-  tc.textContent = tickNum;
-  tlcount.textContent = theWorld.tl.ants.length;
-  brcount.textContent = theWorld.br.ants.length;
+//   // TODO(michael): Check for win conditions etc
+// }, 100);
 
-  // TODO(michael): Check for win conditions etc
-}, 100);
