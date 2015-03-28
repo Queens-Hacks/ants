@@ -37,7 +37,6 @@ var Ant = function(team, position, world) {
             new_x = this.position.x + direction.x;
             new_y = this.position.y;
 
-            console.log("new_y = ", new_y);
             if(world.map.map[new_y][new_x].type === 'empty') {
                 this.position.x += direction.x;
             } else {
