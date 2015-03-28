@@ -96,8 +96,8 @@ var Ant = function(team, position, world) {
 
 function Map(width, height, sugars) {
     this.map = newMap(width, height, sugars);
-    this.tl = vector.Vec2(2, 2);
-    this.br = vector.Vec2(width-3, height-3);
+    this.tl = new vector.Vec2(2, 2);
+    this.br = new vector.Vec2(width-3, height-3);
 
     this.setPher = function (team, position, value ) {
 
@@ -118,20 +118,20 @@ function newMap(width, height, sugars) {
         width = 10;
     }
 
-    var map = new Array(height);
+    var map = [];
     for (y = 0; y < height; y++) {
-        map[y] = new Array(width);
+        map[y] = [];
     }
 
-    for (y = 0; y < width; y++) {
+    for (y = 0; y < height; y++) {
         for (x = 0; x < width; x++) {
             map[y][x] = new Wall();
         }
     }
 
     for(i = 0; i < sugars; i++) {
-        x = Math.floor(Math.random() * height);
-        y = Math.floor(Math.random() * width);
+        x = Math.floor(Math.random() * width);
+        y = Math.floor(Math.random() * height);
         map[y][x] = new Sugar(10);
     }
 

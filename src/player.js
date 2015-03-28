@@ -1,3 +1,4 @@
+var struct = require('./structure');
 var vector = require('./vector');
 var Vec2 = vector.Vec2;
 
@@ -6,6 +7,7 @@ function Player(team, source, homeLocation, world) {
   this.ants = [];
   this.homeLocation = homeLocation;
   this.world = world;
+
   var aether = this.aether = new Aether({
     yieldConditionally: true
   });
@@ -21,6 +23,7 @@ function Player(team, source, homeLocation, world) {
 
   // Add an ant to the player object
   this.addAnt = function(location) {
+    console.log("Adding an ant");
     // Create the ant
     var ant = new struct.Ant(this.team, location.x, location.y);
     this.ants.push(ant);
@@ -91,6 +94,7 @@ function Player(team, source, homeLocation, world) {
     };
 
     // Checking or laying pheramones
+    // NOTE(michael): Temporarially not working
     shim.sniff = function() {
       return world.map.pherAt(team,
                               Vec2(ant.x, ant.y));
@@ -102,13 +106,17 @@ function Player(team, source, homeLocation, world) {
                           JSON.parse(JSON.stringify(pheramone)));
     };
 
+    shim.waffle = function() {
+      console.log("WAFFLE");
+    };
+
     // Start the script
     ant.state = this.func.call(shim);
   };
 
   // Iterate over each of the ants, performing an action
+  var counter = 0; // TODO(michael): Rename
   this.step = function() {
-    var self = this;
     this.ants.forEach(function(ant, index) {
       // TODO(michael): Prevent infinite loops
       var next = ant.state.next();
@@ -119,6 +127,14 @@ function Player(team, source, homeLocation, world) {
         };
       }
     });
+
+    // Ant adding
+    counter++;
+    if (counter > 5) {
+      console.log("Added an ant!");
+      this.addAnt(homeLocation);
+      counter = 0;
+    }
   };
 }
 
