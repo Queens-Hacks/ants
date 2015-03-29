@@ -179,16 +179,18 @@ module.exports = (function() {
                 this.context.fillStyle = "white";
                 this.context.font = "bold 46px Arial";
                 if (winner == 'br') {
-                    txt = "BOTTOM RIGHT";
+                    txt = "BLUE";
                     winnerAnts = world.br.ants;
                 } else {
-                    txt = "TOP LEFT";
+                    txt = "PINK";
                     winnerAnts = world.tl.ants;
                 }
-                this.context.fillText("WINNER " + txt, 175, 250);
+                this.context.fillText("WINNER " + txt, 230, 250);
                 this.imageData = this.context.getImageData(0, 0, width, height);
                 winnerAnts.forEach(this.parade.bind(this));
                 this.paradeStep++;
+                if(this.paradeStep==100)
+                  paused = true;
                 this.context.putImageData(this.imageData, 0, 0);
                 return;
             }
