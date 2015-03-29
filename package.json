@@ -12,6 +12,6 @@
     "husl": "5.0.2",
     "recast": "^0.10.11",
     "regenerator": "^0.8.19",
-    "github-flavored-markdown", "1.0.1"
+    "github-flavored-markdown": "1.0.1"
   }
 }
