@@ -58,19 +58,43 @@ while (true) { // Loop forever!
 }
       </div>
       <div class="input" id="inputright">
-var dir = randDir();
+var t = randDir();
 
-while (true) { // Loop forever!
-    if (! hasFood()) {
-        // As long as you haven't found food yet, move in a random direction
-        if (Math.random() < .5) { // 5% chance of changing dir to a new
-            dir = randDir();      // random direction
+var food = false; // list of food coordinates
+while (true) {
+    // store area around ant
+    var up = look('up');
+    var down = look('down');
+    var left = look('left');
+    var right = look('right');
+
+    // set food to last found sugar
+    if (up === 'sugar') {
+        food = Vec(location().x, location().y-1);
+    } else if (down === 'sugar') {
+        food = Vec(location().x, location().y+1);
+    } else if (left === 'sugar') {
+        food = Vec(location().x-1, location().y);
+    } else if (right === 'sugar') {
+        food = Vec(location().x+1, location().y-1);
+    }
+    
+    var reset = false; // get out of undigable walls
+    if (!hasFood() && !food) { // markov chain to find food
+        if (!look(t) || look(t) === 'home') {
+            reset = true;
         }
-
-        move(dir); // Move in the direction we have previously randomly generated
-    } else {
-        // Go home with the sugar!
-        goto(home());
+        if(Math.random() > 0.95 || reset) {
+            t = randDir();
+        }
+        move(t);
+    } else if (hasFood() === false && food !== false) {
+        moveto(food);
+        if (look('here') !== 'sugar') {
+            food = false;
+        }
+    } else { // bring food back to base
+        moveto(home());
     }
 }
       </div>
