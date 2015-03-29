@@ -10,9 +10,10 @@ open(IN, "./README.md");
 `touch tmp.js`;
 open(OUT, ">./tmp.js");
 
-print OUT "var ghm = require('github-flavored-markdown');\n";
+print OUT "var marked = require('marked');\n";
+print OUT "marked.setOptions({gfm: true});\n";
 
-print OUT "console.log(ghm.parse( [";
+print OUT "console.log(marked( [";
 
 foreach(<IN>) {
     tr/"/'/;
