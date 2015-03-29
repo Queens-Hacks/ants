@@ -22,7 +22,7 @@ function Player(team, homeLocation, world) {
     this.world = world;
     this.setSource = function(source) {
         try {
-            var compiled = sketch.compile(source, ['dig', 'move', 'getTeam', 'log', 'sniff', 'spray', 'hasFood', 'home', 'location', 'wait', 'look', 'foodLeft'], (function() {
+            var compiled = sketch.compile(source, ['dig', 'move', 'getTeam', 'log', 'sniff', 'spray', 'hasFood', 'home', 'location', 'wait', 'look', 'foodLeft', 'randDir'], (function() {
                 function goto(target) {
                     while (true) {
                         var thisPos = location();
@@ -129,6 +129,9 @@ function Player(team, homeLocation, world) {
                         } else {
                             return raw(false);
                         }
+                    case 'randDir':
+                        var directions = ['up', 'down', 'left', 'right'];
+                        return raw(directions[Math.floor(Math.random()*4)]);
                     default:
                         throw new Error("Unrecognized yield function type: " + yv.type);
                 }
