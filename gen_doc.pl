@@ -1,4 +1,7 @@
 #!/usr/bin/perl
+#
+# This is my most hacked perl script ever, be warned
+#
 
 use warnings;
 use strict;
@@ -19,5 +22,21 @@ foreach(<IN>) {
 
 print OUT '].join(\'\n\')));'."\n";
 
-`node tmp.js > target/readme.html`;
+my @doc = `node tmp.js`;
 `rm tmp.js`;
+
+open(TMPL, "./target/index.tmpl.html");
+`touch ./target/index.html`;
+open(INDEX, ">./target/index.html");
+
+my @html = <TMPL>;
+
+foreach(@html){
+    if(/{{{README}}}/){
+        foreach my $v (@doc){
+            print INDEX $v;
+        }
+    } else {
+        print INDEX $_;
+    }
+}
