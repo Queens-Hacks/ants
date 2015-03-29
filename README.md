@@ -7,10 +7,12 @@ Your code runs inside each individual ant. Instruct them to find sugar and retur
 
 - Sugar:
 Sugar is that good stuff that all ants crave. Located throughout the map in multicolored mounds of 20 sugar units, it's automatically picked up by any ant who walks over it. Collect more sugar than your opponent and win!
+
 ![sugar](https://github.com/Queens-Hacks/ants/blob/master/target/sugar.png)
 
 - Home:
 Home is your ant hill. Carry sugar back here to score points. `goto(home())` is a quick way to get back there when you have `hasFood()`!
+
 ![home](https://github.com/Queens-Hacks/ants/blob/master/target/house.png)
 
 - Walls:
@@ -18,6 +20,7 @@ Walls can be dug out slowly by your ants. It takes 5 turns to destroy one wall.
 
 - Pheromones:
 Ants have poor sight but an excellent sense of smell! use `this.spray(object)` and `this.sniff()` to write and read data onto empty tiles. You can only read and write your colony's pheromones.
+
 ![trail](https://github.com/Queens-Hacks/ants/blob/master/target/Trails.png)
 
 ## Ant API and Objects
