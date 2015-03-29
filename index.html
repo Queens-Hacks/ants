@@ -45,7 +45,7 @@
 
 while (true) { // Loop forever!
     if (! hasFood()) {
-        // As long as you haven't found food yet, 
+        // As long as you haven't found food yet,
         // move in a random direction
         if (Math.random() < 0.05) { // chance of changing dir
             dir = randDir();        // to a new direction
@@ -96,6 +96,16 @@ while (true) {
         moveto(home());
     }
 }</div>
+    </div>
+
+    <div class="uploadboxes">
+      <div class="upload" id="uploadleft">
+        <input type="file" id="fileuploadleft">
+      </div>
+
+      <div class="upload" id="uploadright">
+        <input type="file" id="fileuploadright">
+      </div>
     </div>
 
     <div id="readme" class="readme">
