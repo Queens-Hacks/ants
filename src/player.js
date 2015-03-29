@@ -176,7 +176,8 @@ function Player(team, homeLocation, world) {
       });
 
       spawnCounter++;
-      if (spawnCounter > 60) {
+      var maxAnts = 5 + (world.map.getSugar(this.team)/2)
+      if (spawnCounter > 60 && this.ants.length < maxAnts) {
         this.addAnt(homeLocation.clone());
         spawnCounter = 0;
       }
