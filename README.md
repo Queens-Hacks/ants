@@ -89,9 +89,9 @@ edge or wall, false is returned and the ant won't move. This function ends a tur
     Prints debug information to your columns console
     
 ### Example
-    Using these elements, we can make some pretty interesting AIs for our ants!
+Using these elements, we can make some pretty interesting AIs for our ants!
     
-    Here's an annotated example:
+Here's an annotated example:
 
 ```javascript
 var dir = Math.random(); // random number between 0 and 1
