@@ -1,4 +1,4 @@
-# Hivep
+# Hive
 Hive is an online programming game where you write code, dig tunnels, find sugar, and build your colony!
 
 ### Game Mechanics
@@ -12,7 +12,7 @@ automatically picked up by any ant who walks over it. Collect more sugar than yo
 - Home:
 Home is your ant hill. Carry sugar back here to score points. 
 
-``` 
+```javascript
 this.goto(this.home()) 
 ``` 
 will take you here, but won't avoid walls.'
@@ -26,7 +26,7 @@ empty tiles. Spraying overwrites pheromones from your own team, but different co
  - These functions are special calls you can make into the game engine to interact with your environment! 
  - location objects have .x and .y properties. 0,0 is the top left corner, and the bottom right is 49,79. You can make new location objects with:
 
- ```
+ ```javascript
  locate = { x: = 10, y: = 22 };
  ```
  - valid direction objects are 'up', 'down', 'left', and 'right'.
@@ -36,25 +36,25 @@ empty tiles. Spraying overwrites pheromones from your own team, but different co
  This function takes in a direction string  and moves the ant in the direction. If the path is obstructed by a 
 edge or wall, false is returned and the ant won't move. This function ends a turn.
 
-    ```
+    ```javascript
     move('right');
     ```
 - dig
     This function takes in a direction string and digs in the direction, if no wall is found, false is returned. Otherwise, true. This function ends a turn.
 
-    ```
+    ```javascript
     dig('up');
     ```
 - moveDig
     This function combines the roles of move and dig. it takes in the same arguments as them, and will try to dig a wall, if no wall is found or if the wall is destroyed, then the ant will continue. This function ends a turn.
 
-    ```
+    ```javascript
     moveDig('down');
     ```
 - goto()
     This function is the easiest way to get from your current location to the point 'Point'. It zigzags there, and will dig through any walls in the way. Not very efficient!
 
-    ```
+    ```javascript
     goto(10, 22); // may take many turns!
     ```
 
@@ -70,7 +70,9 @@ edge or wall, false is returned and the ant won't move. This function ends a tur
   - look(direction)
     Returns the type of the block found in direction, relative to your current co-ordinates.
 
-    ```if(look('left')==="sugar") move('left');```
+    ```javascript
+    if(look('left')==="sugar") move('left');
+    ```
     Valid types are: 'empty','wall','sugar','home'. Returns false when looking off the edge of the sandbox.
   - foodLeft(direction)
     Returns an integer value of remaining sugar units if directed at sugar block, otherwise returns false
@@ -91,7 +93,7 @@ edge or wall, false is returned and the ant won't move. This function ends a tur
     
     Here's an annotated example:
 
-    ```
+```javascript
 var dir = Math.random(); // random number between 0 and 1
 
 while (true) {
@@ -113,5 +115,4 @@ while (true) {
         goto(home());
     }
 } // start over at top!
-
-    ```
+```
