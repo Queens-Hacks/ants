@@ -14,11 +14,11 @@ Home is your ant hill. Carry sugar back here to score points. ```this.goto(this.
 - Walls:
 Walls can be dug out slowly by your ants. It takes 5 movements to destroy one wall
 - Pheromones:
-Ants have poor sight but excelent vision! use this.spray(object) and this.sniff() to write and read data onto 
+Ants have poor sight but excellent vision! use this.spray(object) and this.sniff() to write and read data onto 
 empty tiles. Spraying overwrites pheromones from your own team, but different colonies pheromones can co-exist.
     
 ### Ant API
- - These functions are special calls you can make into the game engine to interact with your enviroment! 
+ - These functions are special calls you can make into the game engine to interact with your environment! 
  - location objects have .x and .y properties. 0,0 is the top left corner, and the bottom right is 49,79
  - valid direction objects are 'up', 'down', 'left', and 'right')
 
@@ -35,7 +35,7 @@ edge or wall, false is returned and the ant won't move. This function ends a tur
 - this.moveDig(direction)
     This function combines the roles of move and dig. it takes in the same arguments as them, and will try to dig a wall, if no wall is found or if the wall is destroyed, then the ant will continue.
 - this.goto(Point)
-    This function is the easiest way to get from your current location to the point 'Point'. It zigzays there, and will dig through any walls in the way. Not very efficient!
+    This function is the easiest way to get from your current location to the point 'Point'. It zigzags there, and will dig through any walls in the way. Not very efficient!
 
 
 ### Look around you
