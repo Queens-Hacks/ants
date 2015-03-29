@@ -40,71 +40,71 @@
     <div class="inputboxes">
       <div class="input" id="inputleft">     var t = Math.random();
 while (true) {
-  if (this.hasFood() === false) {
+  if (hasFood() === false) {
    if(Math.random()>.95) t = Math.random();
     if (t < 0.25) {
-      this.move('down');
+      move('down');
     } else if (t < 0.5) {
-      this.move('up');
+      move('up');
     } else if (t < 0.75) {
-      this.move('right');
+      move('right');
     } else {
-      this.move('left');
+      move('left');
     }
   } else {
-    //   this.goto(this.home());
-    if (this.home().x > this.location().x) {
-      this.move('right');
+    //   goto(home());
+    if (home().x > location().x) {
+      move('right');
     }
-    if (this.home().x < this.location().x) {
-      this.move('left');
+    if (home().x < location().x) {
+      move('left');
     }
-    if (this.home().y > this.location().y) {
-      this.move('down');
+    if (home().y > location().y) {
+      move('down');
     }
-    if (this.home().y < this.location().y) {
-      this.move('up');
+    if (home().y < location().y) {
+      move('up');
     }
   }
-}                                                        
+}
       </div>
       <!-- // Top Left player
 var directions = ['up', 'down', 'left', 'right'];
-    while (true) { 
+    while (true) {
 
-    if (!this.hasFood()) { // if you don't have sugar
+    if (!hasFood()) { // if you don't have sugar
         // pick a random direction
         randomIndex = Math.floor(Math.random() * 4);
         // walk or dig in that direction
-        this.move(directions[randomIndex]);
+        move(directions[randomIndex]);
     } else { // if you have sugar
-        this.goto(this.home()); // bring the sugar home
+        goto(home()); // bring the sugar home
     }
 } // do it again       -->
       <div class="input" id="inputright">while (true) {
-  if (this.hasFood() === false) {
+  if (hasFood() === false) {
     var t = Math.random();
     if (t < 0.25) {
-      this.move('down');
+      move('down');
     } else if (t < 0.5) {
-      this.move('up');
+      move('up');
     } else if (t < 0.75) {
-      this.move('right');
+      move('right');
     } else {
-      this.move('left');
+      move('left');
     }
   } else {
-    if (this.home().x > this.location().x) {
-      this.move('right');
+    if (home().x > location().x) {
+      move('right');
     }
-    if (this.home().x < this.location().x) {
-      this.move('left');
+    if (home().x < location().x) {
+      move('left');
     }
-    if (this.home().y > this.location().y) {
-      this.move('down');
+    if (home().y > location().y) {
+      move('down');
     }
-    if (this.home().y < this.location().y) {
-      this.move('up');
+    if (home().y < location().y) {
+      move('up');
     }
   }
 }
@@ -115,8 +115,6 @@ var directions = ['up', 'down', 'left', 'right'];
     <!-- Main JS script -->
     <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/ace.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/mode-javascript.js"></script>
-    <script type="text/javascript" src="/lodash.js"></script>
-    <script type="text/javascript" src="/aether.js"></script>
     <script type="text/javascript" src="/main.js"></script>
   </body>
 </html>
