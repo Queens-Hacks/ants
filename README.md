@@ -10,7 +10,12 @@ Hive is an online programming game where you write code, dig tunnels, find sugar
  Sugar is that good stuff that all ants crave. Located throughout the map in multicolored mounds of 20 sugar units, it's
 automatically picked up by any ant who walks over it. Collect more sugar than your opponent and win! 
 - Home:
-Home is your ant hill. Carry sugar back here to score points. ```this.goto(this.home())``` will take you here, but won't avoid walls.'
+Home is your ant hill. Carry sugar back here to score points. 
+
+``` 
+this.goto(this.home()) 
+``` 
+will take you here, but won't avoid walls.'
 - Walls:
 Walls can be dug out slowly by your ants. It takes 5 movements to destroy one wall
 - Pheromones:
@@ -64,6 +69,7 @@ edge or wall, false is returned and the ant won't move. This function ends a tur
     Returns a true if you are carrying food, false if ant's mouth is empty 
   - look(direction)
     Returns the type of the block found in direction, relative to your current co-ordinates.
+
     ```if(look('left')==="sugar") move('left');```
     Valid types are: 'empty','wall','sugar','home'. Returns false when looking off the edge of the sandbox.
   - foodLeft(direction)
@@ -85,7 +91,7 @@ edge or wall, false is returned and the ant won't move. This function ends a tur
     
     Here's an annotated example:
 
-    ```javascript
+    ```
 var dir = Math.random(); // random number between 0 and 1
 
 while (true) {
