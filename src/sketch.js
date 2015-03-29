@@ -1,7 +1,8 @@
-// var esprima = require('esprima');
 var regenerator = require('regenerator');
 require('regenerator/runtime');
 var recast = require('recast');
+
+var CALLS_MAX = 100;
 
 function compile(code, funcNames, prelude) {
   // console.log(prelude);
@@ -90,7 +91,7 @@ GenState.prototype.step = function() {
   // Run the generator once
   var yvw = this._next(this.nextValue);
 
-  while (true) {
+  for (var i=0; i<CALLS_MAX; i++) {
     // console.log("yvw =", yvw);
 
     var yv = yvw.value;
@@ -136,6 +137,8 @@ GenState.prototype.step = function() {
       yvw = this._next(yv);
     }
   }
+
+  throw new Error("Maximum calls per iteration exceeded. You may have an infinite loop");
 };
 
 module.exports = {
