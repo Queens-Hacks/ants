@@ -114,8 +114,8 @@ var dir = randDir();
 while (true) { // Loop forever!
     if (! hasFood()) {
         // As long as you haven't found food yet, move in a random direction
-        if (Math.random() < .5) { // 5% chance of changing dir to a new
-            dir = randDir();      // random direction
+        if (Math.random() < 0.05) { // 5% chance of changing dir to a new
+            dir = randDir();        // random direction
         }
 
         move(dir); // Move in the direction we have previously randomly generated
