@@ -34,7 +34,7 @@ function Player(team, homeLocation, world) {
         'hasFood',
         'home',
         'location',
-        'goto',
+        'wait',
         'look',
         'foodLeft'
       ]);
@@ -80,7 +80,7 @@ function Player(team, homeLocation, world) {
           return raw(homeLocation.clone());
         case 'location':
           return raw(ant.position.clone());
-        case 'goto':
+        case 'wait':
           return yld();
         case 'look':
           if (args[0] === 'up' && ant.position.y-1 > 0) {
