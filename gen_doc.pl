@@ -13,6 +13,12 @@ open(OUT, ">./tmp.js");
 print OUT "var marked = require('marked');\n";
 print OUT "marked.setOptions({gfm: true});\n";
 
+print OUT "marked.setOptions({";
+print OUT "  highlight: function (code) {";
+print OUT "    return require('highlight.js').highlightAuto(code).value;";
+print OUT "  }";
+print OUT "});";
+
 print OUT "console.log(marked( [";
 
 foreach(<IN>) {
