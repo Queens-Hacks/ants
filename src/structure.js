@@ -60,7 +60,7 @@ var Ant = function(team, position, world) {
         this.direction = direct;
         new_obj = this.world.map.map[new_y][new_x];
 
-        if(new_obj.type === 'empty' || new_obj.type === 'sugar') {
+        if(new_obj.type === 'empty' || new_obj.type === 'sugar' || new_obj.type === 'home') {
             this.position.x = new_x;
             this.position.y = new_y;
 
@@ -71,8 +71,12 @@ var Ant = function(team, position, world) {
                 if(new_obj.amount === 0) {
                     this.world.map.map[new_y][new_x] = new Empty();
                 }
+            } else if(new_obj.type === 'home' && this.hasFood === true) {
+                new_obj.stored++;
+                this.hasFood = false;
             }
-        } else {
+
+            } else {
             return false;
         }
 
@@ -108,9 +112,6 @@ var Ant = function(team, position, world) {
 
         if(new_obj.type === 'wall') {
             new_obj.strength--;
-        } else if(new_obj.type === 'home' && this.hasFood === true) {
-            new_obj.stored++;
-            this.hasFood = false;
         }
         
         if(new_obj.type === 'wall' && new_obj.strength === 0) {
