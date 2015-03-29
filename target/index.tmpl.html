@@ -45,12 +45,13 @@
 
 while (true) { // Loop forever!
     if (! hasFood()) {
-        // As long as you haven't found food yet, move in a random direction
-        if (Math.random() < 0.05) { // 5% chance of changing dir to a new
-            dir = randDir();        // random direction
+        // As long as you haven't found food yet, 
+        // move in a random direction
+        if (Math.random() < 0.05) { // chance of changing dir
+            dir = randDir();        // to a new direction
         }
 
-        move(dir); // Move in the direction we have previously randomly generated
+        move(dir); // Move in the random direction
     } else {
         // Go home with the sugar!
         moveto(home());
