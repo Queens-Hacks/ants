@@ -64,7 +64,7 @@ pausebtn.addEventListener('click', function(e) {
 });
 var restartbtn = document.getElementById("restart");
 restartbtn.addEventListener('click', function(e) {
-
+  winner = 0;
   e.preventDefault();
   sourceSupplied = false;
   gameWorld = new world.World();
