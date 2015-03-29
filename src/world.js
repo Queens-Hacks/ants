@@ -9,8 +9,8 @@ function World() {
     this.step = function() {
         this.tl.step();
         this.br.step();
-        if (this.map.getSugar('tl') > 1) return('tl');
-        if (this.map.getSugar('br') > 1) return('br');
+        if (this.map.getSugar('tl') > 50) return('tl');
+        if (this.map.getSugar('br') > 50) return('br');
 
         return 0;
     };
