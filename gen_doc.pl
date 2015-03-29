@@ -19,5 +19,5 @@ foreach(<IN>) {
 
 print OUT '].join(\'\n\')));'."\n";
 
-print `node tmp.js`;
+`node tmp.js > target/readme.html`;
 `rm tmp.js`;
