@@ -1,108 +1,108 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Ants</title>
-        <link rel="stylesheet" type="text/css" href="/styles.css">
-    </head>
-    <body>
-        <h1> <img src="LogoC.png" alt="Logo" ></h1>
-        <div class="mainview">
-            <canvas id="canvas"
-            width="800"
-            height="500"></canvas>
-            <div class="statusitem" id="tickCounter">t = 0</div>
-            <div class="statusitem" id="counts">
-                Sugar:
-                <span id="tlCount">0</span> / <span id="brCount">0</span>
-            </div>
-            <div class="statusline">
-                <a class="statusitem control" id="play">[play]</a>
-                <a class="statusitem control" id="pause">[pause]</a>
-                <a class="statusitem control" id="restart">[restart]</a>
-            </div>
-        </div>
-        <div class="logboxes">
-            <div class="logbox" id="logboxleft"></div>
-            <div class="logbox" id="logboxright"></div>
-        </div>
-        <div class="inputboxes">
-            <div class="input" id="inputleft">     var t = Math.random();
-                while (true) {
-                if (this.hasFood() === false) {
-                if(Math.random()>.95) t = Math.random();
-                if (t < 0.25) {
-                this.move('down');
-                } else if (t < 0.5) {
-                this.move('up');
-                } else if (t < 0.75) {
-                this.move('right');
-                } else {
-                this.move('left');
-                }
-                } else {
-                //   this.goto(this.home());
-                if (this.home().x > this.location().x) {
-                this.move('right');
-                }
-                if (this.home().x < this.location().x) {
-                this.move('left');
-                }
-                if (this.home().y > this.location().y) {
-                this.move('down');
-                }
-                if (this.home().y < this.location().y) {
-                this.move('up');
-                }
-                }
-                }
-            </div>
-            <!-- // Top Left player
-            var directions = ['up', 'down', 'left', 'right'];
-                while (true) {
-                if (!this.hasFood()) { // if you don't have sugar
-                    // pick a random direction
-                    randomIndex = Math.floor(Math.random() * 4);
-                    // walk or dig in that direction
-                    this.move(directions[randomIndex]);
-                } else { // if you have sugar
-                    this.goto(this.home()); // bring the sugar home
-                }
-            } // do it again       -->
-            <div class="input" id="inputright">while (true) {
-                if (this.hasFood() === false) {
-                var t = Math.random();
-                if (t < 0.25) {
-                this.move('down');
-                } else if (t < 0.5) {
-                this.move('up');
-                } else if (t < 0.75) {
-                this.move('right');
-                } else {
-                this.move('left');
-                }
-                } else {
-                if (this.home().x > this.location().x) {
-                this.move('right');
-                }
-                if (this.home().x < this.location().x) {
-                this.move('left');
-                }
-                if (this.home().y > this.location().y) {
-                this.move('down');
-                }
-                if (this.home().y < this.location().y) {
-                this.move('up');
-                }
-                }
-                }
-            </div>
-        </div>
-        <!-- Main JS script -->
-        <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/ace.js"></script>
-        <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/mode-javascript.js"></script>
-        <script type="text/javascript" src="/lodash.js"></script>
-        <script type="text/javascript" src="/aether.js"></script>
-        <script type="text/javascript" src="/main.js"></script>
-    </body>
+  <head>
+ <meta charset="utf-8" />
+    <title>Ants</title>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+  </head>
+  <body>
+    <h1> <img src="LogoC.png" alt="Logo" ></h1>
+    <div class="mainview">
+      <canvas id="canvas"
+              width="800"
+              height="500"></canvas>
+      <div class="statusitem" id="tickCounter">t = 0</div>
+      <div class="statusitem" id="counts">
+        Sugar:
+        <span id="tlCount">0</span> / <span id="brCount">0</span>
+      </div>
+      <div class="statusline">
+        <a class="statusitem control" id="play">
+          <img src="/play.png" alt="play">
+        </a>
+        <a class="statusitem control" id="pause">
+          <img src="/pause.png" alt="pause">
+        </a>
+        <a class="statusitem control" id="restart">
+          <img src="/plus.png" alt="new game">
+        </a>
+        <a class="statusitem control" id="help">
+          <img src="/qmark.png" alt="help">
+        </a>
+      </div>
+    </div>
+
+    <div class="logboxes">
+      <div class="logbox" id="logboxleft"></div>
+      <div class="logbox" id="logboxright"></div>
+    </div>
+
+    <div class="inputboxes">
+      <div class="input" id="inputleft">     var t = Math.random();
+while (true) {
+  if (this.hasFood() === false) {
+   if(Math.random()>.95) t = Math.random();
+    if (t < 0.25) {
+      this.move('down');
+    } else if (t < 0.5) {
+      this.move('up');
+    } else if (t < 0.75) {
+      this.move('right');
+    } else {
+      this.move('left');
+    }
+  } else {
+    //   this.goto(this.home());
+    if (this.home().x > this.location().x) {
+      this.move('right');
+    }
+    if (this.home().x < this.location().x) {
+      this.move('left');
+    }
+    if (this.home().y > this.location().y) {
+      this.move('down');
+    }
+    if (this.home().y < this.location().y) {
+      this.move('up');
+    }
+  }
+}                                                        
+      </div>
+      <!-- // Top Left player
+var directions = ['up', 'down', 'left', 'right'];
+    while (true) { 
+
+    if (!this.hasFood()) { // if you don't have sugar
+        // pick a random direction
+        randomIndex = Math.floor(Math.random() * 4);
+        // walk or dig in that direction
+        this.move(directions[randomIndex]);
+    } else { // if you have sugar
+        this.goto(this.home()); // bring the sugar home
+    }
+} // do it again       -->
+      <div class="input" id="inputright">
+var directions = ['up', 'down', 'left', 'right'];
+
+while (true) {
+    if (!this.hasFood()) { // if you don't have sugar
+        // pick a random direction
+        randomIndex = Math.floor(Math.random() * 4);
+        // walk or dig in that direction
+        this.move(directions[randomIndex]);
+    } else { // if you have sugar
+        this.goto(this.home()); // bring the sugar home
+    }
+} // do it again 
+      </div>
+    </div>
+
+
+    <!-- Main JS script -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/ace.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/mode-javascript.js"></script>
+    <script type="text/javascript" src="/lodash.js"></script>
+    <script type="text/javascript" src="/aether.js"></script>
+    <script type="text/javascript" src="/main.js"></script>
+  </body>
 </html>

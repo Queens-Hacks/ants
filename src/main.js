@@ -25,7 +25,8 @@ var outputright = ace.edit("logboxright");
 outputright.setTheme("ace/theme/monokai");
 outputright.setReadOnly(true);
 global.outputright = outputright;
-var paused = true;
+
+global.paused = true;
 var sourceSupplied = false;
 var gameWorld = new world.World();
 var winner = 0;
@@ -44,16 +45,17 @@ function run() {
 }
 var playbtn = document.getElementById("play");
 playbtn.addEventListener('click', function(e) {
-    if (!paused) {
-        return;
-    }
-    e.preventDefault();
-    if (!sourceSupplied) {
-        gameWorld.setSources(inputleft.getValue(), inputright.getValue());
-        sourceSupplied = true;
-    }
-    paused = false;
-    run();
+
+  if (!paused) { return; }
+  paused = false;
+
+  e.preventDefault();
+  if (!sourceSupplied) {
+    gameWorld.setSources(inputleft.getValue(), inputright.getValue());
+    sourceSupplied = true;
+  }
+
+  run();
 });
 var pausebtn = document.getElementById("pause");
 pausebtn.addEventListener('click', function(e) {
@@ -62,13 +64,20 @@ pausebtn.addEventListener('click', function(e) {
 });
 var restartbtn = document.getElementById("restart");
 restartbtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    sourceSupplied = false;
-    gameWorld = new world.World();
-    paused = true;
-    outputleft.setValue("~~ Upper Left Program Log ~~");
-    outputright.setValue("~~ Lower Right Program Log ~~");
-    display.render(gameWorld);
+
+  e.preventDefault();
+  sourceSupplied = false;
+  gameWorld = new world.World();
+  paused = true;
+  tickNum = 0;
+
+  tc.textContent = "t = " + tickNum;
+  tlcount.textContent = gameWorld.map.getSugar('tl');
+  brcount.textContent = gameWorld.map.getSugar('br');
+  outputleft.setValue("~~ Upper Left Program Log ~~");
+  outputright.setValue("~~ Lower Right Program Log ~~");
+  display.render(gameWorld);
+
 });
 display.render(gameWorld);
 outputleft.setValue("~~ Upper Left Program Log ~~");
