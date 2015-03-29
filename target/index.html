@@ -81,34 +81,20 @@ var directions = ['up', 'down', 'left', 'right'];
         this.goto(this.home()); // bring the sugar home
     }
 } // do it again       -->
-      <div class="input" id="inputright">while (true) {
-  if (this.hasFood() === false) {
-    var t = Math.random();
-    if (t < 0.25) {
-      this.move('down');
-    } else if (t < 0.5) {
-      this.move('up');
-    } else if (t < 0.75) {
-      this.move('right');
-    } else {
-      this.move('left');
+      <div class="input" id="inputright">
+var directions = ['up', 'down', 'left', 'right'];
+
+while (true) {
+    if (!this.hasFood()) { // if you don't have sugar
+        // pick a random direction
+        randomIndex = Math.floor(Math.random() * 4);
+        // walk or dig in that direction
+        this.move(directions[randomIndex]);
+    } else { // if you have sugar
+        this.goto(this.home()); // bring the sugar home
     }
-  } else {
-    if (this.home().x > this.location().x) {
-      this.move('right');
-    }
-    if (this.home().x < this.location().x) {
-      this.move('left');
-    }
-    if (this.home().y > this.location().y) {
-      this.move('down');
-    }
-    if (this.home().y < this.location().y) {
-      this.move('up');
-    }
-  }
-}
-    </div>
+} // do it again 
+      </div>
     </div>
 
 
