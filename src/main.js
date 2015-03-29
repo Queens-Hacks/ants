@@ -25,7 +25,6 @@ var outputright = ace.edit("logboxright");
 outputright.setTheme("ace/theme/monokai");
 outputright.setReadOnly(true);
 global.outputright = outputright;
-
 global.paused = true;
 var sourceSupplied = false;
 var gameWorld = new world.World();
@@ -35,9 +34,11 @@ function run() {
     if (paused) {
         return;
     }
-    if (winner === 0) winner = gameWorld.step();
+    if (winner === 0) {
+        winner = gameWorld.step();
+        tickNum++;
+    }
     display.render(gameWorld, winner);
-    tickNum++;
     tc.textContent = "t = " + tickNum;
     tlcount.textContent = gameWorld.map.getSugar('tl');
     brcount.textContent = gameWorld.map.getSugar('br');
@@ -45,17 +46,16 @@ function run() {
 }
 var playbtn = document.getElementById("play");
 playbtn.addEventListener('click', function(e) {
-
-  if (!paused) { return; }
-  paused = false;
-
-  e.preventDefault();
-  if (!sourceSupplied) {
-    gameWorld.setSources(inputleft.getValue(), inputright.getValue());
-    sourceSupplied = true;
-  }
-
-  run();
+    if (!paused) {
+        return;
+    }
+    paused = false;
+    e.preventDefault();
+    if (!sourceSupplied) {
+        gameWorld.setSources(inputleft.getValue(), inputright.getValue());
+        sourceSupplied = true;
+    }
+    run();
 });
 var pausebtn = document.getElementById("pause");
 pausebtn.addEventListener('click', function(e) {
@@ -64,20 +64,18 @@ pausebtn.addEventListener('click', function(e) {
 });
 var restartbtn = document.getElementById("restart");
 restartbtn.addEventListener('click', function(e) {
-  winner = 0;
-  e.preventDefault();
-  sourceSupplied = false;
-  gameWorld = new world.World();
-  paused = true;
-  tickNum = 0;
-
-  tc.textContent = "t = " + tickNum;
-  tlcount.textContent = gameWorld.map.getSugar('tl');
-  brcount.textContent = gameWorld.map.getSugar('br');
-  outputleft.setValue("~~ Pink Program Log ~~");
-  outputright.setValue("~~ Blue Program Log ~~");
-  display.render(gameWorld);
-
+    winner = 0;
+    e.preventDefault();
+    sourceSupplied = false;
+    gameWorld = new world.World();
+    paused = true;
+    tickNum = 0;
+    tc.textContent = "t = " + tickNum;
+    tlcount.textContent = gameWorld.map.getSugar('tl');
+    brcount.textContent = gameWorld.map.getSugar('br');
+    outputleft.setValue("~~ Pink Program Log ~~");
+    outputright.setValue("~~ Blue Program Log ~~");
+    display.render(gameWorld);
 });
 display.render(gameWorld);
 outputleft.setValue("~~ Pink Program Log ~~");
