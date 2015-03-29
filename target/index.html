@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
   <head>
+ <meta charset="utf-8" />
     <title>Ants</title>
     <link rel="stylesheet" type="text/css" href="/styles.css">
   </head>
@@ -10,7 +11,6 @@
       <canvas id="canvas"
               width="800"
               height="500"></canvas>
-
       <div class="statusitem" id="tickCounter">t = 0</div>
       <div class="statusitem" id="counts">
         Sugar:
@@ -24,7 +24,7 @@
           <img src="/pause.png" alt="pause">
         </a>
         <a class="statusitem control" id="restart">
-          <img src="/plus.png" alt="new game">
+          <img src="/up.png" alt="new game">
         </a>
         <a class="statusitem control" id="help">
           <img src="/qmark.png" alt="help">
@@ -68,10 +68,9 @@ while (true) {
   }
 }
       </div>
-      <!-- // Top Left player
-var directions = ['up', 'down', 'left', 'right'];
-    while (true) {
+      <div class="input" id="inputright">var directions = ['up', 'down', 'left', 'right'];
 
+while (true) {
     if (!hasFood()) { // if you don't have sugar
         // pick a random direction
         randomIndex = Math.floor(Math.random() * 4);
@@ -80,35 +79,8 @@ var directions = ['up', 'down', 'left', 'right'];
     } else { // if you have sugar
         goto(home()); // bring the sugar home
     }
-} // do it again       -->
-      <div class="input" id="inputright">while (true) {
-  if (hasFood() === false) {
-    var t = Math.random();
-    if (t < 0.25) {
-      move('down');
-    } else if (t < 0.5) {
-      move('up');
-    } else if (t < 0.75) {
-      move('right');
-    } else {
-      move('left');
-    }
-  } else {
-    if (home().x > location().x) {
-      move('right');
-    }
-    if (home().x < location().x) {
-      move('left');
-    }
-    if (home().y > location().y) {
-      move('down');
-    }
-    if (home().y < location().y) {
-      move('up');
-    }
-  }
-}
-    </div>
+} // do it again
+      </div>
     </div>
 
 

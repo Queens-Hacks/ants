@@ -9,9 +9,10 @@ function World() {
     this.step = function() {
         this.tl.step();
         this.br.step();
-        if (this.map.getSugar('tl') > 50) alert("team left wins!");
-        if (this.map.getSugar('br') > 50) alert("team right wins!");
-        
+        if (this.map.getSugar('tl') > 50) return('tl');
+        if (this.map.getSugar('br') > 50) return('br');
+
+        return 0;
     };
     this.setSources = function(tlSource, brSource) {
         this.tl.setSource(tlSource);

@@ -22,6 +22,7 @@ module.exports = (function() {
         width = canvas.getAttribute('width');
         height = canvas.getAttribute('height');
         this.scale = 10;
+        this.paradeStep = 0;
         this.context = canvas.getContext('2d');
         this.then = +Date.now();
         this.paused = false;
@@ -111,13 +112,13 @@ module.exports = (function() {
             var xpos = function(x, y) {
                 if (facing == 'right') return (9 - x);
                 else if (facing == 'left') return (x);
-                else if (facing == 'down') return (9-y);
+                else if (facing == 'down') return (9 - y);
                 else return (y);
             };
             var ypos = function(x, y) {
                 if (facing == 'right') return (y);
                 else if (facing == 'left') return (y);
-                else if (facing == 'down') return (9-x);
+                else if (facing == 'down') return (9 - x);
                 else return (x);
             };
             for (var sx = 0; sx < 10; sx++) {
@@ -131,7 +132,56 @@ module.exports = (function() {
                 }
             }
         },
-        render: function(world) {
+        parade: function(Ant) {
+            if (Ant.team == 'br') {
+                color1 = husl.p.toRGB(188, 100, 66);
+            } else {
+                color1 = husl.p.toRGB(355, 100, 66);
+            }
+            color2 = husl.p.toRGB(Math.random() * 360, 75, 75);
+            var facing = Math.floor(this.paradeStep / 50) % 4;
+            var x = (Ant.position.x + (2 * this.paradeStep) + Math.floor(Math.sin(this.paradeStep / 2) * 5)) % 80;
+            var y = (Ant.position.y + 2 * this.paradeStep) % 50;
+            var sprite = AntSprite;
+            var xpos = function(x, y) {
+                if (facing == 0) return (9 - x);
+                else if (facing == 2) return (x);
+                else if (facing == 3) return (9 - y);
+                else return (y);
+            };
+            var ypos = function(x, y) {
+                if (facing == 0) return (y);
+                else if (facing == 2) return (y);
+                else if (facing == 3) return (9 - x);
+                else return (x);
+            };
+            for (var sx = 0; sx < 20; sx++) {
+                for (var sy = 0; sy < 20; sy++) {
+                    var i = ((((y * 10) + sy) * width) + ((x * 10) + sx)) * 4;
+                    if (sprite[xpos((sx / 2) | 0, (sy / 2) | 0) + (10 * ypos((sx / 2) | 0, (sy / 2) | 0))] > 0) {
+                        this.WritePixel(i, color1);
+                    } else this.WritePixel(i, color2);
+                }
+            }
+        },
+        render: function(world, winner) {
+            if (winner === 'br' || winner === 'tl' ) {
+                this.context.fillStyle = "white";
+                this.context.font = "bold 46px Arial";
+                if (winner == 'br') {
+                    txt = "BOTTOM RIGHT";
+                    winnerAnts = world.br.ants;
+                } else {
+                    txt = "TOP LEFT";
+                    winnerAnts = world.tl.ants;
+                }
+                this.context.fillText("WINNER " + txt, 175, 250);
+                this.imageData = this.context.getImageData(0, 0, width, height);
+                winnerAnts.forEach(this.parade.bind(this));
+                this.paradeStep++;
+                this.context.putImageData(this.imageData, 0, 0);
+                return;
+            }
             // Fill it all with BLACK (paint it black)
             // console.log(
             this.context.fillStyle = husl.p.toHex(40, 60, 24).toString(16); //'#ffffff'//husl.p.toHex(40, 60, 2); ////+offset.toString(16);

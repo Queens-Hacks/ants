@@ -1,11 +1,13 @@
 body {
     background-color: #D0ECEA;
     font-family: helvetica, sans-serif;
-}
+    background-image: url("bgAlpha.png");
 
+}
 .mainview {
     /* The border around the main program */
-    width: 800px;
+
+width: 800px;
     padding: 30px 30px 6px;
     background-color: #333;
     border-top-left-radius: 20px;
@@ -13,80 +15,66 @@ body {
     margin: 0px auto;
     box-shadow: inset 0 0 30px #444;
 }
-
 .statusline {
     text-align: center;
 }
-
 #tickCounter {
     float: left;
     width: 150px;
 }
-
 #counts {
     float: right;
     width: 150px;
     text-align: right;
 }
-
 .statusitem {
     display: inline-block;
     color: #fff;
     font-size: 16px;
     margin-top: 5px;
 }
-
 .control {
-    margin-top: 7px;
+    margin-top: 0px;
     margin-bottom: 0px;
     color: #66f;
     text-align: center;
     cursor: pointer;
 }
-
 .control:hover {
     color: #99f;
 }
-
 h1 {
     text-align: center;
     margin: 0px 0px 5px;
     color: #3B0819;
 }
-
 .inputboxes, .logboxes {
     margin: 0px auto;
     width: 1000px;
     background-color: #3a3a3a;
 }
-
 .inputboxes {
     height: 400px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-
 .logboxes {
     height: 50px;
     padding-bottom: 10px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
-
 .logbox {
     display: inline-block;
     height: 50px;
 }
-
 .logbox .ace_cursor-layer, .logbox .ace_active-line {
     visibility: hidden;
 }
-
 .input {
     display: inline-block;
     height: 400px;
 }
-
 #logboxleft {
     width: 495px;
     float: left;
@@ -97,7 +85,6 @@ h1 {
     float: right;
     border-top-right-radius: 20px;
 }
-
 #inputleft {
     width: 495px;
     float: left;
