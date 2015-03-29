@@ -11,7 +11,7 @@ Sugar is that good stuff that all ants crave. Located throughout the map in mult
 ![sugar](/target/sugar.png)
 
 - Home:
-Home is your ant hill. Carry sugar back here to score points. `goto(home())` is a quick way to get back there when you have `hasFood()`!
+Home is your ant hill. Carry sugar back here to score points. `moveto(home())` is a quick way to get back there when you have `hasFood()`!
 
 ![home](/target/house.png)
 
@@ -62,11 +62,11 @@ move('down');
 - `wait()`
 Wait for a turn, doing nothing.
 
-- `goto(location)`
+- `moveto(location)`
 Takes a location vector, and moves the ant to that location. It first travels along the `x` axis, followed by the `y` axis. It will dig out any blocks which are in the way.
 
 ```javascript
-goto(Vec(10, 22));
+moveto(Vec(10, 22));
 ```
 
 #### Look around you
@@ -121,7 +121,7 @@ while (true) { // Loop forever!
         move(dir); // Move in the direction we have previously randomly generated
     } else {
         // Go home with the sugar!
-        goto(home());
+        moveto(home());
     }
 }
 ```
