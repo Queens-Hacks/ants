@@ -103,6 +103,15 @@ h1 {
     font-weight: bold;
 }
 
+#tlExtra {
+    color: #d24451;
+    font-weight: bold;
+}
+#brExtra {
+    color: #4c7d96;
+    font-weight: bold;
+}
+
 .readme {
     background-color: #fff;
     width: 960px;
