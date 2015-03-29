@@ -74,11 +74,11 @@ restartbtn.addEventListener('click', function(e) {
   tc.textContent = "t = " + tickNum;
   tlcount.textContent = gameWorld.map.getSugar('tl');
   brcount.textContent = gameWorld.map.getSugar('br');
-  outputleft.setValue("~~ Upper Left Program Log ~~");
-  outputright.setValue("~~ Lower Right Program Log ~~");
+  outputleft.setValue("~~ Pink Program Log ~~");
+  outputright.setValue("~~ Blue Program Log ~~");
   display.render(gameWorld);
 
 });
 display.render(gameWorld);
-outputleft.setValue("~~ Upper Left Program Log ~~");
-outputright.setValue("~~ Lower Right Program Log ~~");
+outputleft.setValue("~~ Pink Program Log ~~");
+outputright.setValue("~~ Blue Program Log ~~");

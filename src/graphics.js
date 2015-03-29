@@ -16,6 +16,18 @@ module.exports = (function() {
         0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
         0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
     ];
+    var HillSprite =
+       [0, 0, 0, 0, 1, 1, 0, 1, 0, 0,
+        0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
+        0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
+        0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
+        1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
+        0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
+        0, 0, 1, 1, 0, 0, 1, 1, 0, 0,
+        0, 0, 1, 1, 0, 0, 1, 1, 0, 0,
+        0, 0, 1, 1, 0, 0, 1, 1, 0, 0,
+    ];
 
     function Display(canvas) {
         this.canvas = canvas;
@@ -85,9 +97,7 @@ module.exports = (function() {
                     for (var sx = 0; sx < 10; sx++) {
                         for (var sy = 0; sy < 10; sy++) {
                             var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
-                            if ((2.5 - Math.sqrt(Math.abs(sx - 4.5) * Math.abs(sy - 4.5))) < 0) {
-                                this.WritePixel(i, color);
-                            }
+                            if (HillSprite[sx + (10 * sy)] > 0) this.WritePixel(i, color);
                         }
                     }
                     break;
@@ -165,7 +175,7 @@ module.exports = (function() {
             }
         },
         render: function(world, winner) {
-            if (winner === 'br' || winner === 'tl' ) {
+            if (winner === 'br' || winner === 'tl') {
                 this.context.fillStyle = "white";
                 this.context.font = "bold 46px Arial";
                 if (winner == 'br') {
