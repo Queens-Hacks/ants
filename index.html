@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+  <head>
+ <meta charset="utf-8" />
+    <title>Hive</title>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/monokai.min.css">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+  </head>
+  <body>
+    <a href="https://github.com/Queens-Hacks/ants"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+    <h1> <img src="LogoC.png" alt="Logo" ></h1>
+    <div class="mainview">
+      <canvas id="canvas"
+              width="800"
+              height="500"></canvas>
+      <div class="statusitem" id="tickCounter">t = 0</div>
+      <div class="statusitem" id="counts">
+        Sugar:
+        <span id="tlCount">0</span> / <span id="brCount">0</span>
+      </div>
+      <div class="statusline">
+        <a class="statusitem control" id="play">
+          <img src="/play.png" alt="play">
+        </a>
+        <a class="statusitem control" id="pause">
+          <img src="/pause.png" alt="pause">
+        </a>
+        <a class="statusitem control" id="restart">
+          <img src="/up.png" alt="new game">
+        </a>
+        <a class="statusitem control" id="help" href="#readme">
+          <img src="/qmark.png" alt="help">
+        </a>
+      </div>
+    </div>
+
+    <div class="logboxes">
+      <div class="logbox" id="logboxleft"></div>
+      <div class="logbox" id="logboxright"></div>
+    </div>
+
+    <div class="inputboxes">
+      <div class="input" id="inputleft">     var t = Math.random();
+while (true) {
+  if (hasFood() === false) {
+   if(Math.random()>.95) t = Math.random();
+    if (t < 0.25) {
+      move('down');
+    } else if (t < 0.5) {
+      move('up');
+    } else if (t < 0.75) {
+      move('right');
+    } else {
+      move('left');
+    }
+  } else {
+    //   goto(home());
+    if (home().x > location().x) {
+      move('right');
+    }
+    if (home().x < location().x) {
+      move('left');
+    }
+    if (home().y > location().y) {
+      move('down');
+    }
+    if (home().y < location().y) {
+      move('up');
+    }
+  }
+}
+      </div>
+      <div class="input" id="inputright">var directions = ['up', 'down', 'left', 'right'];
+
+while (true) {
+    if (!hasFood()) { // if you don't have sugar
+        // pick a random direction
+        randomIndex = Math.floor(Math.random() * 4);
+        // walk or dig in that direction
+        move(directions[randomIndex]);
+    } else { // if you have sugar
+        goto(home()); // bring the sugar home
+    }
+} // do it again
+      </div>
+    </div>
+
+    <div id="readme" class="readme">
+      <!-- <a name="readme" style="visibility: hidden;">Readme</a> -->
+<h1 id="hive">Hive</h1>
+<p>Hive is an online programming game where you write code, dig tunnels, find sugar, and build your colony!</p>
+<h2 id="game-mechanics">Game Mechanics</h2>
+<ul>
+<li><p>Ants:
+Your code runs inside each individual ant. Instruct them to find sugar and return it to the Hive in order to feed your colony and score points! However, ants have a poor sense of sight and cannot see further than one tile away. Ants dig through walls and carry sugar.</p>
+</li>
+<li><p>Sugar:
+Sugar is that good stuff that all ants crave. Located throughout the map in multicolored mounds of 20 sugar units, it&#39;s automatically picked up by any ant who walks over it. Collect more sugar than your opponent and win!</p>
+</li>
+<li><p>Home:
+Home is your ant hill. Carry sugar back here to score points. <code>goto(home())</code> is a quick way to get back there when you have <code>hasFood()</code>!</p>
+</li>
+<li><p>Walls:
+Walls can be dug out slowly by your ants. It takes 5 turns to destroy one wall.</p>
+</li>
+<li><p>Pheromones:
+Ants have poor sight but an excellent sense of smell! use <code>this.spray(object)</code> and <code>this.sniff()</code> to write and read data onto empty tiles. You can only read and write your colony&#39;s pheromones.</p>
+</li>
+</ul>
+<h2 id="ant-api-and-objects">Ant API and Objects</h2>
+<p>To interact with the environment, the ant must perform special operations. These are defined by the Ant API, which is documented below.</p>
+<h3 id="important-objects">Important Objects</h3>
+<h4 id="vectors">Vectors</h4>
+<p>A vector object consists of two properties, an <code>x</code> point, and a <code>y</code> point. It is created by calling the <code>Vec(x, y)</code> function.</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> destination = <span class="hljs-literal">Vec</span>(5, 10);
+</code></pre>
+<p>There are some utility functions defined on <code>Vec</code> objects. These are defined below:</p>
+<ul>
+<li><code>vec.norm()</code>
+Returns the magnitude of the vector.</li>
+<li><code>vec.add(vec2)</code>
+Returns a vector containing the sum of <code>vec</code> and <code>vec2</code></li>
+<li><code>vec.sub(vec2)</code>
+Returns a vector containing <code>vec - vec2</code></li>
+<li><code>vec.scale(scalar)</code>
+Returns a the vector <code>vec</code>, scaled by the scalar <code>scalar</code></li>
+<li><code>vec.dot(vec2)</code>
+Returns the dot product of <code>vec</code> and <code>vec2</code></li>
+<li><code>vec.clone()</code>
+Returns a copy of the vector <code>vec</code></li>
+</ul>
+<h4 id="directions">Directions</h4>
+<p>Directions in the API are represented as strings. They can take one of the following values:
+<code>&#39;up&#39;</code>, <code>&#39;down&#39;</code>, <code>&#39;left&#39;</code>, <code>&#39;right&#39;</code>, <code>&#39;here&#39;</code>.</p>
+<h3 id="useful-functions">Useful Functions</h3>
+<h4 id="getting-around">Getting around</h4>
+<ul>
+<li><code>move(direction)</code>
+Takes a direction string, and moves the ant in that direction. If the path is obstructed by an edge of wall, false is returned, and the wall is dug. This function ends a turn.</li>
+</ul>
+<pre><code class="lang-javascript"><span class="hljs-keyword">move</span>(<span class="hljs-string">'down'</span>);
+</code></pre>
+<ul>
+<li><p><code>wait()</code>
+Wait for a turn, doing nothing.</p>
+</li>
+<li><p><code>goto(location)</code>
+Takes a location vector, and moves the ant to that location. It first travels along the <code>x</code> axis, followed by the <code>y</code> axis. It will dig out any blocks which are in the way.</p>
+</li>
+</ul>
+<pre><code class="lang-javascript"><span class="hljs-keyword">goto</span><span class="hljs-comment">(Vec(10, 22)</span>);
+</code></pre>
+<h4 id="look-around-you">Look around you</h4>
+<ul>
+<li><code>getTeam()</code>
+Returns your current team, as the string <code>&#39;pink&#39;</code> (upper left corner) or <code>&#39;blue&#39;</code> (lower right corner).</li>
+<li><code>location()</code>
+Returns the ant&#39;s location, as a vector.</li>
+<li><code>home()</code>
+Returns your ant hill&#39;s location, as a vector.</li>
+<li><code>hasFood()</code>
+Returns a <code>true</code> if you are carrying food, and <code>false</code> if your ant&#39;s mouth is empty.</li>
+<li><code>look(direction)</code>
+Returns the type of the block found in direction, relative to your current co-ordinates.<pre><code class="lang-javascript"><span class="hljs-keyword">if</span>(look(<span class="hljs-string">'left'</span>) === <span class="hljs-string">'sugar'</span>)
+  <span class="hljs-keyword">move</span>(<span class="hljs-string">'left'</span>);
+</code></pre>
+Valid return values are: <code>[&#39;empty&#39;, &#39;wall&#39;, &#39;sugar&#39;, &#39;home&#39;, false]</code>. <code>false</code> is returned when looking off the edge of the sandbox.</li>
+<li><code>foodLeft(direction)</code>
+Returns the number of sugar units still remaining at the sugar block in the direction specified by the passed-in direction string.</li>
+</ul>
+<h4 id="spray-n-sniff">Spray n&#39; Sniff</h4>
+<ul>
+<li><code>spray(pheromone)</code>
+Writes a pheromone to the ant&#39;s current location. The pheromone must be valid JSON data.
+If there is currently a pheromone at that location, it is overridden.</li>
+<li><code>sniff()</code>
+Returns the pheromone at the ant&#39;s current location, if any. If there is no pheromone, returns <code>null</code>.</li>
+</ul>
+<h4 id="utility">Utility</h4>
+<ul>
+<li><code>randDir()</code>
+Generate a random direction string out of <code>&#39;up&#39;</code>, <code>&#39;down&#39;</code>, <code>&#39;left&#39;</code>, and <code>&#39;right&#39;</code>.</li>
+</ul>
+<h4 id="debugging">Debugging</h4>
+<ul>
+<li><code>log(message...)</code>
+Print the message passed in to the debug console (located above the source code).</li>
+</ul>
+<h2 id="example-script">Example Script</h2>
+<p>Using these elements, we can make some pretty interesting AIs for our ants!</p>
+<p>Here&#39;s an annotated example of a script which wanders somewhat randomly throughout the environment, going home if it discovers food:</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> <span class="hljs-keyword">dir</span> = randDir();
+
+<span class="hljs-keyword">while</span> (true) { <span class="hljs-comment">// Loop forever!</span>
+    <span class="hljs-keyword">if</span> (! hasFood()) {
+        <span class="hljs-comment">// As long as you haven't found food yet, move in a random direction</span>
+        <span class="hljs-keyword">if</span> (Math.random() &lt; .5) { <span class="hljs-comment">// 5% chance of changing dir to a new</span>
+            <span class="hljs-keyword">dir</span> = randDir();      <span class="hljs-comment">// random direction</span>
+        }
+
+        <span class="hljs-keyword">move</span>(<span class="hljs-keyword">dir</span>); <span class="hljs-comment">// Move in the direction we have previously randomly generated</span>
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// Go home with the sugar!</span>
+        goto(home());
+    }
+}
+</code></pre>
+<p>Of course, there is a ton more interesting stuff you can do, once you start bringing in memory, pheromones, and more!</p>
+<p>Experiment, and play with the scripts to make the best ant colony possible.</p>
+
+    </div>
+
+    <!-- Main JS script -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/ace.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/ace/1.1.8/min/mode-javascript.js"></script>
+    <script type="text/javascript" src="/main.js"></script>
+  </body>
+</html>
