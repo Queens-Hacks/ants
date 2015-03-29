@@ -16,8 +16,7 @@ module.exports = (function() {
         0, 0, 1, 0, 1, 0, 1, 0, 0, 0,
         0, 1, 0, 0, 1, 0, 0, 1, 0, 0,
     ];
-    var HillSprite =
-       [0, 0, 0, 0, 1, 1, 0, 1, 0, 0,
+    var HillSprite = [0, 0, 0, 0, 1, 1, 0, 1, 0, 0,
         0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
         0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
         0, 1, 1, 1, 1, 1, 1, 1, 1, 0,
@@ -189,8 +188,10 @@ module.exports = (function() {
                 this.imageData = this.context.getImageData(0, 0, width, height);
                 winnerAnts.forEach(this.parade.bind(this));
                 this.paradeStep++;
-                if(this.paradeStep==30)
-                  paused = true;
+                if (this.paradeStep == 30) {
+                    this.paradeStep = 0;
+                    paused = true;
+                }
                 this.context.putImageData(this.imageData, 0, 0);
                 return;
             }
