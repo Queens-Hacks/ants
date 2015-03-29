@@ -189,7 +189,7 @@ module.exports = (function() {
                 this.imageData = this.context.getImageData(0, 0, width, height);
                 winnerAnts.forEach(this.parade.bind(this));
                 this.paradeStep++;
-                if(this.paradeStep==100)
+                if(this.paradeStep==30)
                   paused = true;
                 this.context.putImageData(this.imageData, 0, 0);
                 return;

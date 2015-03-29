@@ -157,8 +157,8 @@ function Player(team, homeLocation, world) {
                 }
             });
             spawnCounter++;
-            var maxAnts = 5 + (world.map.getSugar(this.team) / 2);
-            if (spawnCounter > 60 && this.ants.length < maxAnts) {
+            var maxAnts = 5 + (world.map.getSugar(this.team) / 3);
+            if (spawnCounter > 100 && this.ants.length < maxAnts) {
                 this.addAnt(homeLocation.clone());
                 spawnCounter = 0;
             }
