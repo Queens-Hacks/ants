@@ -40,48 +40,39 @@
     </div>
 
     <div class="inputboxes">
-      <div class="input" id="inputleft">     var t = Math.random();
-while (true) {
-  if (hasFood() === false) {
-   if(Math.random()>.95) t = Math.random();
-    if (t < 0.25) {
-      move('down');
-    } else if (t < 0.5) {
-      move('up');
-    } else if (t < 0.75) {
-      move('right');
+      <div class="input" id="inputleft">
+var dir = randDir();
+
+while (true) { // Loop forever!
+    if (! hasFood()) {
+        // As long as you haven't found food yet, move in a random direction
+        if (Math.random() < .5) { // 5% chance of changing dir to a new
+            dir = randDir();      // random direction
+        }
+
+        move(dir); // Move in the direction we have previously randomly generated
     } else {
-      move('left');
+        // Go home with the sugar!
+        goto(home());
     }
-  } else {
-    //   goto(home());
-    if (home().x > location().x) {
-      move('right');
-    }
-    if (home().x < location().x) {
-      move('left');
-    }
-    if (home().y > location().y) {
-      move('down');
-    }
-    if (home().y < location().y) {
-      move('up');
-    }
-  }
 }
       </div>
-      <div class="input" id="inputright">var directions = ['up', 'down', 'left', 'right'];
+      <div class="input" id="inputright">
+var dir = randDir();
 
-while (true) {
-    if (!hasFood()) { // if you don't have sugar
-        // pick a random direction
-        randomIndex = Math.floor(Math.random() * 4);
-        // walk or dig in that direction
-        move(directions[randomIndex]);
-    } else { // if you have sugar
-        goto(home()); // bring the sugar home
+while (true) { // Loop forever!
+    if (! hasFood()) {
+        // As long as you haven't found food yet, move in a random direction
+        if (Math.random() < .5) { // 5% chance of changing dir to a new
+            dir = randDir();      // random direction
+        }
+
+        move(dir); // Move in the direction we have previously randomly generated
+    } else {
+        // Go home with the sugar!
+        goto(home());
     }
-} // do it again
+}
       </div>
     </div>
 
