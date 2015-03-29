@@ -23,7 +23,7 @@ function Player(team, homeLocation, world) {
   this.setSource = function(source) {
     try {
       var compiled = sketch.compile(source, ['dig', 'move', 'getTeam', 'log', 'sniff', 'spray', 'hasFood', 'home', 'location', 'wait', 'look', 'foodLeft', 'randDir', 'Vec'], (function() {
-        function goto(target) {
+        function moveto(target) {
           while (true) {
             var thisPos = location();
             if (target.x < thisPos.x) {
