@@ -19,11 +19,11 @@ width: 800px;
 }
 #tickCounter {
     float: left;
-    width: 150px;
+    width: 300px;
 }
 #counts {
     float: right;
-    width: 150px;
+    width: 300px;
     text-align: right;
 }
 .statusitem {
