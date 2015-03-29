@@ -71,7 +71,8 @@ var Ant = function(team, position, world) {
                 if(new_obj.amount === 0) {
                     this.world.map.map[new_y][new_x] = new Empty();
                 }
-            } else if(new_obj.type === 'home' && this.hasFood === true) {
+            } else if(new_obj.type === 'home' && this.hasFood === true 
+                      && new_obj.team === this.team) {
                 new_obj.stored++;
                 this.hasFood = false;
             }
