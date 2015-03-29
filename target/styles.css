@@ -102,3 +102,23 @@ h1 {
     color: #4c7d96;
     font-weight: bold;
 }
+
+.readme {
+    background-color: #fff;
+    width: 960px;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+pre {
+    background-color: #272822;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 20px;
+    border: #ccc 2px solid;
+}
+.c{color: #A6E22E ;}
+.n{color: #ffffff ;}
+.k{color: #F92672 ;}
+.s{color: #FD971F ;}
