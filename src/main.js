@@ -80,3 +80,28 @@ restartbtn.addEventListener('click', function(e) {
 display.render(gameWorld);
 outputleft.setValue("~~ Pink Program Log ~~");
 outputright.setValue("~~ Blue Program Log ~~");
+
+
+var fileuploadleft = document.getElementById("fileuploadleft");
+fileuploadleft.addEventListener('change', function(e) {
+  var files = e.target.files; // FileList object
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    inputleft.setValue(e.target.result);
+  };
+
+  reader.readAsText(files[0]);
+});
+
+var fileuploadright = document.getElementById("fileuploadright");
+fileuploadright.addEventListener('change', function(e) {
+  var files = e.target.files; // FileList object
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    inputright.setValue(e.target.result);
+  };
+
+  reader.readAsText(files[0]);
+});

@@ -47,21 +47,40 @@ h1 {
     margin: 0px 0px 5px;
     color: #3B0819;
 }
-.inputboxes, .logboxes {
+.inputboxes, .logboxes, .uploadboxes {
     margin: 0px auto;
     width: 1000px;
     background-color: #3a3a3a;
 }
 .inputboxes {
     height: 400px;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
 }
 .logboxes {
     height: 50px;
     padding-bottom: 10px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+}
+.uploadboxes {
+    height: 30px;
+    padding-top: 10px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.upload {
+    color: #fff;
+    display: inline-block;
+    /* height: 50px; */
+    text-align: center;
+}
+
+#uploadleft {
+    width: 495px;
+    float: left;
+}
+#uploadright {
+    width: 495px;
+    float: right;
 }
 .logbox {
     display: inline-block;
@@ -87,12 +106,12 @@ h1 {
 #inputleft {
     width: 495px;
     float: left;
-    border-bottom-left-radius: 20px;
+    /* border-bottom-left-radius: 20px; */
 }
 #inputright {
     width: 495px;
     float: right;
-    border-bottom-right-radius: 20px;
+    /* border-bottom-right-radius: 20px; */
 }
 #tlCount {
     color: #d24451;
