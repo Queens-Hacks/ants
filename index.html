@@ -40,40 +40,36 @@
     </div>
 
     <div class="inputboxes">
-      <div class="input" id="inputleft">
-var dir = randDir();
+      <div class="input" id="inputleft">var dir = randDir();
 
 while (true) { // Loop forever!
     if (! hasFood()) {
         // As long as you haven't found food yet, move in a random direction
-        if (Math.random() < .5) { // 5% chance of changing dir to a new
-            dir = randDir();      // random direction
+        if (Math.random() < 0.05) { // 5% chance of changing dir to a new
+            dir = randDir();        // random direction
         }
 
         move(dir); // Move in the direction we have previously randomly generated
     } else {
         // Go home with the sugar!
-        goto(home());
+        moveto(home());
     }
-}
-      </div>
-      <div class="input" id="inputright">
-var dir = randDir();
+}</div>
+      <div class="input" id="inputright">var dir = randDir();
 
 while (true) { // Loop forever!
     if (! hasFood()) {
         // As long as you haven't found food yet, move in a random direction
-        if (Math.random() < .5) { // 5% chance of changing dir to a new
-            dir = randDir();      // random direction
+        if (Math.random() < 0.05) { // 5% chance of changing dir to a new
+            dir = randDir();        // random direction
         }
 
         move(dir); // Move in the direction we have previously randomly generated
     } else {
         // Go home with the sugar!
-        goto(home());
+        moveto(home());
     }
-}
-      </div>
+}</div>
     </div>
 
     <div id="readme" class="readme">
@@ -191,8 +187,8 @@ Print the message passed in to the debug console (located above the source code)
 <span class="hljs-keyword">while</span> (true) { <span class="hljs-comment">// Loop forever!</span>
     <span class="hljs-keyword">if</span> (! hasFood()) {
         <span class="hljs-comment">// As long as you haven't found food yet, move in a random direction</span>
-        <span class="hljs-keyword">if</span> (Math.random() &lt; .5) { <span class="hljs-comment">// 5% chance of changing dir to a new</span>
-            <span class="hljs-keyword">dir</span> = randDir();      <span class="hljs-comment">// random direction</span>
+        <span class="hljs-keyword">if</span> (Math.random() &lt; 0.05) { <span class="hljs-comment">// 5% chance of changing dir to a new</span>
+            <span class="hljs-keyword">dir</span> = randDir();        <span class="hljs-comment">// random direction</span>
         }
 
         <span class="hljs-keyword">move</span>(<span class="hljs-keyword">dir</span>); <span class="hljs-comment">// Move in the direction we have previously randomly generated</span>
