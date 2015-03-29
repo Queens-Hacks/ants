@@ -2,7 +2,6 @@ body {
     background-color: #D0ECEA;
     font-family: helvetica, sans-serif;
     background-image: url("bgAlpha.png");
-
 }
 .mainview {
     /* The border around the main program */
@@ -94,4 +93,12 @@ h1 {
     width: 495px;
     float: right;
     border-bottom-right-radius: 20px;
+}
+#tlCount {
+    color: #d24451;
+    font-weight: bold;
+}
+#brCount {
+    color: #4c7d96;
+    font-weight: bold;
 }
