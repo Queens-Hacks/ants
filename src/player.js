@@ -25,7 +25,6 @@ function Player(team, homeLocation, world) {
   this.setSource = function(source) {
     try {
       var compiled = sketch.compile(source, [
-        'dig',
         'move',
         'getTeam',
         'log',
@@ -69,8 +68,6 @@ function Player(team, homeLocation, world) {
       ant.genState = new sketch.GenState(compiled, function(yv, yld, raw) {
         var args = yv.args;
         switch (yv.type) {
-        case 'dig':
-          return yld(ant.dig(args[0]));
         case 'move':
           if (! ant.move(args[0])) {
             return yld(ant.dig(args[0]));

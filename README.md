@@ -1,118 +1,125 @@
 # Hive
 Hive is an online programming game where you write code, dig tunnels, find sugar, and build your colony!
 
-### Game Mechanics
+## Game Mechanics
 - Ants:
-    Your code runs inside each individual ant. Instruct them to find sugar and return it to the Hive in order to feed your colony
-    and score points! However, ants have a poor sense of sight and cannot see further than one tile away. 
-    Ants dig through walls and carry sugar.
-- Sugar: 
- Sugar is that good stuff that all ants crave. Located throughout the map in multicolored mounds of 20 sugar units, it's
-automatically picked up by any ant who walks over it. Collect more sugar than your opponent and win! 
+Your code runs inside each individual ant. Instruct them to find sugar and return it to the Hive in order to feed your colony and score points! However, ants have a poor sense of sight and cannot see further than one tile away. Ants dig through walls and carry sugar.
+
+- Sugar:
+Sugar is that good stuff that all ants crave. Located throughout the map in multicolored mounds of 20 sugar units, it's automatically picked up by any ant who walks over it. Collect more sugar than your opponent and win!
+
 - Home:
-Home is your ant hill. Carry sugar back here to score points. 
+Home is your ant hill. Carry sugar back here to score points. `goto(home())` is a quick way to get back there when you have `hasFood()`!
 
-```javascript
-this.goto(this.home()) 
-``` 
-will take you here, but won't avoid walls.'
 - Walls:
-Walls can be dug out slowly by your ants. It takes 5 movements to destroy one wall
+Walls can be dug out slowly by your ants. It takes 5 turns to destroy one wall.
+
 - Pheromones:
-Ants have poor sight but excellent vision! use this.spray(object) and this.sniff() to write and read data onto 
-empty tiles. Spraying overwrites pheromones from your own team, but different colonies pheromones can co-exist.
-    
-### Ant API
- - These functions are special calls you can make into the game engine to interact with your environment! 
- - location objects have .x and .y properties. 0,0 is the top left corner, and the bottom right is 49,79. You can make new location objects with:
+Ants have poor sight but an excellent sense of smell! use `this.spray(object)` and `this.sniff()` to write and read data onto empty tiles. You can only read and write your colony's pheromones.
 
- ```javascript
- locate = { x: = 10, y: = 22 };
- ```
- - valid direction objects are 'up', 'down', 'left', and 'right'.
+## Ant API and Objects
+To interact with the environment, the ant must perform special operations. These are defined by the Ant API, which is documented below.
 
-### Getting around
-- move
- This function takes in a direction string  and moves the ant in the direction. If the path is obstructed by a 
-edge or wall, false is returned and the ant won't move. This function ends a turn.
+### Important Objects
+#### Vectors
+A vector object consists of two properties, an `x` point, and a `y` point. It is created by calling the `Vec(x, y)` function.
+```javascript
+var destination = Vec(5, 10);
+```
+There are some utility functions defined on `Vec` objects. These are defined below:
+- `vec.norm()`
+Returns the magnitude of the vector.
+- `vec.add(vec2)`
+Returns a vector containing the sum of `vec` and `vec2`
+- `vec.sub(vec2)`
+Returns a vector containing `vec - vec2`
+- `vec.scale(scalar)`
+Returns a the vector `vec`, scaled by the scalar `scalar`
+- `vec.dot(vec2)`
+Returns the dot product of `vec` and `vec2`
+- `vec.clone()`
+Returns a copy of the vector `vec`
 
-    ```javascript
-    move('right');
-    ```
-- dig
-    This function takes in a direction string and digs in the direction, if no wall is found, false is returned. Otherwise, true. This function ends a turn.
+#### Directions
+Directions in the API are represented as strings. They can take one of the following values:
+`'up'`, `'down'`, `'left'`, `'right'`, `'here'`.
 
-    ```javascript
-    dig('up');
-    ```
-- moveDig
-    This function combines the roles of move and dig. it takes in the same arguments as them, and will try to dig a wall, if no wall is found or if the wall is destroyed, then the ant will continue. This function ends a turn.
-
-    ```javascript
-    moveDig('down');
-    ```
-- goto()
-    This function is the easiest way to get from your current location to the point 'Point'. It zigzags there, and will dig through any walls in the way. Not very efficient!
-
-    ```javascript
-    goto(10, 22); // may take many turns!
-    ```
-
-### Look around you
-  - getTeam()
-    Returns your current team, as a string 'tl' or 'br', meaning top left and bottom right
-  - location() 
-    Returns a location object with .x and .y properties 
-  - home() 
-    Returns your ant hills location object with .x and .y properties
-  - hasFood()
-    Returns a true if you are carrying food, false if ant's mouth is empty 
-  - look(direction)
-    Returns the type of the block found in direction, relative to your current co-ordinates.
-
-    ```javascript
-    if(look('left')==="sugar") move('left');
-    ```
-    Valid types are: 'empty','wall','sugar','home'. Returns false when looking off the edge of the sandbox.
-  - foodLeft(direction)
-    Returns an integer value of remaining sugar units if directed at sugar block, otherwise returns false
-
- 
-### Spray n' Sniff
- - spray(pheromone) 
-      Writes an object to the current location.   
- - sniff() 
-      Returns any allied pheromone sprayed on current tile 
-
-### ETC
- - log(message)
-    Prints debug information to your columns console
-    
-### Example
-Using these elements, we can make some pretty interesting AIs for our ants!
-    
-Here's an annotated example:
+### Useful Functions
+#### Getting around
+- `move(direction)`
+Takes a direction string, and moves the ant in that direction. If the path is obstructed by an edge of wall, false is returned, and the wall is dug. This function ends a turn.
 
 ```javascript
-var dir = Math.random(); // random number between 0 and 1
+move('down');
+```
 
-while (true) {
-    if (hasFood() === false) {
-        if(Math.random() > .95) { // 5% chance of changing dir to a new 
-            dir = Math.random();  // random direction
+- `wait()`
+Wait for a turn, doing nothing.
+
+- `goto(location)`
+Takes a location vector, and moves the ant to that location. It first travels along the `x` axis, followed by the `y` axis. It will dig out any blocks which are in the way.
+
+```javascript
+goto(Vec(10, 22));
+```
+
+#### Look around you
+- `getTeam()`
+Returns your current team, as the string `'pink'` (upper left corner) or `'blue'` (lower right corner).
+- `location()`
+Returns the ant's location, as a vector.
+- `home()`
+Returns your ant hill's location, as a vector.
+- `hasFood()`
+Returns a `true` if you are carrying food, and `false` if your ant's mouth is empty.
+- `look(direction)`
+Returns the type of the block found in direction, relative to your current co-ordinates.
+```javascript
+if(look('left') === "sugar")
+    move('left');
+```
+Valid return values are: `['empty', 'wall', 'sugar', 'home', false]`. `false` is returned when looking off the edge of the sandbox.
+- `foodLeft(direction)`
+Returns the number of sugar units still remaining at the sugar block in the direction specified by the passed-in direction string.
+
+#### Spray n' Sniff
+- `spray(pheromone)`
+Writes a pheromone to the ant's current location. The pheromone must be valid JSON data.
+If there is currently a pheromone at that location, it is overridden.
+- `sniff()`
+Returns the pheromone at the ant's current location, if any. If there is no pheromone, returns `null`.
+
+#### Utility
+- `randDir()`
+Generate a random direction string out of `'up'`, `'down'`, `'left'`, and `'right'`.
+
+#### Debugging
+- `log(message...)`
+Print the message passed in to the debug console (located above the source code).
+
+## Example Script
+Using these elements, we can make some pretty interesting AIs for our ants!
+
+Here's an annotated example of a script which wanders somewhat randomly throughout the environment, going home if it discovers food:
+
+```javascript
+var dir = randDir();
+
+while (true) { // Loop forever!
+    if (! hasFood()) {
+        // As long as you haven't found food yet, move in a random direction
+        if (Math.random() < .5) { // 5% chance of changing dir to a new
+            dir = randDir();      // random direction
         }
 
-        if (dir < 0.25) { // divide up dir into directions, and move()!
-            move('down');
-        } else if (dir < 0.5) {
-            move('up');
-        } else if (dir < 0.75) {
-            move('right');
-        } else {
-            move('left');
-        }
+        move(dir); // Move in the direction we have previously randomly generated
     } else {
+        // Go home with the sugar!
         goto(home());
     }
-} // start over at top!
+}
 ```
+
+Of course, there is a ton more interesting stuff you can do, once you start bringing in memory, pheromones, and more!
+
+Experiment, and play with the scripts to make the best ant colony possible.
