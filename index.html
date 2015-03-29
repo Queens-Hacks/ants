@@ -40,48 +40,39 @@
     </div>
 
     <div class="inputboxes">
-      <div class="input" id="inputleft">     var t = Math.random();
-while (true) {
-  if (hasFood() === false) {
-   if(Math.random()>.95) t = Math.random();
-    if (t < 0.25) {
-      move('down');
-    } else if (t < 0.5) {
-      move('up');
-    } else if (t < 0.75) {
-      move('right');
+      <div class="input" id="inputleft">
+var dir = randDir();
+
+while (true) { // Loop forever!
+    if (! hasFood()) {
+        // As long as you haven't found food yet, move in a random direction
+        if (Math.random() < .5) { // 5% chance of changing dir to a new
+            dir = randDir();      // random direction
+        }
+
+        move(dir); // Move in the direction we have previously randomly generated
     } else {
-      move('left');
+        // Go home with the sugar!
+        goto(home());
     }
-  } else {
-    //   goto(home());
-    if (home().x > location().x) {
-      move('right');
-    }
-    if (home().x < location().x) {
-      move('left');
-    }
-    if (home().y > location().y) {
-      move('down');
-    }
-    if (home().y < location().y) {
-      move('up');
-    }
-  }
 }
       </div>
-      <div class="input" id="inputright">var directions = ['up', 'down', 'left', 'right'];
+      <div class="input" id="inputright">
+var dir = randDir();
 
-while (true) {
-    if (!hasFood()) { // if you don't have sugar
-        // pick a random direction
-        randomIndex = Math.floor(Math.random() * 4);
-        // walk or dig in that direction
-        move(directions[randomIndex]);
-    } else { // if you have sugar
-        goto(home()); // bring the sugar home
+while (true) { // Loop forever!
+    if (! hasFood()) {
+        // As long as you haven't found food yet, move in a random direction
+        if (Math.random() < .5) { // 5% chance of changing dir to a new
+            dir = randDir();      // random direction
+        }
+
+        move(dir); // Move in the direction we have previously randomly generated
+    } else {
+        // Go home with the sugar!
+        goto(home());
     }
-} // do it again
+}
       </div>
     </div>
 
@@ -101,7 +92,7 @@ Sugar is that good stuff that all ants crave. Located throughout the map in mult
 <p><img src="/target/sugar.png" alt="sugar"></p>
 <ul>
 <li>Home:
-Home is your ant hill. Carry sugar back here to score points. <code>goto(home())</code> is a quick way to get back there when you have <code>hasFood()</code>!</li>
+Home is your ant hill. Carry sugar back here to score points. <code>moveto(home())</code> is a quick way to get back there when you have <code>hasFood()</code>!</li>
 </ul>
 <p><img src="/target/house.png" alt="home"></p>
 <ul>
@@ -150,11 +141,11 @@ Takes a direction string, and moves the ant in that direction. If the path is ob
 <li><p><code>wait()</code>
 Wait for a turn, doing nothing.</p>
 </li>
-<li><p><code>goto(location)</code>
+<li><p><code>moveto(location)</code>
 Takes a location vector, and moves the ant to that location. It first travels along the <code>x</code> axis, followed by the <code>y</code> axis. It will dig out any blocks which are in the way.</p>
 </li>
 </ul>
-<pre><code class="lang-javascript"><span class="hljs-keyword">goto</span><span class="hljs-comment">(Vec(10, 22)</span>);
+<pre><code class="lang-javascript"><span class="hljs-function">moveto</span>(<span class="hljs-function">Vec</span>(10, 22));
 </code></pre>
 <h4 id="look-around-you">Look around you</h4>
 <ul>
@@ -207,7 +198,7 @@ Print the message passed in to the debug console (located above the source code)
         <span class="hljs-keyword">move</span>(<span class="hljs-keyword">dir</span>); <span class="hljs-comment">// Move in the direction we have previously randomly generated</span>
     } <span class="hljs-keyword">else</span> {
         <span class="hljs-comment">// Go home with the sugar!</span>
-        goto(home());
+        moveto(home());
     }
 }
 </code></pre>
