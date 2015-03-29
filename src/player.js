@@ -23,7 +23,7 @@ function Player(team, homeLocation, world) {
   this.world = world;
 
   this.setSource = function(source) {
-    // try {
+    try {
       var compiled = sketch.compile(source, [
         'dig',
         'move',
@@ -37,11 +37,28 @@ function Player(team, homeLocation, world) {
         'wait',
         'look',
         'foodLeft'
-      ]);
-    // } catch (err) {
-    //   debugLog(team, "FATAL ERROR: " + err);
-    //   global.paused = true;
-    // }
+      ], (function() {
+        function goto(target) {
+          while (true) {
+            var thisPos = location();
+            if (target.x < thisPos.x) {
+              move('left');
+            } else if (target.x > thisPos.x) {
+              move('right');
+            } else if (target.y < thisPos.y) {
+              move('up');
+            } else if (target.y > thisPos.y) {
+              move('down');
+            } else {
+              return true;
+            }
+          }
+        }
+      }).toString().slice(13, -1));
+    } catch (err) {
+      debugLog(team, "FATAL ERROR: " + err);
+      global.paused = true;
+    }
 
     // Add an ant to the player object
     this.addAnt = function(location) {

@@ -3,9 +3,10 @@ var regenerator = require('regenerator');
 require('regenerator/runtime');
 var recast = require('recast');
 
-function compile(code, funcNames) {
+function compile(code, funcNames, prelude) {
+  // console.log(prelude);
   // Parse the AST
-  var ast = recast.parse(code);
+  var ast = recast.parse(prelude + ";\n" + code);
   var b = recast.types.builders;
 
   // Transform the AST nodes, making functions into generators, and
