@@ -9,9 +9,10 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "highlight.js": "^8.4.0",
     "husl": "5.0.2",
+    "marked": "0.3.3",
     "recast": "^0.10.11",
-    "regenerator": "^0.8.19",
-    "marked": "0.3.3"
+    "regenerator": "^0.8.19"
   }
 }
