@@ -205,11 +205,13 @@ function newMap(width, height, sugars) {
         for(i = -1; i < 2; i++){
             for(j = -1; j < 2; j++){
                 if(x+j >= 0 && x+j < width && y+i >= 0 && y+i < height){
-                    map[y+i][x+j] = new Empty();
+                    if(map[y+i][x+j].type !== 'sugar')
+                        map[y+i][x+j] = new Empty();
                 }
                 if(height-y-1+i >= 0 && height-y-1+i < height
                   && width-x-1+j >= 0 && width-x-1+j < width){
-                    map[height-y-1+i][width-x-1+j] = new Empty();
+                    if(map[height-y-1+i][width-x-1+j].type !== 'sugar')
+                        map[height-y-1+i][width-x-1+j] = new Empty();
                 }
             }
         }
