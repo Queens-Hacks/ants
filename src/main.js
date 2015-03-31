@@ -46,7 +46,7 @@ function run() {
 }
 var playbtn = document.getElementById("play");
 playbtn.addEventListener('click', function(e) {
-    if (!paused) {
+    if (!paused || winner != 0) {
         return;
     }
     paused = false;
