@@ -6,20 +6,20 @@
 use warnings;
 use strict;
 
-open(IN, "./README.md");
-`touch tmp.js`;
-open(OUT, ">./tmp.js");
+open(IN, "./README.md") or die $!;
+open(OUT, ">","./tmp.js") or die $!;
+open(TMPL, "./target/index.tmpl.html") or die $!;
+open(INDEX, ">", "./target/index.html") or die $!;
 
-print OUT "var marked = require('marked');\n";
-print OUT "marked.setOptions({gfm: true});\n";
 
-print OUT "marked.setOptions({";
-print OUT "  highlight: function (code) {";
-print OUT "    return require('highlight.js').highlightAuto(code).value;";
-print OUT "  }";
-print OUT "});";
-
-print OUT "console.log(marked( [";
+print OUT "var marked = require('marked');\n"
+    ."marked.setOptions({gfm: true});\n"
+    ."marked.setOptions({"
+    ."  highlight: function (code) {"
+    ."    return require('highlight.js').highlightAuto(code).value;"
+    ."  }"
+    ."});"
+    ."console.log(marked( [";
 
 foreach(<IN>) {
     tr/"/'/;
@@ -29,21 +29,22 @@ foreach(<IN>) {
 
 print OUT '].join(\'\n\')));'."\n";
 
-my @doc = `node tmp.js`;
-`rm tmp.js`;
+close(IN);
+close(OUT);
 
-open(TMPL, "./target/index.tmpl.html");
-`touch ./target/index.html`;
-open(INDEX, ">./target/index.html");
+# unlink is delete in perl parlance
+my @doc = `node tmp.js` or (unlink("tmp.js") and die $!);
+unlink("tmp.js");
 
-my @html = <TMPL>;
-
-foreach(@html){
+foreach(<TMPL>){
     if(/{{{README}}}/){
-        foreach my $v (@doc){
-            print INDEX $v;
+        foreach my $d (@doc){
+            print INDEX $d;
         }
     } else {
         print INDEX $_;
     }
 }
+
+close(TMPL);
+close(INDEX);

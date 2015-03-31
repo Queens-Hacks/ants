@@ -75,18 +75,17 @@ function Player(team, homeLocation, world) {
         case 'hasFood':
           return raw(ant.hasFood);
         case 'home':
-          console.log('Home called', homeLocation.clone());
           return raw(homeLocation.clone());
         case 'location':
           return raw(ant.position.clone());
         case 'wait':
           return yld();
         case 'look':
-          if (args[0] === 'up' && ant.position.y - 1 > 0) {
+          if (args[0] === 'up' && ant.position.y > 0) {
             return raw(world.map.map[ant.position.y - 1][ant.position.x].type);
           } else if (args[0] === 'down' && ant.position.y + 1 < world.map.map.length) {
             return raw(world.map.map[ant.position.y + 1][ant.position.x].type);
-          } else if (args[0] === 'left' && ant.position.x - 1 > 0) {
+          } else if (args[0] === 'left' && ant.position.x > 0) {
             return raw(world.map.map[ant.position.y][ant.position.x - 1].type);
           } else if (args[0] === 'right' && ant.position.x + 1 < world.map.map[0].length) {
             return raw(world.map.map[ant.position.y][ant.position.x + 1].type);
