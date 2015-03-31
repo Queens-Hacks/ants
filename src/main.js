@@ -44,23 +44,29 @@ function run() {
     brcount.textContent = gameWorld.map.getSugar('br');
     requestAnimFrame(run);
 }
-var playbtn = document.getElementById("play");
-playbtn.addEventListener('click', function(e) {
-    if (!paused || winner != 0) {
-        return;
-    }
-    paused = false;
-    e.preventDefault();
-    if (!sourceSupplied) {
-        gameWorld.setSources(inputleft.getValue(), inputright.getValue());
-        sourceSupplied = true;
-    }
-    run();
-});
-var pausebtn = document.getElementById("pause");
+var pausebtn = document.getElementById("play-pause");
 pausebtn.addEventListener('click', function(e) {
+    var imageTag = document.querySelector("#play-pause > img");
+    if (paused) {
+        paused = false;
+        imageTag.setAttribute("src", "pause.png");
+        imageTag.setAttribute("alt", "pause");
+        if (winner != 0) {
+            return;
+        }
+        paused = false;
+        e.preventDefault();
+        if (!sourceSupplied) {
+            gameWorld.setSources(inputleft.getValue(), inputright.getValue());
+            sourceSupplied = true;
+        }
+        run();
+    } else {
+        paused = true;
+        imageTag.setAttribute("src", "play.png");
+        imageTag.setAttribute("alt", "play");
+    }
     e.preventDefault();
-    paused = true;
 });
 var restartbtn = document.getElementById("restart");
 restartbtn.addEventListener('click', function(e) {
