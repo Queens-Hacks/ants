@@ -48,12 +48,11 @@ var pausebtn = document.getElementById("play-pause");
 pausebtn.addEventListener('click', function(e) {
     var imageTag = document.querySelector("#play-pause > img");
     if (paused) {
-        paused = false;
-        imageTag.setAttribute("src", "pause.png");
-        imageTag.setAttribute("alt", "pause");
         if (winner != 0) {
             return;
         }
+        imageTag.setAttribute("src", "pause.png");
+        imageTag.setAttribute("alt", "pause");
         paused = false;
         e.preventDefault();
         if (!sourceSupplied) {
