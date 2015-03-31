@@ -5,7 +5,6 @@ var recast = require('recast');
 var CALLS_MAX = 100;
 
 function compile(code, funcNames, prelude) {
-  // console.log(prelude);
   // Parse the AST
   var ast = recast.parse(prelude + ";\n" + code);
   var b = recast.types.builders;
@@ -33,8 +32,6 @@ function compile(code, funcNames, prelude) {
       // Create the yield expression
       var n = b.yieldExpression(path.node);
       n = b.callExpression(b.identifier("____id_hack_this_sucks"), [n]);
-
-      console.log(n);
 
       path.replace(n);
 
@@ -77,7 +74,6 @@ function compile(code, funcNames, prelude) {
 // Create a GenState object at the starting state
 function GenState(func, handler) {
   this.gens = [func()];
-  console.log(this.gens);
   this.handler = handler;
   this.nextValue = undefined;
 }

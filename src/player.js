@@ -75,7 +75,6 @@ function Player(team, homeLocation, world) {
         case 'hasFood':
           return raw(ant.hasFood);
         case 'home':
-          console.log('Home called', homeLocation.clone());
           return raw(homeLocation.clone());
         case 'location':
           return raw(ant.position.clone());
