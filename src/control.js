@@ -43,10 +43,12 @@ function pause() {
 }
 
 function restart() {
+    if (!paused) {
+        pause();
+    }
     winner = 0;
     sourceSupplied = false;
     gameWorld = new World.World();
-    paused = true;
     tickNum = 0;
     tc.textContent = "Tick " + tickNum;
     tlcount.textContent = gameWorld.map.getSugar('tl');

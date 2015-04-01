@@ -52,7 +52,6 @@ pausebtn.addEventListener('click', function(e) {
 var restartbtn = document.getElementById("restart");
 restartbtn.addEventListener('click', function(e) {
     e.preventDefault();
-    Control.pause();
     Control.restart();
 });
 
