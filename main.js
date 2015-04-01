@@ -40022,6 +40022,7 @@ fileuploadright.addEventListener('change', function(e) {
 (function (global){
 var struct = require('./structure');
 var vector = require('./vector');
+var control = require('./control')
 var sketch = require('./sketch');
 var Vec2 = vector.Vec2;
 
@@ -40064,7 +40065,7 @@ function Player(team, homeLocation, world) {
       }).toString().slice(13, -1));
     } catch (err) {
       debugLog(team, "FATAL ERROR: " + err);
-      global.paused = true;
+      control.pause();
     }
     // Add an ant to the player object
     this.addAnt = function(location) {
@@ -40194,7 +40195,7 @@ module.exports = {
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./sketch":70,"./structure":71,"./vector":72}],70:[function(require,module,exports){
+},{"./control":66,"./sketch":70,"./structure":71,"./vector":72}],70:[function(require,module,exports){
 var regenerator = require('regenerator');
 require('regenerator/runtime');
 var recast = require('recast');
