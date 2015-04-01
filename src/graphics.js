@@ -189,24 +189,6 @@ module.exports = (function() {
             }
         },
         render: function(world, winner) {
-            if (winner === 'br' || winner === 'tl') {
-                this.context.fillStyle = "white";
-                this.context.font = "bold 46px Arial";
-                if (winner == 'br') {
-                    txt = "BLUE";
-                    winnerAnts = world.br.ants;
-                } else {
-                    txt = "PINK";
-                    winnerAnts = world.tl.ants;
-                }
-                this.context.fillText("WINNER " + txt, 230, 250);
-                this.imageData = this.context.getImageData(0, 0, width, height);
-                // winnerAnts.forEach(this.parade.bind(this));
-                // this.paradeStep++;
-       
-                this.context.putImageData(this.imageData, 0, 0);
-                return;
-            }
             // Fill it all with BLACK (paint it black)
             // console.log(
             this.context2.clearRect(0, 0, width, height);
@@ -224,6 +206,22 @@ module.exports = (function() {
             // Draw all of the ants
             world.tl.ants.forEach(this.drawAnt.bind(this));
             world.br.ants.forEach(this.drawAnt.bind(this));
+            if (winner === 'br' || winner === 'tl') {
+                this.context2.fillStyle = "white";
+                this.context2.font = "bold 46px Arial";
+                if (winner == 'br') {
+                    txt = "BLUE";
+                    winnerAnts = world.br.ants;
+                } else {
+                    txt = "PINK";
+                    winnerAnts = world.tl.ants;
+                }
+                this.context2.fillText("WINNER " + txt, 230, 250);
+                // this.imageData = this.context2.getImageData(0, 0, width, height);
+                // winnerAnts.forEach(this.parade.bind(this));
+                // this.paradeStep++;
+                // this.context2.putImageData(this.imageData, 0, 0);
+            }
             this.context.putImageData(this.imageData, 0, 0);
         }
     };
