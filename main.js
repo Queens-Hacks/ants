@@ -39625,7 +39625,7 @@ var sourceSupplied, gameWorld, winner;
 
 function init(options) {
     display = options.display;
-    tc = options.tlcount;
+    tc = options.tc;
     tlcount = options.tlcount;
     brcount = options.brcount;
     tickNum = options.tickNum;
@@ -39665,7 +39665,7 @@ function restart() {
     gameWorld = new world.World();
     paused = true;
     tickNum = 0;
-    tc.textContent = "t = " + tickNum;
+    tc.textContent = "Tick Number " + tickNum;
     tlcount.textContent = gameWorld.map.getSugar('tl');
     brcount.textContent = gameWorld.map.getSugar('br');
     outputleft.setValue("~~ Pink Program Log ~~");
@@ -39684,9 +39684,11 @@ function run() {
     if (winner === 0) {
         winner = gameWorld.step();
         tickNum++;
+    } else {
+        pause();
     }
     display.render(gameWorld, winner);
-    tc.textContent = "t = " + tickNum;
+    tc.textContent = "Tick Number " + tickNum;
     tlcount.textContent = gameWorld.map.getSugar('tl');
     brcount.textContent = gameWorld.map.getSugar('br');
     requestAnimFrame(run);
@@ -39740,7 +39742,6 @@ module.exports = (function() {
         this.context = this.canvas.getContext('2d');
         this.context2 = this.canvas2.getContext('2d');
         this.then = +Date.now();
-        this.paused = false;
         this.TileSprites = this.PrepareTiles();
     }
     Display.prototype = {
@@ -39932,6 +39933,7 @@ module.exports = (function() {
     };
     return Display;
 })();
+
 },{"./structure":71,"husl":1}],68:[function(require,module,exports){
 (function (global){
 var World = require('./world');
