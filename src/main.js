@@ -1,5 +1,5 @@
-var World = require('./world');
 var Control = require('./control');
+var World = require('./world');
 var Display = require('./graphics');
 
 var controlOptions = {
