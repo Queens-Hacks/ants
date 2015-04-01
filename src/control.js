@@ -48,7 +48,7 @@ function restart() {
     gameWorld = new world.World();
     paused = true;
     tickNum = 0;
-    tc.textContent = "t = " + tickNum;
+    tc.textContent = "Tick Number " + tickNum;
     tlcount.textContent = gameWorld.map.getSugar('tl');
     brcount.textContent = gameWorld.map.getSugar('br');
     outputleft.setValue("~~ Pink Program Log ~~");
@@ -71,7 +71,7 @@ function run() {
         pause();
     }
     display.render(gameWorld, winner);
-    tc.textContent = "t = " + tickNum;
+    tc.textContent = "Tick Number " + tickNum;
     tlcount.textContent = gameWorld.map.getSugar('tl');
     brcount.textContent = gameWorld.map.getSugar('br');
     requestAnimFrame(run);
