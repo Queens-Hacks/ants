@@ -39662,10 +39662,11 @@ function pause() {
 function restart() {
     winner = 0;
     sourceSupplied = false;
+    console.log(world);
     gameWorld = new world.World();
     paused = true;
     tickNum = 0;
-    tc.textContent = "Tick Number " + tickNum;
+    tc.textContent = "Tick " + tickNum;
     tlcount.textContent = gameWorld.map.getSugar('tl');
     brcount.textContent = gameWorld.map.getSugar('br');
     outputleft.setValue("~~ Pink Program Log ~~");
@@ -39936,8 +39937,8 @@ module.exports = (function() {
 
 },{"./structure":71,"husl":1}],68:[function(require,module,exports){
 (function (global){
-var World = require('./world');
 var Control = require('./control');
+var World = require('./world');
 var Display = require('./graphics');
 
 var controlOptions = {
