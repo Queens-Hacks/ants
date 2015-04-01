@@ -39662,7 +39662,6 @@ function pause() {
 function restart() {
     winner = 0;
     sourceSupplied = false;
-    console.log(world);
     gameWorld = new world.World();
     paused = true;
     tickNum = 0;
@@ -39991,6 +39990,7 @@ pausebtn.addEventListener('click', function(e) {
 var restartbtn = document.getElementById("restart");
 restartbtn.addEventListener('click', function(e) {
     e.preventDefault();
+    Control.pause();
     Control.restart();
 });
 
