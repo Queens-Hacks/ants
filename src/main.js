@@ -1,5 +1,5 @@
-var World = require('./world');
 var Control = require('./control');
+var World = require('./world');
 var Display = require('./graphics');
 
 var controlOptions = {
@@ -52,6 +52,7 @@ pausebtn.addEventListener('click', function(e) {
 var restartbtn = document.getElementById("restart");
 restartbtn.addEventListener('click', function(e) {
     e.preventDefault();
+    Control.pause();
     Control.restart();
 });
 
