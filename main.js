@@ -39615,7 +39615,7 @@ function through (write, end, opts) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],66:[function(require,module,exports){
-var world = require('./world');
+var World = require('./world');
 
 var display;
 var tc, tlcount, brcount, tickNum;
@@ -39660,10 +39660,12 @@ function pause() {
 }
 
 function restart() {
+    if (!paused) {
+        pause();
+    }
     winner = 0;
     sourceSupplied = false;
-    gameWorld = new world.World();
-    paused = true;
+    gameWorld = new World.World();
     tickNum = 0;
     tc.textContent = "Tick " + tickNum;
     tlcount.textContent = gameWorld.map.getSugar('tl');
@@ -39688,7 +39690,7 @@ function run() {
         pause();
     }
     display.render(gameWorld, winner);
-    tc.textContent = "Tick Number " + tickNum;
+    tc.textContent = "Tick " + tickNum;
     tlcount.textContent = gameWorld.map.getSugar('tl');
     brcount.textContent = gameWorld.map.getSugar('br');
     requestAnimFrame(run);
@@ -39893,24 +39895,6 @@ module.exports = (function() {
             }
         },
         render: function(world, winner) {
-            if (winner === 'br' || winner === 'tl') {
-                this.context.fillStyle = "white";
-                this.context.font = "bold 46px Arial";
-                if (winner == 'br') {
-                    txt = "BLUE";
-                    winnerAnts = world.br.ants;
-                } else {
-                    txt = "PINK";
-                    winnerAnts = world.tl.ants;
-                }
-                this.context.fillText("WINNER " + txt, 230, 250);
-                this.imageData = this.context.getImageData(0, 0, width, height);
-                // winnerAnts.forEach(this.parade.bind(this));
-                // this.paradeStep++;
-       
-                this.context.putImageData(this.imageData, 0, 0);
-                return;
-            }
             // Fill it all with BLACK (paint it black)
             // console.log(
             this.context2.clearRect(0, 0, width, height);
@@ -39928,12 +39912,27 @@ module.exports = (function() {
             // Draw all of the ants
             world.tl.ants.forEach(this.drawAnt.bind(this));
             world.br.ants.forEach(this.drawAnt.bind(this));
+            if (winner === 'br' || winner === 'tl') {
+                this.context2.fillStyle = "white";
+                this.context2.font = "bold 46px Arial";
+                if (winner == 'br') {
+                    txt = "BLUE";
+                    winnerAnts = world.br.ants;
+                } else {
+                    txt = "PINK";
+                    winnerAnts = world.tl.ants;
+                }
+                this.context2.fillText("WINNER " + txt, 230, 250);
+                // this.imageData = this.context2.getImageData(0, 0, width, height);
+                // winnerAnts.forEach(this.parade.bind(this));
+                // this.paradeStep++;
+                // this.context2.putImageData(this.imageData, 0, 0);
+            }
             this.context.putImageData(this.imageData, 0, 0);
         }
     };
     return Display;
 })();
-
 },{"./structure":71,"husl":1}],68:[function(require,module,exports){
 (function (global){
 var Control = require('./control');
@@ -39990,7 +39989,6 @@ pausebtn.addEventListener('click', function(e) {
 var restartbtn = document.getElementById("restart");
 restartbtn.addEventListener('click', function(e) {
     e.preventDefault();
-    Control.pause();
     Control.restart();
 });
 
