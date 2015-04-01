@@ -71,7 +71,7 @@ function run() {
         pause();
     }
     display.render(gameWorld, winner);
-    tc.textContent = "Tick Number " + tickNum;
+    tc.textContent = "Tick " + tickNum;
     tlcount.textContent = gameWorld.map.getSugar('tl');
     brcount.textContent = gameWorld.map.getSugar('br');
     requestAnimFrame(run);
