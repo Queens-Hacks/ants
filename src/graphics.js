@@ -38,7 +38,6 @@ module.exports = (function() {
         this.context = this.canvas.getContext('2d');
         this.context2 = this.canvas2.getContext('2d');
         this.then = +Date.now();
-        this.paused = false;
         this.TileSprites = this.PrepareTiles();
     }
     Display.prototype = {
