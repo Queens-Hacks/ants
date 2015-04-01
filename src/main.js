@@ -3,8 +3,7 @@ var Control = require('./control');
 var Display = require('./graphics');
 
 var controlOptions = {
-    display: new Display(document.getElementById("canvas")),
-
+    display: new Display(document.getElementById("canvas1"), document.getElementById("canvas2")),
     tc: document.getElementById("tickCounter"),
     tlcount: document.getElementById("tlCount"),
     brcount: document.getElementById("brCount"),

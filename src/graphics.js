@@ -28,15 +28,18 @@ module.exports = (function() {
         0, 0, 1, 1, 0, 0, 1, 1, 0, 0,
     ];
 
-    function Display(canvas) {
-        this.canvas = canvas;
-        width = canvas.getAttribute('width');
-        height = canvas.getAttribute('height');
+    function Display(canvas1, canvas2) {
+        this.canvas = canvas1;
+        this.canvas2 = canvas2;
+        width = canvas1.getAttribute('width');
+        height = canvas1.getAttribute('height');
         this.scale = 10;
         this.paradeStep = 0;
-        this.context = canvas.getContext('2d');
+        this.context = this.canvas.getContext('2d');
+        this.context2 = this.canvas2.getContext('2d');
         this.then = +Date.now();
         this.paused = false;
+        this.TileSprites = this.PrepareTiles();
     }
     Display.prototype = {
         WritePixel: function(i, color) {
@@ -44,6 +47,25 @@ module.exports = (function() {
             this.imageData.data[i + 1] = Math.floor(color[1] * 255);
             this.imageData.data[i + 2] = Math.floor(color[2] * 255);
             this.imageData.data[i + 3] = 255;
+        },
+        PrepareTiles: function() {
+            List = [];
+            for (var s = 0; s < 5; s++) {
+                var TileImage = this.context.createImageData(10, 10);
+                var d = TileImage.data;
+                color = husl.p.toRGB(40, 100, 11 * (s + 2));
+                for (var sx = 0; sx < 10; sx++) {
+                    for (var sy = 0; sy < 10; sy++) {
+                        var i = (sy + (sx * 10)) * 4;
+                        d[i] = Math.floor(color[0] * 255);
+                        d[i + 1] = Math.floor(color[1] * 255);
+                        d[i + 2] = Math.floor(color[2] * 255);
+                        d[i + 3] = 255;
+                    }
+                }
+                List.push(TileImage);
+            }
+            return List;
         },
         drawTile: function(Tile, x, y) {
             switch (Tile.type) {
@@ -68,13 +90,7 @@ module.exports = (function() {
                     }
                     break;
                 case 'wall':
-                    color = husl.p.toRGB(40, 100, 11 * (Tile.strength + 1));
-                    for (var sx = 0; sx < 10; sx++) {
-                        for (var sy = 0; sy < 10; sy++) {
-                            var i = ((((y * 10) + (sy)) * width) + ((x * 10) + (sx))) * 4;
-                            this.WritePixel(i, color);
-                        }
-                    }
+                    this.context2.putImageData(this.TileSprites[Tile.strength - 1], x * 10, y * 10);
                     break;
                 case 'sugar':
                     color = husl.p.toRGB((x * y * 9999) % 360, 100, 50);
@@ -186,17 +202,15 @@ module.exports = (function() {
                 }
                 this.context.fillText("WINNER " + txt, 230, 250);
                 this.imageData = this.context.getImageData(0, 0, width, height);
-                winnerAnts.forEach(this.parade.bind(this));
-                this.paradeStep++;
-                if (this.paradeStep == 30) {
-                    this.paradeStep = 0;
-                    paused = true;
-                }
+                // winnerAnts.forEach(this.parade.bind(this));
+                // this.paradeStep++;
+       
                 this.context.putImageData(this.imageData, 0, 0);
                 return;
             }
             // Fill it all with BLACK (paint it black)
             // console.log(
+            this.context2.clearRect(0, 0, width, height);
             this.context.fillStyle = husl.p.toHex(40, 60, 24).toString(16); //'#ffffff'//husl.p.toHex(40, 60, 2); ////+offset.toString(16);
             this.context.fill();
             this.context.fillRect(0, 0, width, height);
