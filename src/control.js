@@ -1,4 +1,4 @@
-var world = require('./world');
+var World = require('./world');
 
 var display;
 var tc, tlcount, brcount, tickNum;
@@ -45,7 +45,7 @@ function pause() {
 function restart() {
     winner = 0;
     sourceSupplied = false;
-    gameWorld = new world.World();
+    gameWorld = new World.World();
     paused = true;
     tickNum = 0;
     tc.textContent = "Tick Number " + tickNum;
