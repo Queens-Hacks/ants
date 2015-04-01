@@ -8,7 +8,7 @@ var sourceSupplied, gameWorld, winner;
 
 function init(options) {
     display = options.display;
-    tc = options.tlcount;
+    tc = options.tc;
     tlcount = options.tlcount;
     brcount = options.brcount;
     tickNum = options.tickNum;
@@ -67,6 +67,8 @@ function run() {
     if (winner === 0) {
         winner = gameWorld.step();
         tickNum++;
+    } else {
+        pause();
     }
     display.render(gameWorld, winner);
     tc.textContent = "t = " + tickNum;
