@@ -1,5 +1,4 @@
 var World = require('./world');
-
 var display;
 var tc, tlcount, brcount, tickNum;
 var outputleft, ouputright;
@@ -57,15 +56,17 @@ function restart() {
     outputright.setValue("~~ Blue Program Log ~~");
     display.render(gameWorld);
 }
-
 var requestAnimFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
         window.setTimeout(callback, 100);
-};
+    };
 
 function run() {
     if (paused) {
+        display.render(gameWorld, winner); 
+        requestAnimFrame(run);
         return;
     }
+    
     if (winner === 0) {
         winner = gameWorld.step();
         tickNum++;
@@ -78,7 +79,6 @@ function run() {
     brcount.textContent = gameWorld.map.getSugar('br');
     requestAnimFrame(run);
 }
-
 module.exports = {
     restart: restart,
     pause: pause,
