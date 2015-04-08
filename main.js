@@ -39616,7 +39616,6 @@ function through (write, end, opts) {
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],66:[function(require,module,exports){
 var World = require('./world');
-
 var display;
 var tc, tlcount, brcount, tickNum;
 var outputleft, ouputright;
@@ -39674,15 +39673,17 @@ function restart() {
     outputright.setValue("~~ Blue Program Log ~~");
     display.render(gameWorld);
 }
-
 var requestAnimFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(callback) {
         window.setTimeout(callback, 100);
-};
+    };
 
 function run() {
     if (paused) {
+        display.render(gameWorld, winner); 
+        requestAnimFrame(run);
         return;
     }
+    
     if (winner === 0) {
         winner = gameWorld.step();
         tickNum++;
@@ -39695,14 +39696,12 @@ function run() {
     brcount.textContent = gameWorld.map.getSugar('br');
     requestAnimFrame(run);
 }
-
 module.exports = {
     restart: restart,
     pause: pause,
     run: run,
     init: init
 };
-
 },{"./world":73}],67:[function(require,module,exports){
 var husl = require('husl');
 var struct = require('./structure');
@@ -39745,6 +39744,8 @@ module.exports = (function() {
         this.context2 = this.canvas2.getContext('2d');
         this.then = +Date.now();
         this.TileSprites = this.PrepareTiles();
+        this.drawBorder = true;
+        // this.ParadeAnts = initParade();
     }
     Display.prototype = {
         WritePixel: function(i, color) {
@@ -39795,6 +39796,7 @@ module.exports = (function() {
                     }
                     break;
                 case 'wall':
+                    if (!this.drawBorder && (x == 0 || x == 79 || y == 0 || y == 49)) return;
                     this.context2.putImageData(this.TileSprites[Tile.strength - 1], x * 10, y * 10);
                     break;
                 case 'sugar':
@@ -39862,35 +39864,43 @@ module.exports = (function() {
                 }
             }
         },
-        parade: function(Ant) {
-            if (Ant.team == 'br') {
-                color1 = husl.p.toRGB(188, 100, 66);
-            } else {
-                color1 = husl.p.toRGB(355, 100, 66);
+        parade: function(winner) {
+            var pAnt = {
+                team: winner,
+                position: {
+                    x: 0,
+                    y: 0
+                },
             }
-            color2 = husl.p.toRGB(Math.random() * 360, 75, 75);
-            var facing = Math.floor(this.paradeStep / 50) % 4;
-            var x = (Ant.position.x + (2 * this.paradeStep) + Math.floor(Math.sin(this.paradeStep / 2) * 5)) % 80;
-            var y = (Ant.position.y + 2 * this.paradeStep) % 50;
-            var sprite = AntSprite;
-            var xpos = function(x, y) {
-                if (facing == 0) return (9 - x);
-                else if (facing == 2) return (x);
-                else if (facing == 3) return (9 - y);
-                else return (y);
-            };
-            var ypos = function(x, y) {
-                if (facing == 0) return (y);
-                else if (facing == 2) return (y);
-                else if (facing == 3) return (9 - x);
-                else return (x);
-            };
-            for (var sx = 0; sx < 20; sx++) {
-                for (var sy = 0; sy < 20; sy++) {
-                    var i = ((((y * 10) + sy) * width) + ((x * 10) + sx)) * 4;
-                    if (sprite[xpos((sx / 2) | 0, (sy / 2) | 0) + (10 * ypos((sx / 2) | 0, (sy / 2) | 0))] > 0) {
-                        this.WritePixel(i, color1);
-                    } else this.WritePixel(i, color2);
+            for (var a = 0; a < (80 + 50 + 80 + 50); a += 1) {
+                switch (true) {
+                    case a < 80:
+                        if (((a + this.paradeStep) % 5) != 0) continue;
+                        pAnt.direction = 'right';
+                        pAnt.position.y = 0;
+                        pAnt.position.x = a;
+                        this.drawAnt(pAnt)
+                        break;
+                    case a < (50 + 80):
+                        if (((a + this.paradeStep) % 5) != 0) continue;
+                        pAnt.direction = 'down';
+                        pAnt.position.x = 79;
+                        pAnt.position.y = a - 80;
+                        this.drawAnt(pAnt);
+                        break;
+                    case a < (80 + 50 + 80):
+                        if (((a - this.paradeStep) % 5) != 0) continue;
+                        pAnt.direction = 'left';
+                        pAnt.position.y = 49;
+                        pAnt.position.x = a - (80 + 50);
+                        this.drawAnt(pAnt)
+                        break;
+                    default:
+                        if (((a - this.paradeStep) % 5) != 0) continue;
+                        pAnt.position.x = 0;
+                        pAnt.position.y = a - (80 + 50 + 80);
+                        pAnt.direction = 'up';
+                        this.drawAnt(pAnt);
                 }
             }
         },
@@ -39902,32 +39912,32 @@ module.exports = (function() {
             this.context.fill();
             this.context.fillRect(0, 0, width, height);
             this.imageData = this.context.getImageData(0, 0, width, height);
+            this.imageData2 = this.context2.getImageData(0, 0, width, height);
             // Loop over every tile
+            if (winner === 'br' || winner === 'tl') {
+                this.drawBorder = false;
+            } else this.drawBorder = true;
             var self = this;
             world.map.map.forEach(function(row, y) {
                 row.forEach(function(tile, x) {
                     self.drawTile(tile, x, y);
                 });
             });
-            // Draw all of the ants
-            world.tl.ants.forEach(this.drawAnt.bind(this));
-            world.br.ants.forEach(this.drawAnt.bind(this));
             if (winner === 'br' || winner === 'tl') {
                 this.context2.fillStyle = "white";
                 this.context2.font = "bold 46px Arial";
                 if (winner == 'br') {
                     txt = "BLUE";
-                    winnerAnts = world.br.ants;
                 } else {
                     txt = "PINK";
-                    winnerAnts = world.tl.ants;
                 }
                 this.context2.fillText("WINNER " + txt, 230, 250);
-                // this.imageData = this.context2.getImageData(0, 0, width, height);
-                // winnerAnts.forEach(this.parade.bind(this));
-                // this.paradeStep++;
-                // this.context2.putImageData(this.imageData, 0, 0);
+                this.parade(winner);
+                this.paradeStep++;
             }
+            // Draw all of the ants
+            world.tl.ants.forEach(this.drawAnt.bind(this));
+            world.br.ants.forEach(this.drawAnt.bind(this));
             this.context.putImageData(this.imageData, 0, 0);
         }
     };
@@ -40686,8 +40696,8 @@ function World() {
     this.step = function() {
         this.tl.step();
         this.br.step();
-        if (this.map.getSugar('tl') >= 75) return('tl');
-        if (this.map.getSugar('br') >= 75) return('br');
+        if (this.map.getSugar('tl') >= 50) return('tl');
+        if (this.map.getSugar('br') >= 50) return('br');
 
         return 0;
     };
